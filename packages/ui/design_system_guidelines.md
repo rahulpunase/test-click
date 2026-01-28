@@ -43,10 +43,19 @@ We use a comprehensive color system with semantic meaning:
 - **Error**: Red (for errors, destructive actions)
 - **Info**: Blue (for informational messages)
 
+#### Theme Semantic Colors
+We define semantic colors that automatically adapt to light and dark modes. **Always prefer these over raw neutral colors.**
+
+- **Background**: `bg-background` - Page and main container backgrounds (White / Black)
+- **Foreground**: `text-foreground` - Base text color (Black / White)
+- **Border**: `border-border` - Default border color for inputs, cards, dividers
+- **Muted**: `bg-muted` - Secondary/subtle backgrounds
+- **Muted Foreground**: `text-muted-foreground` - Secondary/subtle text (metadata, placeholders)
+
 #### Usage Guidelines
-- Use `500` as the default shade for most use cases
-- Use lighter shades (50-300) for backgrounds
-- Use darker shades (600-950) for text and emphasis
+- Use `500` as the default shade for brand colors
+- **Use `bg-background` and `text-foreground` for root elements and cards**
+- **Use `border-border` for generic borders**
 - Always ensure sufficient color contrast (4.5:1 for normal text, 3:1 for large text)
 
 ```tsx
@@ -141,7 +150,11 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
     return (
       <div
         ref={ref}
-        className={cn(componentVariants({ variant, size }), className)}
+        className={cn(
+          "bg-white dark:bg-neutral-900 border border-border rounded-lg", // Example base styles
+          componentVariants({ variant, size }), 
+          className
+        )}
         {...props}
       >
         {children}
@@ -164,7 +177,7 @@ Instead, define dark mode styles as separate compound variants or use CSS custom
 import { tv, type VariantProps } from 'tailwind-variants'
 
 export const componentVariants = tv({
-  base: 'font-medium transition-colors focus-visible-ring',
+  base: 'font-medium transition-colors focus-visible-ring ring-offset-background',
   variants: {
     variant: {
       // ❌ WRONG - Don't use dark: classes
@@ -217,7 +230,8 @@ export type ComponentVariants = VariantProps<typeof componentVariants>
 
 ### ARIA Patterns
 
-- Use Base UI (Headless UI) components for complex patterns (Dialogs, Dropdowns, etc.)
+- **Mandatory Library**: **Always** use Base UI (`@base-ui/react`) for all complex interactive components (Dialogs, Dropdowns, Popovers, Tabs, etc.).
+- Do not use `@headlessui/react` or custom implementations unless Base UI does not support the required pattern.
 - Provide proper ARIA labels for all interactive elements
 - Support keyboard navigation
 - Manage focus properly
@@ -374,15 +388,60 @@ When creating new components:
 5. **Document**: Create Storybook stories with examples
 6. **Review**: Get feedback on API and accessibility
 
-### Simple vs Compound Components
+### Component Patterns
 
-- **Simple**: Single element (Button, Badge, Avatar)
-- **Compound**: Multiple related parts (Card.Header, Card.Body, Card.Footer)
+#### Simple Components
+Single element components like `Button`, `Badge`, `Avatar`.
 
-Choose compound pattern when:
-- Component has distinct sections
-- Users need flexibility in composition
-- Each part can be styled independently
+#### Compound Components (Dot Notation)
+For components with distinct related parts (like `AlertDialog`, `Card`, `DropdownMenu`), use the **Compound Component Pattern with Dot Notation**.
+
+**Benefits:**
+- **Single Import:** Users only import the main component.
+- **Clear Hierarchy:** The relationship between components is explicit.
+- **Discoverability:** IntelliSense shows available subcomponents.
+
+**Implementation Guide:**
+1.  Define the Main Component and Subcomponents as standalone functions.
+2.  Assign Subcomponents to the Main Component keys.
+3.  Export the Main Component.
+
+```tsx
+// Example: Card.tsx
+
+// 1. Define Subcomponents
+const CardHeader = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("flex flex-col space-y-1.5 p-6", className)} {...props}>
+    {children}
+  </div>
+)
+
+const CardContent = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("p-6 pt-0", className)} {...props}>
+    {children}
+  </div>
+)
+
+// 2. Define Main Component
+export function Card({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)} {...props}>
+      {children}
+    </div>
+  )
+}
+
+// 3. Attach Subcomponents (Dot Notation)
+Card.Header = CardHeader
+Card.Content = CardContent
+
+// Usage
+// import { Card } from './Card'
+// <Card>
+//   <Card.Header>...</Card.Header>
+//   <Card.Content>...</Card.Content>
+// </Card>
+```
 
 ---
 
