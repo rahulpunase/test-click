@@ -16,7 +16,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["solid", "outlined"],
+      options: ["solid", "outlined", "ghost", "text"],
       description: "Visual style of the button",
     },
     color: {
@@ -138,6 +138,56 @@ export const OutlinedVariants: Story = {
   ),
 };
 
+// Ghost Variants - All Colors
+export const GhostVariants: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="flex items-center gap-4">
+        <Button variant="ghost" color="primary" icon={Check}>
+          Primary
+        </Button>
+        <Button variant="ghost" color="secondary" icon={Download}>
+          Secondary
+        </Button>
+        <Button variant="ghost" color="tertiary" icon={ArrowRight}>
+          Tertiary
+        </Button>
+        <Button variant="ghost" color="success" icon={Check}>
+          Success
+        </Button>
+        <Button variant="ghost" color="error" icon={Trash2}>
+          Error
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+// Text Variants - All Colors
+export const TextVariants: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="flex items-center gap-4">
+        <Button variant="text" color="primary" icon={Check}>
+          Primary
+        </Button>
+        <Button variant="text" color="secondary" icon={Download}>
+          Secondary
+        </Button>
+        <Button variant="text" color="tertiary" icon={ArrowRight}>
+          Tertiary
+        </Button>
+        <Button variant="text" color="success" icon={Check}>
+          Success
+        </Button>
+        <Button variant="text" color="error" icon={Trash2}>
+          Error
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
 // Disabled State
 export const Disabled: Story = {
   render: () => (
@@ -248,6 +298,56 @@ export const CompleteMatrix: Story = {
                   <Button
                     key={color}
                     variant="outlined"
+                    color={color}
+                    size={size}
+                    icon={Plus}
+                  >
+                    {color}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            {/* Ghost */}
+            <div>
+              <p className="text-sm text-neutral-600 mb-2">Ghost</p>
+              <div className="flex gap-2 flex-wrap">
+                {(
+                  [
+                    "primary",
+                    "secondary",
+                    "tertiary",
+                    "success",
+                    "error",
+                  ] as const
+                ).map((color) => (
+                  <Button
+                    key={color}
+                    variant="ghost"
+                    color={color}
+                    size={size}
+                    icon={Plus}
+                  >
+                    {color}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            {/* Text */}
+            <div>
+              <p className="text-sm text-neutral-600 mb-2">Text</p>
+              <div className="flex gap-2 flex-wrap">
+                {(
+                  [
+                    "primary",
+                    "secondary",
+                    "tertiary",
+                    "success",
+                    "error",
+                  ] as const
+                ).map((color) => (
+                  <Button
+                    key={color}
+                    variant="text"
                     color={color}
                     size={size}
                     icon={Plus}

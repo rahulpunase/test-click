@@ -12,89 +12,117 @@ type Story = StoryObj<typeof DesignTokensComponent>;
 
 // Colors Story
 export const Colors: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold mb-4">Color Palette</h2>
+  render: () => {
+    const primaryColors = {
+      50: "#e6f7ff",
+      100: "#b3e5ff",
+      200: "#80d4ff",
+      300: "#4dc2ff",
+      400: "#1ab1ff",
+      500: "#00a6f4",
+      600: "#0085c7",
+      700: "#00649a",
+      800: "#00436d",
+      900: "#002240",
+      950: "#001428",
+    };
 
-      {/* Primary Colors */}
-      <div>
-        <h3 className="text-xl font-semibold mb-3">Primary (Brand Blue)</h3>
-        <div className="grid grid-cols-11 gap-2">
-          {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map(
-            (shade) => (
+    return (
+      <div className="space-y-8">
+        <h2 className="text-3xl font-bold mb-4">Color Palette</h2>
+
+        {/* Primary Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">
+            Primary (Custom Brand Blue)
+          </h3>
+          <div className="grid grid-cols-11 gap-2">
+            {Object.entries(primaryColors).map(([shade, hex]) => (
               <div key={shade} className="text-center">
                 <div
-                  className={`h-20 rounded-lg mb-2 bg-primary-${shade}`}
-                  style={{
-                    backgroundColor: `rgb(var(--primary-${shade}) / 1)`,
-                  }}
+                  className="h-20 rounded-lg mb-2"
+                  style={{ backgroundColor: hex }}
                 />
                 <p className="text-xs font-medium">{shade}</p>
+                <p className="text-xs text-gray-500 font-mono">{hex}</p>
               </div>
-            ),
-          )}
-        </div>
-      </div>
-
-      {/* Secondary Colors */}
-      <div>
-        <h3 className="text-xl font-semibold mb-3">Secondary (Purple)</h3>
-        <div className="grid grid-cols-11 gap-2">
-          {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map(
-            (shade) => (
-              <div key={shade} className="text-center">
-                <div
-                  className={`h-20 rounded-lg mb-2 bg-secondary-${shade}`}
-                  style={{
-                    backgroundColor: `rgb(var(--secondary-${shade}) / 1)`,
-                  }}
-                />
-                <p className="text-xs font-medium">{shade}</p>
-              </div>
-            ),
-          )}
-        </div>
-      </div>
-
-      {/* Neutral Colors */}
-      <div>
-        <h3 className="text-xl font-semibold mb-3">Neutral (Gray)</h3>
-        <div className="grid grid-cols-11 gap-2">
-          {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map(
-            (shade) => (
-              <div key={shade} className="text-center">
-                <div className={`h-20 rounded-lg mb-2 bg-neutral-${shade}`} />
-                <p className="text-xs font-medium">{shade}</p>
-              </div>
-            ),
-          )}
-        </div>
-      </div>
-
-      {/* Semantic Colors */}
-      <div className="grid grid-cols-4 gap-6">
-        {["success", "warning", "error", "info"].map((semantic) => (
-          <div key={semantic}>
-            <h3 className="text-xl font-semibold mb-3 capitalize">
-              {semantic}
-            </h3>
-            <div className="space-y-2">
-              {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map(
-                (shade) => (
-                  <div key={shade} className="flex items-center gap-2">
-                    <div
-                      className={`h-10 w-10 rounded bg-${semantic}-${shade} flex-shrink-0`}
-                    />
-                    <span className="text-sm">{shade}</span>
-                  </div>
-                ),
-              )}
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* Secondary Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">
+            Secondary (Coral/Orange)
+          </h3>
+          <div className="grid grid-cols-11 gap-2">
+            {Object.entries({
+              50: "#fff4ed",
+              100: "#ffe4d1",
+              200: "#ffc9a3",
+              300: "#ffa76a",
+              400: "#ff8442",
+              500: "#ff6b35",
+              600: "#f04e1a",
+              700: "#c83a10",
+              800: "#9f2e0d",
+              900: "#7a240a",
+              950: "#4a1505",
+            }).map(([shade, hex]) => (
+              <div key={shade} className="text-center">
+                <div
+                  className="h-20 rounded-lg mb-2"
+                  style={{ backgroundColor: hex }}
+                />
+                <p className="text-xs font-medium">{shade}</p>
+                <p className="text-xs text-gray-500 font-mono">{hex}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tertiary Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">
+            Tertiary (Slate/Blue-Gray)
+          </h3>
+          <div className="grid grid-cols-11 gap-2">
+            {Object.entries({
+              50: "#f4f6f8",
+              100: "#e3e8ef",
+              200: "#cbd4e1",
+              300: "#a7b7cd",
+              400: "#8198b5",
+              500: "#62748e",
+              600: "#4a5a71",
+              700: "#364253",
+              800: "#242c38",
+              900: "#151921",
+              950: "#0b0d11",
+            }).map(([shade, hex]) => (
+              <div key={shade} className="text-center">
+                <div
+                  className="h-20 rounded-lg mb-2"
+                  style={{ backgroundColor: hex }}
+                />
+                <p className="text-xs font-medium">{shade}</p>
+                <p className="text-xs text-gray-500 font-mono">{hex}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Note about other colors */}
+        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm">
+            <strong>Note:</strong> This design system uses three custom brand
+            colors: Primary (cyan), Secondary (coral), and Tertiary (slate).
+            Semantic colors (success, error, etc.) use Tailwind&apos;s defaults.
+          </p>
+        </div>
       </div>
-    </div>
-  ),
+    );
+  },
 };
 
 // Typography Story
