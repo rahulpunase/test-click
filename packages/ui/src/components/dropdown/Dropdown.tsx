@@ -140,8 +140,10 @@ const DropdownItemIndicator = React.forwardRef<
   HTMLSpanElement,
   DropdownItemIndicatorProps
 >(({ className, children, ...props }, ref) => {
+  const { itemIndicator: itemIndicatorClass } = dropdownVariants();
+
   return (
-    <span ref={ref} className={cn(itemIndicator(), className)} {...props}>
+    <span ref={ref} className={cn(itemIndicatorClass(), className)} {...props}>
       {children}
     </span>
   );
