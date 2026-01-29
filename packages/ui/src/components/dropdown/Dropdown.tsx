@@ -51,30 +51,26 @@ const DropdownTrigger = React.forwardRef<
 
 DropdownTrigger.displayName = "Dropdown.Trigger";
 
-// Dropdown Portal Component
-export interface DropdownPortalProps extends React.ComponentProps<
-  typeof Menu.Portal
-> {}
-
-const DropdownPortal = Menu.Portal;
-
-DropdownPortal.displayName = "Dropdown.Portal";
-
-// Dropdown Positioner Component
-export interface DropdownPositionerProps extends React.ComponentProps<
+// Dropdown Content Component (wraps Portal and Positioner)
+export interface DropdownContentProps extends React.ComponentProps<
   typeof Menu.Positioner
 > {
   className?: string;
 }
 
-const DropdownPositioner = React.forwardRef<
-  HTMLDivElement,
-  DropdownPositionerProps
->(({ className, ...props }, ref) => {
-  return <Menu.Positioner ref={ref} className={className} {...props} />;
-});
+const DropdownContent = React.forwardRef<HTMLDivElement, DropdownContentProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <Menu.Portal>
+        <Menu.Positioner ref={ref} {...props}>
+          {children}
+        </Menu.Positioner>
+      </Menu.Portal>
+    );
+  },
+);
 
-DropdownPositioner.displayName = "Dropdown.Positioner";
+DropdownContent.displayName = "Dropdown.Content";
 
 // Dropdown Popup Component
 export interface DropdownPopupProps extends React.ComponentProps<
@@ -154,8 +150,7 @@ DropdownItemIndicator.displayName = "Dropdown.ItemIndicator";
 // Attach subcomponents
 const DropdownWithSubcomponents = Object.assign(DropdownRoot, {
   Trigger: DropdownTrigger,
-  Portal: DropdownPortal,
-  Positioner: DropdownPositioner,
+  Content: DropdownContent,
   Popup: DropdownPopup,
   Item: DropdownItem,
   ItemIndicator: DropdownItemIndicator,

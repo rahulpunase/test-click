@@ -2,8 +2,7 @@ export { Dropdown } from "./Dropdown";
 export type {
   DropdownProps,
   DropdownTriggerProps,
-  DropdownPortalProps,
-  DropdownPositionerProps,
+  DropdownContentProps,
   DropdownPopupProps,
   DropdownItemProps,
   DropdownItemIndicatorProps,

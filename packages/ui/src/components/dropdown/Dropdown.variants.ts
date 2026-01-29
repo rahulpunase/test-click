@@ -19,9 +19,18 @@ export const dropdownVariants = tv({
         trigger: "border-0 bg-muted hover:bg-background-hover",
       },
     },
+    itemVariant: {
+      normal: {
+        item: "",
+      },
+      destructive: {
+        item: "text-error data-[highlighted]:bg-error/10 data-[highlighted]:text-error",
+      },
+    },
   },
   defaultVariants: {
     variant: "bordered",
+    itemVariant: "normal",
   },
 });
 
