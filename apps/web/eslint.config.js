@@ -1,4 +1,9 @@
-import { nextJsConfig } from "@repo/eslint-config/next-js";
+import { config as reactConfig } from "@repo/eslint-config/react-internal";
+import { config as defineConfig } from "eslint/config";
 
-/** @type {import("eslint").Linter.Config[]} */
-export default nextJsConfig;
+export default defineConfig([
+  ...reactConfig,
+  {
+    ignores: ["dist", "node_modules"],
+  },
+]);
