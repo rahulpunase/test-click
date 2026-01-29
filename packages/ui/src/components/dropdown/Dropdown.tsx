@@ -101,21 +101,14 @@ export interface DropdownItemProps extends React.ComponentProps<
 > {
   className?: string;
   /**
-   * Whether to show a check indicator when selected
+   * Visual variant of the item
    */
-  showIndicator?: boolean;
-  /**
-   * Whether this item is selected
-   */
-  selected?: boolean;
+  variant?: "normal" | "destructive";
 }
 
 const DropdownItem = React.forwardRef<HTMLDivElement, DropdownItemProps>(
-  (
-    { className, showIndicator = false, selected = false, children, ...props },
-    ref,
-  ) => {
-    const { item: itemClass } = dropdownVariants();
+  ({ className, variant = "normal", children, ...props }, ref) => {
+    const { item: itemClass } = dropdownVariants({ itemVariant: variant });
 
     return (
       <Menu.Item ref={ref} className={cn(itemClass(), className)} {...props}>
