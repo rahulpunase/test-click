@@ -7,7 +7,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-8 p-8">
+    <div className="">
       <Button
         variant="solid"
         color="primary"
