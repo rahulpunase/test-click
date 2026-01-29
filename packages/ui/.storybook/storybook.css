@@ -1,0 +1,7 @@
+body {
+  padding: 0px !important;
+}
+
+html, body {
+  min-height: 100%;
+}

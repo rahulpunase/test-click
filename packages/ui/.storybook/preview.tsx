@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/react";
 import "../src/styles/globals.css";
+import "./storybook.css";
 
 const preview: Preview = {
   parameters: {
@@ -47,7 +48,10 @@ const preview: Preview = {
 
       return (
         <div className={theme} style={{ minHeight: "100vh" }}>
-          <div className="bg-background text-foreground p-4">
+          <div
+            className="flex items-center justify-center"
+            style={{ minHeight: "100vh" }}
+          >
             <Story />
           </div>
         </div>

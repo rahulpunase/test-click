@@ -46,16 +46,17 @@ We use a comprehensive color system with semantic meaning:
 #### Theme Semantic Colors
 We define semantic colors that automatically adapt to light and dark modes. **Always prefer these over raw neutral colors.**
 
-- **Background**: `bg-background` - Page and main container backgrounds (White / Black)
-- **Foreground**: `text-foreground` - Base text color (Black / White)
-- **Border**: `border-border` - Default border color for inputs, cards, dividers
-- **Muted**: `bg-muted` - Secondary/subtle backgrounds
-- **Muted Foreground**: `text-muted-foreground` - Secondary/subtle text (metadata, placeholders)
+- **Text Primary**: `text-text-primary` - Main text color (Maps to `var(--color-text-primary)`)
+- **Text Muted**: `text-text-muted` - Secondary/subtle text (metadata, placeholders)
+- **Background**: `bg-background` - Page and main container backgrounds
+- **Background Muted**: `bg-background-muted` - Secondary/subtle backgrounds
+- **Border**: `border-border` - Default border color (Maps to `var(--color-border)`). Use for inputs, cards, dividers.
 
 #### Usage Guidelines
 - Use `500` as the default shade for brand colors
-- **Use `bg-background` and `text-foreground` for root elements and cards**
-- **Use `border-border` for generic borders**
+- **Use `bg-background` and `text-text-primary` for root elements and cards**
+- **Use `border-border` for all generic borders**
+- **Use `text-text-muted` for secondary text**
 - Always ensure sufficient color contrast (4.5:1 for normal text, 3:1 for large text)
 
 ```tsx
