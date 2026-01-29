@@ -10,10 +10,10 @@ export const alertDialogVariants = tv({
     overlay:
       "fixed inset-0 z-50 backdrop-blur-sm transition-opacity duration-200 data-[state=closed]:opacity-0 data-[state=open]:opacity-100",
     content:
-      "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-border bg-background p-6 shadow-lg transition-all duration-200 data-[state=closed]:opacity-0 data-[state=closed]:scale-95 data-[state=open]:opacity-100 data-[state=open]:scale-100 sm:rounded-lg",
+      "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-border bg-background p-4 shadow-lg transition-all duration-200 data-[state=closed]:opacity-0 data-[state=closed]:scale-95 data-[state=open]:opacity-100 data-[state=open]:scale-100 sm:rounded-lg",
     header: "flex flex-col space-y-2 text-center sm:text-left",
     title:
-      "text-lg font-semibold leading-none tracking-tight text-text-primary",
+      "text-base font-semibold leading-none pb-2 tracking-tight text-text-primary",
     description: "text-sm text-text-muted",
     actions: "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
   },
