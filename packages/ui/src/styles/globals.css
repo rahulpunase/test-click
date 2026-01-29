@@ -13,43 +13,42 @@
   /* ==================== Custom Colors ==================== */
   
   /* Primary - Custom brand blue (#00a6f4 as base) */
-  --color-primary-50: #e6f7ff;
-  --color-primary-100: #b3e5ff;
-  --color-primary-200: #80d4ff;
-  --color-primary-300: #4dc2ff;
-  --color-primary-400: #1ab1ff;
-  --color-primary-500: #00a6f4;
-  --color-primary-600: #0085c7;
-  --color-primary-700: #00649a;
-  --color-primary-800: #00436d;
-  --color-primary-900: #002240;
-  --color-primary-950: #001428;
+  --color-primary: var(--color-sky-500);
+  --color-primary-hover: var(--color-sky-600);
+  --color-primary-active: var(--color-sky-700);
+  --color-primary-disabled: var(--color-sky-100);
 
   /* Secondary - Coral/Orange (#ff6b35 as base) */
-  --color-secondary-50: #fff4ed;
-  --color-secondary-100: #ffe4d1;
-  --color-secondary-200: #ffc9a3;
-  --color-secondary-300: #ffa76a;
-  --color-secondary-400: #ff8442;
-  --color-secondary-500: #ff6b35;
-  --color-secondary-600: #f04e1a;
-  --color-secondary-700: #c83a10;
-  --color-secondary-800: #9f2e0d;
-  --color-secondary-900: #7a240a;
-  --color-secondary-950: #4a1505;
+  --color-secondary: var(--color-orange-500);
+  --color-secondary-hover: var(--color-orange-600);
+  --color-secondary-active: var(--color-orange-700);
+  --color-secondary-disabled: var(--color-orange-100);
 
-  /* Tertiary - Slate/Blue-Gray (#62748e as base) */
-  --color-tertiary-50: #f4f6f8;
-  --color-tertiary-100: #e3e8ef;
-  --color-tertiary-200: #cbd4e1;
-  --color-tertiary-300: #a7b7cd;
-  --color-tertiary-400: #8198b5;
-  --color-tertiary-500: #62748e;
-  --color-tertiary-600: #4a5a71;
-  --color-tertiary-700: #364253;
-  --color-tertiary-800: #242c38;
-  --color-tertiary-900: #151921;
-  --color-tertiary-950: #0b0d11;
+  /* Tertiary - Slate/Blue-Gray (#6b7280 as base) */
+  --color-tertiary: var(--color-gray-500);
+  --color-tertiary-hover: var(--color-gray-600);
+  --color-tertiary-active: var(--color-gray-700);
+  --color-tertiary-disabled: var(--color-gray-100);
+
+  /* Alert colors */
+
+  /* Success colors */
+  --color-success: var(--color-emerald-500);
+  --color-success-hover: var(--color-emerald-600);
+  --color-success-active: var(--color-emerald-700);
+  --color-success-disabled: var(--color-emerald-100);
+
+  /* Error colors */
+  --color-error: var(--color-rose-500);
+  --color-error-hover: var(--color-rose-600);
+  --color-error-active: var(--color-rose-700);
+  --color-error-disabled: var(--color-rose-100);
+
+  /* Warning colors */
+  --color-warning: var(--color-amber-500);
+  --color-warning-hover: var(--color-amber-600);
+  --color-warning-active: var(--color-amber-700);
+  --color-warning-disabled: var(--color-amber-100);
 
   /* ==================== Custom Typography ==================== */
   
@@ -92,7 +91,7 @@ html.dark {
   --color-background-muted: var(--color-neutral-100);
 
   /* border colors */
-  --color-border: var(--color-gray-300);
+  --color-border: var(--color-gray-600);
 
   /* muted colors */
   --color-muted: var(--color-neutral-100);

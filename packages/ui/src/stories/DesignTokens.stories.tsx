@@ -13,20 +13,6 @@ type Story = StoryObj<typeof DesignTokensComponent>;
 // Colors Story
 export const Colors: Story = {
   render: () => {
-    const primaryColors = {
-      50: "#e6f7ff",
-      100: "#b3e5ff",
-      200: "#80d4ff",
-      300: "#4dc2ff",
-      400: "#1ab1ff",
-      500: "#00a6f4",
-      600: "#0085c7",
-      700: "#00649a",
-      800: "#00436d",
-      900: "#002240",
-      950: "#001428",
-    };
-
     return (
       <div className="space-y-8">
         <h2 className="text-3xl font-bold mb-4">Color Palette</h2>
@@ -36,15 +22,22 @@ export const Colors: Story = {
           <h3 className="text-xl font-semibold mb-3">
             Primary (Custom Brand Blue)
           </h3>
-          <div className="grid grid-cols-11 gap-2">
-            {Object.entries(primaryColors).map(([shade, hex]) => (
-              <div key={shade} className="text-center">
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { name: "primary", label: "Primary" },
+              { name: "primary-hover", label: "Hover" },
+              { name: "primary-active", label: "Active" },
+              { name: "primary-disabled", label: "Disabled" },
+            ].map(({ name, label }) => (
+              <div key={name} className="flex flex-col items-center">
                 <div
-                  className="h-20 rounded-lg mb-2"
-                  style={{ backgroundColor: hex }}
+                  className="h-20 w-full rounded-lg mb-2 border border-gray-200"
+                  style={{ backgroundColor: `var(--color-${name})` }}
                 />
-                <p className="text-xs font-medium">{shade}</p>
-                <p className="text-xs text-gray-500 font-mono">{hex}</p>
+                <p className="text-sm font-medium">{label}</p>
+                <p className="text-xs text-gray-500 font-mono">
+                  var(--color-{name})
+                </p>
               </div>
             ))}
           </div>
@@ -55,27 +48,22 @@ export const Colors: Story = {
           <h3 className="text-xl font-semibold mb-3">
             Secondary (Coral/Orange)
           </h3>
-          <div className="grid grid-cols-11 gap-2">
-            {Object.entries({
-              50: "#fff4ed",
-              100: "#ffe4d1",
-              200: "#ffc9a3",
-              300: "#ffa76a",
-              400: "#ff8442",
-              500: "#ff6b35",
-              600: "#f04e1a",
-              700: "#c83a10",
-              800: "#9f2e0d",
-              900: "#7a240a",
-              950: "#4a1505",
-            }).map(([shade, hex]) => (
-              <div key={shade} className="text-center">
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { name: "secondary", label: "Secondary" },
+              { name: "secondary-hover", label: "Hover" },
+              { name: "secondary-active", label: "Active" },
+              { name: "secondary-disabled", label: "Disabled" },
+            ].map(({ name, label }) => (
+              <div key={name} className="flex flex-col items-center">
                 <div
-                  className="h-20 rounded-lg mb-2"
-                  style={{ backgroundColor: hex }}
+                  className="h-20 w-full rounded-lg mb-2 border border-gray-200"
+                  style={{ backgroundColor: `var(--color-${name})` }}
                 />
-                <p className="text-xs font-medium">{shade}</p>
-                <p className="text-xs text-gray-500 font-mono">{hex}</p>
+                <p className="text-sm font-medium">{label}</p>
+                <p className="text-xs text-gray-500 font-mono">
+                  var(--color-{name})
+                </p>
               </div>
             ))}
           </div>
@@ -86,39 +74,174 @@ export const Colors: Story = {
           <h3 className="text-xl font-semibold mb-3">
             Tertiary (Slate/Blue-Gray)
           </h3>
-          <div className="grid grid-cols-11 gap-2">
-            {Object.entries({
-              50: "#f4f6f8",
-              100: "#e3e8ef",
-              200: "#cbd4e1",
-              300: "#a7b7cd",
-              400: "#8198b5",
-              500: "#62748e",
-              600: "#4a5a71",
-              700: "#364253",
-              800: "#242c38",
-              900: "#151921",
-              950: "#0b0d11",
-            }).map(([shade, hex]) => (
-              <div key={shade} className="text-center">
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { name: "tertiary", label: "Tertiary" },
+              { name: "tertiary-hover", label: "Hover" },
+              { name: "tertiary-active", label: "Active" },
+              { name: "tertiary-disabled", label: "Disabled" },
+            ].map(({ name, label }) => (
+              <div key={name} className="flex flex-col items-center">
                 <div
-                  className="h-20 rounded-lg mb-2"
-                  style={{ backgroundColor: hex }}
+                  className="h-20 w-full rounded-lg mb-2 border border-gray-200"
+                  style={{ backgroundColor: `var(--color-${name})` }}
                 />
-                <p className="text-xs font-medium">{shade}</p>
-                <p className="text-xs text-gray-500 font-mono">{hex}</p>
+                <p className="text-sm font-medium">{label}</p>
+                <p className="text-xs text-gray-500 font-mono">
+                  var(--color-{name})
+                </p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Note about other colors */}
-        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm">
-            <strong>Note:</strong> This design system uses three custom brand
-            colors: Primary (cyan), Secondary (coral), and Tertiary (slate).
-            Semantic colors (success, error, etc.) use Tailwind&apos;s defaults.
-          </p>
+        {/* Text Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">Text Colors</h3>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { name: "text-primary", label: "Primary Text" },
+              { name: "text-muted", label: "Muted Text" },
+            ].map(({ name, label }) => (
+              <div
+                key={name}
+                className="flex items-center gap-4 p-4 border rounded"
+              >
+                <div
+                  className="h-10 w-10 rounded-full border"
+                  style={{ backgroundColor: `var(--color-${name})` }}
+                />
+                <div>
+                  <p
+                    className="font-medium"
+                    style={{ color: `var(--color-${name})` }}
+                  >
+                    {label}
+                  </p>
+                  <p className="text-xs text-gray-500 font-mono">
+                    var(--color-{name})
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Background Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">Background Colors</h3>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { name: "background", label: "Background" },
+              { name: "background-muted", label: "Muted Background" },
+            ].map(({ name, label }) => (
+              <div
+                key={name}
+                className="p-4 border rounded"
+                style={{ backgroundColor: `var(--color-${name})` }}
+              >
+                <p className="font-medium">{label}</p>
+                <p className="text-xs opacity-70 font-mono">
+                  var(--color-{name})
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Semantic Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">Global UI Colors</h3>
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              { name: "border", label: "Border" },
+              { name: "muted", label: "Muted" },
+              { name: "muted-foreground", label: "Muted Foreground" },
+            ].map(({ name, label }) => (
+              <div key={name} className="flex flex-col items-center">
+                <div
+                  className="h-16 w-full rounded mb-2 border"
+                  style={{ backgroundColor: `var(--color-${name})` }}
+                />
+                <p className="font-medium text-sm">{label}</p>
+                <p className="text-xs text-gray-500 font-mono">
+                  var(--color-{name})
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Success Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">Success (Emerald)</h3>
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { name: "success", label: "Success" },
+              { name: "success-hover", label: "Hover" },
+              { name: "success-active", label: "Active" },
+              { name: "success-disabled", label: "Disabled" },
+            ].map(({ name, label }) => (
+              <div key={name} className="flex flex-col items-center">
+                <div
+                  className="h-20 w-full rounded-lg mb-2 border border-gray-200"
+                  style={{ backgroundColor: `var(--color-${name})` }}
+                />
+                <p className="text-sm font-medium">{label}</p>
+                <p className="text-xs text-gray-500 font-mono">
+                  var(--color-{name})
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Error Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">Error (Rose)</h3>
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { name: "error", label: "Error" },
+              { name: "error-hover", label: "Hover" },
+              { name: "error-active", label: "Active" },
+              { name: "error-disabled", label: "Disabled" },
+            ].map(({ name, label }) => (
+              <div key={name} className="flex flex-col items-center">
+                <div
+                  className="h-20 w-full rounded-lg mb-2 border border-gray-200"
+                  style={{ backgroundColor: `var(--color-${name})` }}
+                />
+                <p className="text-sm font-medium">{label}</p>
+                <p className="text-xs text-gray-500 font-mono">
+                  var(--color-{name})
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Warning Colors */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">Warning (Amber)</h3>
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { name: "warning", label: "Warning" },
+              { name: "warning-hover", label: "Hover" },
+              { name: "warning-active", label: "Active" },
+              { name: "warning-disabled", label: "Disabled" },
+            ].map(({ name, label }) => (
+              <div key={name} className="flex flex-col items-center">
+                <div
+                  className="h-20 w-full rounded-lg mb-2 border border-gray-200"
+                  style={{ backgroundColor: `var(--color-${name})` }}
+                />
+                <p className="text-sm font-medium">{label}</p>
+                <p className="text-xs text-gray-500 font-mono">
+                  var(--color-{name})
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -134,208 +257,26 @@ export const Typography: Story = {
       {/* Font Families */}
       <div>
         <h3 className="text-xl font-semibold mb-3">Font Families</h3>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div>
             <p className="text-sm text-neutral-600 mb-1">Sans (Inter)</p>
-            <p className="font-sans text-2xl">
+            <p className="font-sans text-2xl border p-4 rounded bg-background">
               The quick brown fox jumps over the lazy dog
             </p>
+            <code className="text-xs text-muted-foreground block mt-1">
+              var(--font-sans)
+            </code>
           </div>
           <div>
             <p className="text-sm text-neutral-600 mb-1">Mono (Fira Code)</p>
-            <p className="font-mono text-2xl">
+            <p className="font-mono text-xl border p-4 rounded bg-background">
               The quick brown fox jumps over the lazy dog
             </p>
+            <code className="text-xs text-muted-foreground block mt-1">
+              var(--font-mono)
+            </code>
           </div>
         </div>
-      </div>
-
-      {/* Font Sizes */}
-      <div>
-        <h3 className="text-xl font-semibold mb-3">Font Sizes</h3>
-        <div className="space-y-2">
-          {[
-            { size: "xs", label: "Extra Small (12px)" },
-            { size: "sm", label: "Small (14px)" },
-            { size: "base", label: "Base (16px)" },
-            { size: "lg", label: "Large (18px)" },
-            { size: "xl", label: "Extra Large (20px)" },
-            { size: "2xl", label: "2XL (24px)" },
-            { size: "3xl", label: "3XL (30px)" },
-            { size: "4xl", label: "4XL (36px)" },
-            { size: "5xl", label: "5XL (48px)" },
-            { size: "6xl", label: "6XL (60px)" },
-          ].map(({ size, label }) => (
-            <div key={size}>
-              <p className="text-sm text-neutral-600">{label}</p>
-              <p className={`text-${size}`}>
-                The quick brown fox jumps over the lazy dog
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Font Weights */}
-      <div>
-        <h3 className="text-xl font-semibold mb-3">Font Weights</h3>
-        <div className="space-y-2">
-          {[
-            { weight: "light", label: "Light (300)" },
-            { weight: "normal", label: "Normal (400)" },
-            { weight: "medium", label: "Medium (500)" },
-            { weight: "semibold", label: "Semibold (600)" },
-            { weight: "bold", label: "Bold (700)" },
-            { weight: "extrabold", label: "Extra Bold (800)" },
-            { weight: "black", label: "Black (900)" },
-          ].map(({ weight, label }) => (
-            <div key={weight}>
-              <p className="text-sm text-neutral-600">{label}</p>
-              <p className={`font-${weight} text-xl`}>
-                The quick brown fox jumps over the lazy dog
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  ),
-};
-
-// Spacing Story
-export const Spacing: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold mb-4">Spacing Scale</h2>
-      <p className="text-neutral-600 mb-6">Following a 4px grid system</p>
-
-      <div className="space-y-4">
-        {[
-          { space: "0.5", px: "2px" },
-          { space: "1", px: "4px" },
-          { space: "2", px: "8px" },
-          { space: "3", px: "12px" },
-          { space: "4", px: "16px" },
-          { space: "5", px: "20px" },
-          { space: "6", px: "24px" },
-          { space: "8", px: "32px" },
-          { space: "10", px: "40px" },
-          { space: "12", px: "48px" },
-          { space: "16", px: "64px" },
-          { space: "20", px: "80px" },
-          { space: "24", px: "96px" },
-        ].map(({ space, px }) => (
-          <div key={space} className="flex items-center gap-4">
-            <div className="w-20 text-sm text-neutral-600">
-              {space} ({px})
-            </div>
-            <div
-              className={`h-8 bg-primary-500 rounded`}
-              style={{ width: px }}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  ),
-};
-
-// Border Radius Story
-export const BorderRadius: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold mb-4">Border Radius</h2>
-
-      <div className="grid grid-cols-3 gap-6">
-        {[
-          { radius: "sm", label: "Small (2px)" },
-          { radius: "DEFAULT", label: "Default (4px)", class: "rounded" },
-          { radius: "md", label: "Medium (6px)" },
-          { radius: "lg", label: "Large (8px)" },
-          { radius: "xl", label: "Extra Large (12px)" },
-          { radius: "2xl", label: "2XL (16px)" },
-          { radius: "3xl", label: "3XL (24px)" },
-          { radius: "full", label: "Full (9999px)" },
-        ].map(({ radius, label, class: className }) => (
-          <div key={radius} className="text-center">
-            <div
-              className={`h-24 bg-primary-500 mb-2 ${className || `rounded-${radius}`}`}
-            />
-            <p className="text-sm font-medium">{label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  ),
-};
-
-// Shadows Story
-export const Shadows: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold mb-4">Shadows (Elevation)</h2>
-
-      <div className="grid grid-cols-3 gap-6">
-        {[
-          { shadow: "sm", label: "Small" },
-          { shadow: "DEFAULT", label: "Default", class: "shadow" },
-          { shadow: "md", label: "Medium" },
-          { shadow: "lg", label: "Large" },
-          { shadow: "xl", label: "Extra Large" },
-          { shadow: "2xl", label: "2XL" },
-          { shadow: "inner", label: "Inner" },
-        ].map(({ shadow, label, class: className }) => (
-          <div key={shadow} className="text-center">
-            <div
-              className={`h-24 bg-white rounded-lg mb-2 flex items-center justify-center ${
-                className || `shadow-${shadow}`
-              }`}
-            >
-              <span className="text-sm text-neutral-600">{label}</span>
-            </div>
-            <p className="text-sm font-medium">{label} Shadow</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  ),
-};
-
-// Breakpoints Story
-export const Breakpoints: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-bold mb-4">Responsive Breakpoints</h2>
-
-      <div className="space-y-4">
-        {[
-          { breakpoint: "sm", width: "640px", label: "Small" },
-          { breakpoint: "md", width: "768px", label: "Medium" },
-          { breakpoint: "lg", width: "1024px", label: "Large" },
-          { breakpoint: "xl", width: "1280px", label: "Extra Large" },
-          { breakpoint: "2xl", width: "1536px", label: "2XL" },
-        ].map(({ breakpoint, width, label }) => (
-          <div
-            key={breakpoint}
-            className="p-4 border border-neutral-300 rounded-lg"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-semibold">{label}</h3>
-              <code className="text-sm bg-neutral-100 px-2 py-1 rounded">
-                {breakpoint}:
-              </code>
-            </div>
-            <p className="text-neutral-600">Minimum width: {width}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
-        <p className="text-sm">
-          <strong>Usage:</strong> Use these breakpoints with Tailwind's
-          responsive modifiers (e.g.,{" "}
-          <code className="bg-white px-2 py-0.5 rounded">md:text-lg</code>)
-        </p>
       </div>
     </div>
   ),

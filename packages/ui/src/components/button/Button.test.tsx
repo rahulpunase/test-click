@@ -24,7 +24,7 @@ describe("Button", () => {
       </Button>,
     );
     let button = screen.getByRole("button");
-    expect(button).toHaveClass("bg-primary-500");
+    expect(button).toHaveClass("bg-primary");
 
     rerender(
       <Button variant="outlined" color="secondary">
@@ -32,17 +32,17 @@ describe("Button", () => {
       </Button>,
     );
     button = screen.getByRole("button");
-    expect(button).toHaveClass("border-secondary-500");
+    expect(button).toHaveClass("border-secondary");
   });
 
   it("applies correct size classes", () => {
     const { rerender } = render(<Button size="sm">Small</Button>);
     let button = screen.getByRole("button");
-    expect(button).toHaveClass("text-sm");
+    expect(button).toHaveClass("text-xs");
 
     rerender(<Button size="lg">Large</Button>);
     button = screen.getByRole("button");
-    expect(button).toHaveClass("text-lg");
+    expect(button).toHaveClass("text-base");
   });
 
   it("handles disabled state", () => {

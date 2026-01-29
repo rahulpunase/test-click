@@ -30,14 +30,26 @@ Design tokens are the foundational building blocks of the design system. They en
 
 ### Colors
 
-We use a comprehensive color system with semantic meaning:
+We use a semantic color system with CSS variables defined in `globals.css`:
 
 #### Brand Colors
-- **Primary**: Blue-based brand color (50-950 scale)
-- **Secondary**: Purple accent color (50-950 scale)
-- **Neutral**: Gray palette for UI elements (50-950 scale)
+- **Primary**: Custom brand blue with semantic variants
+  - `primary` - Base color
+  - `primary-hover` - Hover state
+  - `primary-active` - Active/pressed state
+  - `primary-disabled` - Disabled state
+- **Secondary**: Coral/Orange accent color with semantic variants
+  - `secondary` - Base color
+  - `secondary-hover` - Hover state
+  - `secondary-active` - Active/pressed state
+  - `secondary-disabled` - Disabled state
+- **Tertiary**: Slate/Blue-Gray utility color with semantic variants
+  - `tertiary` - Base color
+  - `tertiary-hover` - Hover state
+  - `tertiary-active` - Active/pressed state
+  - `tertiary-disabled` - Disabled state
 
-#### Semantic Colors
+#### Semantic Colors (Tailwind defaults)
 - **Success**: Green (for positive actions, confirmations)
 - **Warning**: Orange (for cautions, non-critical alerts)
 - **Error**: Red (for errors, destructive actions)
@@ -51,20 +63,29 @@ We define semantic colors that automatically adapt to light and dark modes. **Al
 - **Background**: `bg-background` - Page and main container backgrounds
 - **Background Muted**: `bg-background-muted` - Secondary/subtle backgrounds
 - **Border**: `border-border` - Default border color (Maps to `var(--color-border)`). Use for inputs, cards, dividers.
+- **Muted**: `bg-muted` - Muted background areas
+- **Muted Foreground**: `text-muted-foreground` - Muted foreground text
 
 #### Usage Guidelines
-- Use `500` as the default shade for brand colors
+- **Use semantic color variables**: `bg-primary`, `bg-primary-hover`, etc.
+- **For lighter shades**, use opacity modifiers: `bg-primary/10`, `bg-primary/20`
 - **Use `bg-background` and `text-text-primary` for root elements and cards**
 - **Use `border-border` for all generic borders**
 - **Use `text-text-muted` for secondary text**
 - Always ensure sufficient color contrast (4.5:1 for normal text, 3:1 for large text)
 
 ```tsx
-// Good
-<button className="bg-primary-500 hover:bg-primary-600">Click me</button>
+// Good - using semantic variables
+<button className="bg-primary hover:bg-primary-hover active:bg-primary-active">Click me</button>
 
-// Bad - hardcoded colors
+// Good - using opacity for lighter backgrounds
+<div className="bg-primary/10 hover:bg-primary/20">Light primary background</div>
+
+// Bad - hardcoded Tailwind colors
 <button className="bg-blue-500">Click me</button>
+
+// Bad - hardcoded color scales that don't exist
+<button className="bg-primary-500 hover:bg-primary-600">Click me</button>
 ```
 
 ### Typography
@@ -182,11 +203,11 @@ export const componentVariants = tv({
   variants: {
     variant: {
       // ❌ WRONG - Don't use dark: classes
-      // primary: 'bg-primary-500 text-white hover:bg-primary-600 dark:bg-primary-400',
+      // primary: 'bg-primary text-white hover:bg-primary-hover dark:bg-primary-400',
       
-      // ✅ CORRECT - Keep light mode classes only
-      primary: 'bg-primary-500 text-white hover:bg-primary-600',
-      secondary: 'bg-secondary-500 text-white hover:bg-secondary-600',
+      // ✅ CORRECT - Use semantic color variables
+      primary: 'bg-primary text-white hover:bg-primary-hover active:bg-primary-active',
+      secondary: 'bg-secondary text-white hover:bg-secondary-hover active:bg-secondary-active',
     },
     size: {
       sm: 'text-sm px-3 py-1.5',
@@ -294,7 +315,7 @@ describe('ComponentName', () => {
   it('applies variant styles', () => {
     render(<ComponentName variant="secondary">Test</ComponentName>)
     const el = screen.getByText('Test')
-    expect(el).toHaveClass('bg-secondary-500')
+    expect(el).toHaveClass('bg-secondary')
   })
 
   it('forwards ref', () => {

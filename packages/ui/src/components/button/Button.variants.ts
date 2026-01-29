@@ -24,9 +24,9 @@ export const buttonVariants = tv({
       error: "",
     },
     size: {
-      sm: "text-xs px-2 py-1 h-7",
-      md: "text-sm px-3 py-1.5 h-8",
-      lg: "text-base px-4 py-2 h-9",
+      sm: "text-xs px-2 py-1 h-6",
+      md: "text-sm px-3 py-1.5 h-7",
+      lg: "text-base px-4 py-2 h-8",
     },
   },
   compoundVariants: [
@@ -35,10 +35,10 @@ export const buttonVariants = tv({
       variant: "solid",
       color: "primary",
       class: [
-        "bg-primary-500 text-white",
-        "hover:bg-primary-600",
-        "active:bg-primary-700",
-        "focus-visible:ring-primary-500",
+        "bg-primary text-white",
+        "hover:bg-primary-hover",
+        "active:bg-primary-active",
+        "focus-visible:ring-primary",
       ],
     },
     // Primary Outlined
@@ -46,10 +46,10 @@ export const buttonVariants = tv({
       variant: "outlined",
       color: "primary",
       class: [
-        "border-primary-500 text-primary-500",
-        "hover:bg-primary-50",
-        "active:bg-primary-100",
-        "focus-visible:ring-primary-500",
+        "border-primary text-primary",
+        "hover:bg-primary/10",
+        "active:bg-primary/20",
+        "focus-visible:ring-primary",
       ],
     },
     // Primary Ghost
@@ -57,10 +57,10 @@ export const buttonVariants = tv({
       variant: "ghost",
       color: "primary",
       class: [
-        "text-primary-500",
-        "hover:bg-primary-50",
-        "active:bg-primary-100",
-        "focus-visible:ring-primary-500",
+        "text-primary",
+        "hover:bg-primary/10",
+        "active:bg-primary/20",
+        "focus-visible:ring-primary",
       ],
     },
     // Primary Text
@@ -68,9 +68,9 @@ export const buttonVariants = tv({
       variant: "text",
       color: "primary",
       class: [
-        "text-primary-500",
-        "hover:text-primary-600",
-        "focus-visible:ring-primary-500",
+        "text-primary",
+        "hover:text-primary-hover",
+        "focus-visible:ring-primary",
       ],
     },
     // Secondary Solid
@@ -78,10 +78,10 @@ export const buttonVariants = tv({
       variant: "solid",
       color: "secondary",
       class: [
-        "bg-secondary-500 text-white",
-        "hover:bg-secondary-600",
-        "active:bg-secondary-700",
-        "focus-visible:ring-secondary-500",
+        "bg-secondary text-white",
+        "hover:bg-secondary-hover",
+        "active:bg-secondary-active",
+        "focus-visible:ring-secondary",
       ],
     },
     // Secondary Outlined
@@ -89,10 +89,10 @@ export const buttonVariants = tv({
       variant: "outlined",
       color: "secondary",
       class: [
-        "border-secondary-500 text-secondary-500",
-        "hover:bg-secondary-50",
-        "active:bg-secondary-100",
-        "focus-visible:ring-secondary-500",
+        "border-secondary text-secondary",
+        "hover:bg-secondary/10",
+        "active:bg-secondary/20",
+        "focus-visible:ring-secondary",
       ],
     },
     // Secondary Ghost
@@ -100,10 +100,10 @@ export const buttonVariants = tv({
       variant: "ghost",
       color: "secondary",
       class: [
-        "text-secondary-500",
-        "hover:bg-secondary-50",
-        "active:bg-secondary-100",
-        "focus-visible:ring-secondary-500",
+        "text-secondary",
+        "hover:bg-secondary/10",
+        "active:bg-secondary/20",
+        "focus-visible:ring-secondary",
       ],
     },
     // Secondary Text
@@ -111,9 +111,9 @@ export const buttonVariants = tv({
       variant: "text",
       color: "secondary",
       class: [
-        "text-secondary-500",
-        "hover:text-secondary-600",
-        "focus-visible:ring-secondary-500",
+        "text-secondary",
+        "hover:text-secondary-hover",
+        "focus-visible:ring-secondary",
       ],
     },
     // Tertiary Solid
@@ -121,10 +121,10 @@ export const buttonVariants = tv({
       variant: "solid",
       color: "tertiary",
       class: [
-        "bg-tertiary-500 text-white",
-        "hover:bg-tertiary-600",
-        "active:bg-tertiary-700",
-        "focus-visible:ring-tertiary-500",
+        "bg-tertiary text-white",
+        "hover:bg-tertiary-hover",
+        "active:bg-tertiary-active",
+        "focus-visible:ring-tertiary",
       ],
     },
     // Tertiary Outlined
@@ -132,10 +132,10 @@ export const buttonVariants = tv({
       variant: "outlined",
       color: "tertiary",
       class: [
-        "border-tertiary-500 text-tertiary-500",
-        "hover:bg-tertiary-50",
-        "active:bg-tertiary-100",
-        "focus-visible:ring-tertiary-500",
+        "border-tertiary text-tertiary",
+        "hover:bg-tertiary/10",
+        "active:bg-tertiary/20",
+        "focus-visible:ring-tertiary",
       ],
     },
     // Tertiary Ghost
@@ -143,10 +143,10 @@ export const buttonVariants = tv({
       variant: "ghost",
       color: "tertiary",
       class: [
-        "text-tertiary-500",
-        "hover:bg-tertiary-50",
-        "active:bg-tertiary-100",
-        "focus-visible:ring-tertiary-500",
+        "text-tertiary",
+        "hover:bg-tertiary/10",
+        "active:bg-tertiary/20",
+        "focus-visible:ring-tertiary",
       ],
     },
     // Tertiary Text
@@ -154,9 +154,9 @@ export const buttonVariants = tv({
       variant: "text",
       color: "tertiary",
       class: [
-        "text-tertiary-500",
-        "hover:text-tertiary-600",
-        "focus-visible:ring-tertiary-500",
+        "text-tertiary",
+        "hover:text-tertiary-hover",
+        "focus-visible:ring-tertiary",
       ],
     },
     // Success Solid
@@ -164,10 +164,10 @@ export const buttonVariants = tv({
       variant: "solid",
       color: "success",
       class: [
-        "bg-green-500 text-white",
-        "hover:bg-green-600",
-        "active:bg-green-700",
-        "focus-visible:ring-green-500",
+        "bg-success text-white",
+        "hover:bg-success-hover",
+        "active:bg-success-active",
+        "focus-visible:ring-success",
       ],
     },
     // Success Outlined
@@ -175,10 +175,10 @@ export const buttonVariants = tv({
       variant: "outlined",
       color: "success",
       class: [
-        "border-green-500 text-green-500",
-        "hover:bg-green-50",
-        "active:bg-green-100",
-        "focus-visible:ring-green-500",
+        "border-success text-success",
+        "hover:bg-success/10",
+        "active:bg-success/20",
+        "focus-visible:ring-success",
       ],
     },
     // Success Ghost
@@ -186,10 +186,10 @@ export const buttonVariants = tv({
       variant: "ghost",
       color: "success",
       class: [
-        "text-green-500",
-        "hover:bg-green-50",
-        "active:bg-green-100",
-        "focus-visible:ring-green-500",
+        "text-success",
+        "hover:bg-success/10",
+        "active:bg-success/20",
+        "focus-visible:ring-success",
       ],
     },
     // Success Text
@@ -197,9 +197,9 @@ export const buttonVariants = tv({
       variant: "text",
       color: "success",
       class: [
-        "text-green-500",
-        "hover:text-green-600",
-        "focus-visible:ring-green-500",
+        "text-success",
+        "hover:text-success-hover",
+        "focus-visible:ring-success",
       ],
     },
     // Error Solid
@@ -207,10 +207,10 @@ export const buttonVariants = tv({
       variant: "solid",
       color: "error",
       class: [
-        "bg-red-500 text-white",
-        "hover:bg-red-600",
-        "active:bg-red-700",
-        "focus-visible:ring-red-500",
+        "bg-error text-white",
+        "hover:bg-error-hover",
+        "active:bg-error-active",
+        "focus-visible:ring-error",
       ],
     },
     // Error Outlined
@@ -218,10 +218,10 @@ export const buttonVariants = tv({
       variant: "outlined",
       color: "error",
       class: [
-        "border-red-500 text-red-500",
-        "hover:bg-red-100",
-        "active:bg-red-200",
-        "focus-visible:ring-red-500",
+        "border-error text-error",
+        "hover:bg-error/10",
+        "active:bg-error/20",
+        "focus-visible:ring-error",
       ],
     },
     // Error Ghost
@@ -229,10 +229,10 @@ export const buttonVariants = tv({
       variant: "ghost",
       color: "error",
       class: [
-        "text-red-500",
-        "hover:bg-red-100",
-        "active:bg-red-200",
-        "focus-visible:ring-red-500",
+        "text-error",
+        "hover:bg-error/10",
+        "active:bg-error/20",
+        "focus-visible:ring-error",
       ],
     },
     // Error Text
@@ -240,9 +240,9 @@ export const buttonVariants = tv({
       variant: "text",
       color: "error",
       class: [
-        "text-red-500",
-        "hover:text-red-600",
-        "focus-visible:ring-red-500",
+        "text-error",
+        "hover:text-error-hover",
+        "focus-visible:ring-error",
       ],
     },
   ],

@@ -31,7 +31,7 @@ export const Default: Story = {
             </AlertDialog.Description>
           </AlertDialog.Header>
           <AlertDialog.Content>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-text-muted">
               Additional content can act as a body for the dialog if needed,
               separate from the description.
             </p>
