@@ -24,7 +24,7 @@ export const Default: Story = {
 
     return (
       <Dropdown>
-        <Dropdown.Trigger variant="bordered" size="md">
+        <Dropdown.Trigger variant="bordered">
           <span className="flex-1 text-left">
             {selected || "Select an option"}
           </span>
@@ -74,7 +74,7 @@ export const Filled: Story = {
 
     return (
       <Dropdown>
-        <Dropdown.Trigger variant="filled" size="md">
+        <Dropdown.Trigger variant="filled">
           <span className="flex-1 text-left">
             {selected || "Select an option"}
           </span>
@@ -126,7 +126,6 @@ export const CustomTrigger: Story = {
       <Dropdown>
         <Dropdown.Trigger
           variant="bordered"
-          size="md"
           className="bg-primary text-white hover:bg-primary-hover border-primary"
         >
           <span className="flex-1 text-left">
@@ -161,7 +160,7 @@ export const WithIcons: Story = {
   render: () => {
     return (
       <Dropdown>
-        <Dropdown.Trigger variant="bordered" size="md">
+        <Dropdown.Trigger variant="bordered">
           <User className="h-4 w-4" />
           <span className="flex-1 text-left">Account</span>
           <ChevronDown className="h-4 w-4" />
@@ -190,76 +189,6 @@ export const WithIcons: Story = {
 };
 
 /**
- * Small size dropdown
- */
-export const Small: Story = {
-  render: () => {
-    const [selected, setSelected] = useState<string | null>(null);
-
-    return (
-      <Dropdown>
-        <Dropdown.Trigger variant="bordered" size="sm">
-          <span className="flex-1 text-left">
-            {selected || "Small dropdown"}
-          </span>
-          <ChevronDown className="h-3 w-3" />
-        </Dropdown.Trigger>
-        <Dropdown.Portal>
-          <Dropdown.Positioner sideOffset={5}>
-            <Dropdown.Popup size="sm">
-              <Dropdown.Item size="sm" onClick={() => setSelected("Option 1")}>
-                Option 1
-              </Dropdown.Item>
-              <Dropdown.Item size="sm" onClick={() => setSelected("Option 2")}>
-                Option 2
-              </Dropdown.Item>
-              <Dropdown.Item size="sm" onClick={() => setSelected("Option 3")}>
-                Option 3
-              </Dropdown.Item>
-            </Dropdown.Popup>
-          </Dropdown.Positioner>
-        </Dropdown.Portal>
-      </Dropdown>
-    );
-  },
-};
-
-/**
- * Large size dropdown
- */
-export const Large: Story = {
-  render: () => {
-    const [selected, setSelected] = useState<string | null>(null);
-
-    return (
-      <Dropdown>
-        <Dropdown.Trigger variant="bordered" size="lg">
-          <span className="flex-1 text-left">
-            {selected || "Large dropdown"}
-          </span>
-          <ChevronDown className="h-5 w-5" />
-        </Dropdown.Trigger>
-        <Dropdown.Portal>
-          <Dropdown.Positioner sideOffset={5}>
-            <Dropdown.Popup size="lg">
-              <Dropdown.Item size="lg" onClick={() => setSelected("Option 1")}>
-                Option 1
-              </Dropdown.Item>
-              <Dropdown.Item size="lg" onClick={() => setSelected("Option 2")}>
-                Option 2
-              </Dropdown.Item>
-              <Dropdown.Item size="lg" onClick={() => setSelected("Option 3")}>
-                Option 3
-              </Dropdown.Item>
-            </Dropdown.Popup>
-          </Dropdown.Positioner>
-        </Dropdown.Portal>
-      </Dropdown>
-    );
-  },
-};
-
-/**
  * Dropdown with disabled items
  */
 export const WithDisabledItems: Story = {
@@ -268,7 +197,7 @@ export const WithDisabledItems: Story = {
 
     return (
       <Dropdown>
-        <Dropdown.Trigger variant="bordered" size="md">
+        <Dropdown.Trigger variant="bordered">
           <span className="flex-1 text-left">
             {selected || "Select priority"}
           </span>
@@ -306,7 +235,7 @@ export const CustomItems: Story = {
 
     return (
       <Dropdown>
-        <Dropdown.Trigger variant="bordered" size="md">
+        <Dropdown.Trigger variant="bordered">
           <span className="flex-1 text-left">
             {selected || "Select status"}
           </span>
@@ -355,7 +284,7 @@ export const Controlled: Story = {
     return (
       <div className="flex flex-col gap-4 w-64">
         <Dropdown open={isOpen} onOpenChange={setIsOpen}>
-          <Dropdown.Trigger variant="bordered" size="md">
+          <Dropdown.Trigger variant="bordered">
             <span className="flex-1 text-left">
               {selected || "Select an option"}
             </span>
@@ -443,7 +372,7 @@ export const AllVariants: Story = {
         <div>
           <h3 className="text-sm font-semibold mb-2">Bordered</h3>
           <Dropdown>
-            <Dropdown.Trigger variant="bordered" size="md">
+            <Dropdown.Trigger variant="bordered">
               <span className="flex-1 text-left">Select an option</span>
               <ChevronDown className="h-4 w-4" />
             </Dropdown.Trigger>
@@ -461,7 +390,7 @@ export const AllVariants: Story = {
         <div>
           <h3 className="text-sm font-semibold mb-2">Filled</h3>
           <Dropdown>
-            <Dropdown.Trigger variant="filled" size="md">
+            <Dropdown.Trigger variant="filled">
               <span className="flex-1 text-left">Select an option</span>
               <ChevronDown className="h-4 w-4" />
             </Dropdown.Trigger>

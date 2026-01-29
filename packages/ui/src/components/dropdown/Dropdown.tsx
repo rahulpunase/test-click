@@ -3,15 +3,13 @@ import { Menu } from "@base-ui/react/menu";
 import { cn } from "@/lib/utils";
 import { dropdownVariants, type DropdownVariants } from "./Dropdown.variants";
 
-const { trigger, popup, item, itemIndicator } = dropdownVariants();
-
 // Dropdown Root Component
 export interface DropdownProps extends React.ComponentProps<typeof Menu.Root> {
   className?: string;
 }
 
 const DropdownRoot = React.forwardRef<HTMLDivElement, DropdownProps>(
-  ({ className, ...props }, ref) => {
+  ({ ...props }) => {
     return <Menu.Root {...props} />;
   },
 );
@@ -31,14 +29,14 @@ export interface DropdownTriggerProps
 const DropdownTrigger = React.forwardRef<
   HTMLButtonElement,
   DropdownTriggerProps
->(({ className, variant, size, render, children, ...props }, ref) => {
+>(({ className, variant, render, children, ...props }, ref) => {
   // If render prop is provided, use it for complete custom control
   if (render) {
     return <Menu.Trigger ref={ref} render={render} {...props} />;
   }
 
   // Get variant classes
-  const { trigger: triggerClass } = dropdownVariants({ variant, size });
+  const { trigger: triggerClass } = dropdownVariants({ variant });
 
   return (
     <Menu.Trigger
@@ -79,16 +77,15 @@ const DropdownPositioner = React.forwardRef<
 DropdownPositioner.displayName = "Dropdown.Positioner";
 
 // Dropdown Popup Component
-export interface DropdownPopupProps
-  extends
-    React.ComponentProps<typeof Menu.Popup>,
-    Pick<DropdownVariants, "size"> {
+export interface DropdownPopupProps extends React.ComponentProps<
+  typeof Menu.Popup
+> {
   className?: string;
 }
 
 const DropdownPopup = React.forwardRef<HTMLDivElement, DropdownPopupProps>(
-  ({ className, size, ...props }, ref) => {
-    const { popup: popupClass } = dropdownVariants({ size });
+  ({ className, ...props }, ref) => {
+    const { popup: popupClass } = dropdownVariants();
 
     return (
       <Menu.Popup
@@ -103,10 +100,9 @@ const DropdownPopup = React.forwardRef<HTMLDivElement, DropdownPopupProps>(
 DropdownPopup.displayName = "Dropdown.Popup";
 
 // Dropdown Item Component
-export interface DropdownItemProps
-  extends
-    React.ComponentProps<typeof Menu.Item>,
-    Pick<DropdownVariants, "size"> {
+export interface DropdownItemProps extends React.ComponentProps<
+  typeof Menu.Item
+> {
   className?: string;
   /**
    * Whether to show a check indicator when selected
@@ -120,17 +116,10 @@ export interface DropdownItemProps
 
 const DropdownItem = React.forwardRef<HTMLDivElement, DropdownItemProps>(
   (
-    {
-      className,
-      size,
-      showIndicator = false,
-      selected = false,
-      children,
-      ...props
-    },
+    { className, showIndicator = false, selected = false, children, ...props },
     ref,
   ) => {
-    const { item: itemClass } = dropdownVariants({ size });
+    const { item: itemClass } = dropdownVariants();
 
     return (
       <Menu.Item ref={ref} className={cn(itemClass(), className)} {...props}>
