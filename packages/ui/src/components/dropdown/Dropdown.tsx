@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Select from "@base-ui/react/Select";
+import * as Menu from "@base-ui/react/Menu";
 import { ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { dropdownVariants, type DropdownVariants } from "./Dropdown.variants";
@@ -30,7 +30,7 @@ export interface DropdownProps extends DropdownVariants {
   /**
    * Callback when value changes
    */
-  onValueChange?: (value: string | null) => void;
+  onValueChange?: (value: string) => void;
   /**
    * Whether the dropdown is disabled
    */
@@ -39,19 +39,11 @@ export interface DropdownProps extends DropdownVariants {
    * Additional CSS classes for the trigger
    */
   className?: string;
-  /**
-   * Name attribute for forms
-   */
-  name?: string;
-  /**
-   * Required attribute for forms
-   */
-  required?: boolean;
 }
 
 /**
  * Dropdown component for selecting a value from a list of options.
- * Built with @base-ui/react Select for accessibility.
+ * Built with @base-ui/react Menu for accessibility.
  *
  * @example
  * ```tsx
@@ -81,8 +73,6 @@ export const Dropdown = React.forwardRef<HTMLButtonElement, DropdownProps>(
       variant = "bordered",
       size = "md",
       className,
-      name,
-      required,
     },
     ref,
   ) => {
@@ -94,12 +84,13 @@ export const Dropdown = React.forwardRef<HTMLButtonElement, DropdownProps>(
     // Use controlled value if provided, otherwise use internal state
     const currentValue = value !== undefined ? value : selectedValue;
 
-    const handleValueChange = React.useCallback(
-      (newValue: string | null) => {
+    const handleItemClick = React.useCallback(
+      (optionValue: string) => {
         if (value === undefined) {
-          setSelectedValue(newValue);
+          setSelectedValue(optionValue);
         }
-        onValueChange?.(newValue);
+        onValueChange?.(optionValue);
+        setIsOpen(false);
       },
       [value, onValueChange],
     );
@@ -121,15 +112,12 @@ export const Dropdown = React.forwardRef<HTMLButtonElement, DropdownProps>(
     });
 
     return (
-      <Select.Root
-        value={currentValue}
-        onValueChange={handleValueChange}
-        onOpenChange={setIsOpen}
-        disabled={disabled}
-        name={name}
-        required={required}
-      >
-        <Select.Trigger ref={ref} className={cn(trigger(), className)}>
+      <Menu.Root open={isOpen} onOpenChange={setIsOpen}>
+        <Menu.Trigger
+          ref={ref}
+          className={cn(trigger(), className)}
+          disabled={disabled}
+        >
           <span
             className={cn(
               valueDisplay(),
@@ -139,28 +127,30 @@ export const Dropdown = React.forwardRef<HTMLButtonElement, DropdownProps>(
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <ChevronDown className={icon()} />
-        </Select.Trigger>
+        </Menu.Trigger>
 
-        <Select.Portal>
-          <Select.Positioner sideOffset={5}>
-            <Select.Popup className={listbox()}>
+        <Menu.Portal>
+          <Menu.Positioner sideOffset={5}>
+            <Menu.Popup className={listbox()}>
               {options.map((opt) => (
-                <Select.Option
+                <Menu.Item
                   key={opt.value}
-                  value={opt.value}
                   disabled={opt.disabled}
                   className={option()}
+                  onClick={() => handleItemClick(opt.value)}
                 >
-                  <Select.OptionText>{opt.label}</Select.OptionText>
-                  <Select.OptionIndicator className={optionIndicator()}>
-                    <Check className="h-4 w-4" />
-                  </Select.OptionIndicator>
-                </Select.Option>
+                  <span className="flex-1">{opt.label}</span>
+                  {currentValue === opt.value && (
+                    <span className={optionIndicator()}>
+                      <Check className="h-4 w-4" />
+                    </span>
+                  )}
+                </Menu.Item>
               ))}
-            </Select.Popup>
-          </Select.Positioner>
-        </Select.Portal>
-      </Select.Root>
+            </Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu.Root>
     );
   },
 );
