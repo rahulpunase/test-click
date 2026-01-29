@@ -1,1 +1,1 @@
-export * from "./AlertDialog";
+export { AlertDialog, type AlertDialogProps } from "./AlertDialog";

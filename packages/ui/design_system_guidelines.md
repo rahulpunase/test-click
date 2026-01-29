@@ -152,6 +152,97 @@ components/
     index.ts                   # Re-exports
 ```
 
+### Component Export Pattern
+
+**CRITICAL: Only export what consumers need. Hide all internal implementation details.**
+
+Each component's `index.ts` should export **only**:
+1. The main component (e.g., `Button`, `Card`, `Tabs`)
+2. The root component's props interface (e.g., `ButtonProps`, `CardProps`)
+
+**DO NOT export:**
+- ❌ Variant functions (e.g., `buttonVariants`, `cardVariants`)
+- ❌ Variant types (e.g., `ButtonVariants`, `CardVariants`)
+- ❌ Subcomponent props types (e.g., `CardHeaderProps`, `TabsListProps`)
+- ❌ Internal helper functions or utilities
+- ❌ Context providers or hooks (unless they're meant to be public)
+
+**Example `index.ts`:**
+
+```tsx
+// ✅ CORRECT - Only export main component and root props
+export { Button, type ButtonProps } from "./Button";
+
+// ❌ WRONG - Don't export internal implementation
+export { Button, type ButtonProps } from "./Button";
+export { buttonVariants, type ButtonVariants } from "./Button.variants"; // ❌ Don't do this
+```
+
+**For compound components:**
+
+```tsx
+// ✅ CORRECT - Only export main component and root props
+export { Card, type CardProps } from "./Card";
+
+// ❌ WRONG - Don't export subcomponent props
+export { Card, type CardProps, type CardHeaderProps, type CardContentProps } from "./Card"; // ❌ Don't do this
+```
+
+**Why this matters:**
+- **Cleaner API**: Consumers see only what they need in IDE autocomplete
+- **Encapsulation**: Internal implementation details remain private
+- **Flexibility**: You can refactor internal code without breaking consumers
+- **Smaller bundles**: Fewer type exports = smaller TypeScript declaration files
+
+### Package.json Exports Configuration
+
+When creating a new component, you must update `package.json` to expose the component's directory:
+
+**Location:** `packages/ui/package.json`
+
+**Pattern:**
+```json
+{
+  "exports": {
+    "./component-name/*": "./src/components/component-name/*.tsx",
+    "./styles": "./src/styles/globals.css"
+  }
+}
+```
+
+**Example - Adding a new `tooltip` component:**
+
+```json
+{
+  "exports": {
+    "./alert-dialog/*": "./src/components/alert-dialog/*.tsx",
+    "./button/*": "./src/components/button/*.tsx",
+    "./card/*": "./src/components/card/*.tsx",
+    "./dropdown/*": "./src/components/dropdown/*.tsx",
+    "./tabs/*": "./src/components/tabs/*.tsx",
+    "./tooltip/*": "./src/components/tooltip/*.tsx", // ← Add this line
+    "./styles": "./src/styles/globals.css"
+  }
+}
+```
+
+**Important notes:**
+- Use kebab-case for the export path (e.g., `./alert-dialog/*`)
+- The path should match your component directory name
+- The wildcard `/*` allows importing any file from the component directory
+- Always maintain alphabetical order for readability
+
+**Consumer usage:**
+```tsx
+// Consumers can import like this:
+import { Button } from "@repo/ui/button/Button";
+import { Card } from "@repo/ui/card/Card";
+import { Tooltip } from "@repo/ui/tooltip/Tooltip";
+
+// Or from the main index (if re-exported there):
+import { Button, Card, Tooltip } from "@repo/ui";
+```
+
 ### Component Template
 
 ```tsx

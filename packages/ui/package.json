@@ -4,7 +4,11 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./*": "./src/*.tsx",
+    "./alert-dialog/*": "./src/components/alert-dialog/*.tsx",
+    "./button/*": "./src/components/button/*.tsx",
+    "./card/*": "./src/components/card/*.tsx",
+    "./dropdown/*": "./src/components/dropdown/*.tsx",
+    "./tabs/*": "./src/components/tabs/*.tsx",
     "./styles": "./src/styles/globals.css"
   },
   "scripts": {

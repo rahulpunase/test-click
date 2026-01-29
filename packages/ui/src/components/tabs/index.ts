@@ -1,2 +1,1 @@
-export * from "./Tabs";
-export * from "./Tabs.variants";
+export { Tabs, type TabsProps } from "./Tabs";
