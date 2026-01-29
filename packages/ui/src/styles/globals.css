@@ -63,6 +63,7 @@
   /* background colors */
   --color-background: var(--color-neutral-50);
   --color-background-muted: var(--color-neutral-100);
+  --color-background-hover: var(--color-neutral-100);
 
   /* border colors */
   --color-border: var(--color-gray-300);

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Card } from "./Card";
 import { Settings, User, Bell } from "lucide-react";
 import { Button } from "../button";
-import { Tabs } from "../tabs";
 
 const meta: Meta<typeof Card> = {
   title: "Components/Card",
@@ -162,20 +161,23 @@ export const ContentOnly: Story = {
 export const WithTabs: Story = {
   render: () => (
     <Card collapsible>
-      <Card.Header
-        title="User Settings"
-        icon={<Settings className="h-5 w-5" />}
-      />
-      <Card.Content>
-        <Tabs defaultValue="profile">
-          <Tabs.List>
-            <Tabs.Trigger value="profile">Profile</Tabs.Trigger>
-            <Tabs.Trigger value="account">Account</Tabs.Trigger>
-            <Tabs.Trigger value="notifications">Notifications</Tabs.Trigger>
-          </Tabs.List>
+      <Card.Tabs defaultValue="profile">
+        <Card.Header
+          title="User Settings"
+          icon={<Settings className="h-5 w-5" />}
+        >
+          <Card.Tabs.List>
+            <Card.Tabs.Trigger value="profile">Profile</Card.Tabs.Trigger>
+            <Card.Tabs.Trigger value="account">Account</Card.Tabs.Trigger>
+            <Card.Tabs.Trigger value="notifications">
+              Notifications
+            </Card.Tabs.Trigger>
+          </Card.Tabs.List>
+        </Card.Header>
 
-          <Tabs.Content value="profile">
-            <div className="space-y-4 py-4">
+        <Card.Content>
+          <Card.Tabs.Content value="profile">
+            <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-medium text-text-primary mb-2">
                   Display Name
@@ -193,10 +195,10 @@ export const WithTabs: Story = {
                 </Button>
               </div>
             </div>
-          </Tabs.Content>
+          </Card.Tabs.Content>
 
-          <Tabs.Content value="account">
-            <div className="space-y-4 py-4">
+          <Card.Tabs.Content value="account">
+            <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-medium text-text-primary mb-2">
                   Account Security
@@ -211,10 +213,10 @@ export const WithTabs: Story = {
                 </Button>
               </div>
             </div>
-          </Tabs.Content>
+          </Card.Tabs.Content>
 
-          <Tabs.Content value="notifications">
-            <div className="space-y-4 py-4">
+          <Card.Tabs.Content value="notifications">
+            <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-medium text-text-primary mb-2">
                   Email Preferences
@@ -238,14 +240,15 @@ export const WithTabs: Story = {
                 </label>
               </div>
             </div>
-          </Tabs.Content>
-        </Tabs>
-      </Card.Content>
-      <Card.Footer>
-        <p className="text-xs text-text-muted">
-          Changes are saved automatically
-        </p>
-      </Card.Footer>
+          </Card.Tabs.Content>
+        </Card.Content>
+
+        <Card.Footer>
+          <p className="text-xs text-text-muted">
+            Changes are saved automatically
+          </p>
+        </Card.Footer>
+      </Card.Tabs>
     </Card>
   ),
 };

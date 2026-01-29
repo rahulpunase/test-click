@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { cardVariants } from "./Card.variants";
 import { cn } from "@/lib/utils";
 import { Button } from "../button";
+import { Tabs } from "../tabs";
 
 // Context for Card state management
 interface CardContextValue {
@@ -142,13 +143,16 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
     // Get the variant classes based on current collapsed state
     const {
       header,
+      headerTop,
+      headerBottom,
       title: titleClass,
       collapseIcon,
     } = cardVariants({
       collapsed: isCollapsed,
+      hasTabList: !!children,
     });
 
-    const button = (
+    const collapseButton = (
       <Button
         variant="ghost"
         color="tertiary"
@@ -164,24 +168,16 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
       </Button>
     );
 
-    // If children provided, use custom content
-    if (children) {
-      return (
-        <div ref={ref} className={cn(header(), className)} {...props}>
-          <div className="flex-1">{children}</div>
-          {collapsible && button}
-        </div>
-      );
-    }
-
-    // Default header with icon and title
     return (
       <div ref={ref} className={cn(header(), className)} {...props}>
-        <div className="flex items-center gap-2 flex-1">
-          {icon && <span className="shrink-0">{icon}</span>}
-          {title && <div className={titleClass()}>{title}</div>}
+        <div className={headerTop()}>
+          <div className="flex items-center gap-2 flex-1">
+            {icon && <span className="shrink-0">{icon}</span>}
+            {title && <div className={titleClass()}>{title}</div>}
+          </div>
+          {collapsible && collapseButton}
         </div>
-        {collapsible && button}
+        {children && <div className={headerBottom()}>{children}</div>}
       </div>
     );
   },
@@ -226,11 +222,72 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
 
 CardFooter.displayName = "Card.Footer";
 
+// Card Tabs - Wrapper around Tabs component to provide tab context
+export type CardTabsProps = React.ComponentProps<typeof Tabs>;
+
+const CardTabsRoot = React.forwardRef<HTMLDivElement, CardTabsProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <Tabs ref={ref} className={className} {...props}>
+        {children}
+      </Tabs>
+    );
+  },
+);
+
+CardTabsRoot.displayName = "Card.Tabs";
+
+// Card Tabs List - Styled for card header usage
+export type CardTabsListProps = React.ComponentProps<typeof Tabs.List>;
+
+const CardTabsList = React.forwardRef<HTMLDivElement, CardTabsListProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <Tabs.List ref={ref} className={className} {...props}>
+        {children}
+      </Tabs.List>
+    );
+  },
+);
+
+CardTabsList.displayName = "Card.Tabs.List";
+
+// Card Tabs Trigger - Pass through to Tabs.Trigger
+export type CardTabsTriggerProps = React.ComponentProps<typeof Tabs.Trigger>;
+
+const CardTabsTrigger = React.forwardRef<
+  HTMLButtonElement,
+  CardTabsTriggerProps
+>(({ ...props }, ref) => {
+  return <Tabs.Trigger ref={ref} {...props} />;
+});
+
+CardTabsTrigger.displayName = "Card.Tabs.Trigger";
+
+// Card Tabs Content - Pass through to Tabs.Content
+export type CardTabsContentProps = React.ComponentProps<typeof Tabs.Content>;
+
+const CardTabsContent = React.forwardRef<HTMLDivElement, CardTabsContentProps>(
+  ({ className, ...props }, ref) => {
+    return <Tabs.Content ref={ref} className={className} {...props} />;
+  },
+);
+
+CardTabsContent.displayName = "Card.Tabs.Content";
+
+// Attach Tabs subcomponents
+const CardTabsWithSubcomponents = Object.assign(CardTabsRoot, {
+  List: CardTabsList,
+  Trigger: CardTabsTrigger,
+  Content: CardTabsContent,
+});
+
 // Attach subcomponents with dot notation
 const CardWithSubcomponents = Object.assign(CardRoot, {
   Header: CardHeader,
   Content: CardContent,
   Footer: CardFooter,
+  Tabs: CardTabsWithSubcomponents,
 });
 
 export { CardWithSubcomponents as Card };

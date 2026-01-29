@@ -3,8 +3,9 @@ import { tv } from "tailwind-variants";
 export const cardVariants = tv({
   slots: {
     card: "bg-background border border-border rounded-lg transition-all",
-    header:
-      "flex items-center justify-between px-4 py-3 pb-2 border-b border-border-light",
+    header: "px-4 py-3 border-b border-border-light",
+    headerTop: "flex items-center justify-between",
+    headerBottom: "mt-2 -mx-0 transition-all duration-200",
     title: "text-base font-semibold text-text-primary",
     headerRight: "flex items-center gap-2",
     content: "px-4 pb-4 pt-4 transition-all duration-200",
@@ -26,8 +27,14 @@ export const cardVariants = tv({
     collapsed: {
       true: {
         header: "border-b-0",
+        headerBottom: "hidden h-0 overflow-hidden",
         content: "hidden h-0 overflow-hidden pb-0",
         collapseIcon: "rotate-180",
+      },
+    },
+    hasTabList: {
+      true: {
+        header: "pb-1",
       },
     },
   },
