@@ -66,6 +66,7 @@
 
   /* border colors */
   --color-border: var(--color-gray-300);
+  --color-border-light: var(--color-gray-200);
 
   /* muted colors */
   --color-muted: var(--color-neutral-100);
