@@ -1,158 +1,173 @@
 import * as React from "react";
-import * as Menu from "@base-ui/react/Menu";
-import { ChevronDown, Check } from "lucide-react";
+import { Menu } from "@base-ui/react/menu";
 import { cn } from "@/lib/utils";
 import { dropdownVariants, type DropdownVariants } from "./Dropdown.variants";
 
-export interface DropdownOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
+const { trigger, popup, item, itemIndicator } = dropdownVariants();
 
-export interface DropdownProps extends DropdownVariants {
-  /**
-   * Options to display in the dropdown
-   */
-  options: DropdownOption[];
-  /**
-   * Placeholder text when no value is selected
-   */
-  placeholder?: string;
-  /**
-   * Current selected value
-   */
-  value?: string;
-  /**
-   * Default value (uncontrolled)
-   */
-  defaultValue?: string;
-  /**
-   * Callback when value changes
-   */
-  onValueChange?: (value: string) => void;
-  /**
-   * Whether the dropdown is disabled
-   */
-  disabled?: boolean;
-  /**
-   * Additional CSS classes for the trigger
-   */
+// Dropdown Root Component
+export interface DropdownProps extends React.ComponentProps<typeof Menu.Root> {
   className?: string;
 }
 
-/**
- * Dropdown component for selecting a value from a list of options.
- * Built with @base-ui/react Menu for accessibility.
- *
- * @example
- * ```tsx
- * import { Dropdown } from '@repo/ui/components/dropdown'
- *
- * const options = [
- *   { value: '1', label: 'Option 1' },
- *   { value: '2', label: 'Option 2' },
- * ]
- *
- * <Dropdown
- *   options={options}
- *   placeholder="Select an option"
- *   onValueChange={(value) => console.log(value)}
- * />
- * ```
- */
-export const Dropdown = React.forwardRef<HTMLButtonElement, DropdownProps>(
-  (
-    {
-      options,
-      placeholder = "Select...",
-      value,
-      defaultValue,
-      onValueChange,
-      disabled = false,
-      variant = "bordered",
-      size = "md",
-      className,
-    },
-    ref,
-  ) => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [selectedValue, setSelectedValue] = React.useState<string | null>(
-      defaultValue ?? null,
-    );
+const DropdownRoot = React.forwardRef<HTMLDivElement, DropdownProps>(
+  ({ className, ...props }, ref) => {
+    return <Menu.Root {...props} />;
+  },
+);
 
-    // Use controlled value if provided, otherwise use internal state
-    const currentValue = value !== undefined ? value : selectedValue;
+DropdownRoot.displayName = "Dropdown";
 
-    const handleItemClick = React.useCallback(
-      (optionValue: string) => {
-        if (value === undefined) {
-          setSelectedValue(optionValue);
-        }
-        onValueChange?.(optionValue);
-        setIsOpen(false);
-      },
-      [value, onValueChange],
-    );
+// Dropdown Trigger Component
+export interface DropdownTriggerProps
+  extends React.ComponentProps<typeof Menu.Trigger>, DropdownVariants {
+  className?: string;
+  /**
+   * Custom render function for complete control over trigger rendering
+   */
+  render?: React.ComponentProps<typeof Menu.Trigger>["render"];
+}
 
-    const selectedOption = options.find((opt) => opt.value === currentValue);
+const DropdownTrigger = React.forwardRef<
+  HTMLButtonElement,
+  DropdownTriggerProps
+>(({ className, variant, size, render, children, ...props }, ref) => {
+  // If render prop is provided, use it for complete custom control
+  if (render) {
+    return <Menu.Trigger ref={ref} render={render} {...props} />;
+  }
 
-    const {
-      trigger,
-      listbox,
-      option,
-      optionIndicator,
-      valueDisplay,
-      icon,
-      placeholder: placeholderClass,
-    } = dropdownVariants({
-      variant,
-      size,
-      isOpen,
-    });
+  // Get variant classes
+  const { trigger: triggerClass } = dropdownVariants({ variant, size });
+
+  return (
+    <Menu.Trigger
+      ref={ref}
+      className={cn(triggerClass(), className)}
+      {...props}
+    >
+      {children}
+    </Menu.Trigger>
+  );
+});
+
+DropdownTrigger.displayName = "Dropdown.Trigger";
+
+// Dropdown Portal Component
+export interface DropdownPortalProps extends React.ComponentProps<
+  typeof Menu.Portal
+> {}
+
+const DropdownPortal = Menu.Portal;
+
+DropdownPortal.displayName = "Dropdown.Portal";
+
+// Dropdown Positioner Component
+export interface DropdownPositionerProps extends React.ComponentProps<
+  typeof Menu.Positioner
+> {
+  className?: string;
+}
+
+const DropdownPositioner = React.forwardRef<
+  HTMLDivElement,
+  DropdownPositionerProps
+>(({ className, ...props }, ref) => {
+  return <Menu.Positioner ref={ref} className={className} {...props} />;
+});
+
+DropdownPositioner.displayName = "Dropdown.Positioner";
+
+// Dropdown Popup Component
+export interface DropdownPopupProps
+  extends
+    React.ComponentProps<typeof Menu.Popup>,
+    Pick<DropdownVariants, "size"> {
+  className?: string;
+}
+
+const DropdownPopup = React.forwardRef<HTMLDivElement, DropdownPopupProps>(
+  ({ className, size, ...props }, ref) => {
+    const { popup: popupClass } = dropdownVariants({ size });
 
     return (
-      <Menu.Root open={isOpen} onOpenChange={setIsOpen}>
-        <Menu.Trigger
-          ref={ref}
-          className={cn(trigger(), className)}
-          disabled={disabled}
-        >
-          <span
-            className={cn(
-              valueDisplay(),
-              !selectedOption && placeholderClass(),
-            )}
-          >
-            {selectedOption ? selectedOption.label : placeholder}
-          </span>
-          <ChevronDown className={icon()} />
-        </Menu.Trigger>
-
-        <Menu.Portal>
-          <Menu.Positioner sideOffset={5}>
-            <Menu.Popup className={listbox()}>
-              {options.map((opt) => (
-                <Menu.Item
-                  key={opt.value}
-                  disabled={opt.disabled}
-                  className={option()}
-                  onClick={() => handleItemClick(opt.value)}
-                >
-                  <span className="flex-1">{opt.label}</span>
-                  {currentValue === opt.value && (
-                    <span className={optionIndicator()}>
-                      <Check className="h-4 w-4" />
-                    </span>
-                  )}
-                </Menu.Item>
-              ))}
-            </Menu.Popup>
-          </Menu.Positioner>
-        </Menu.Portal>
-      </Menu.Root>
+      <Menu.Popup
+        ref={ref}
+        className={cn(popupClass(), className)}
+        {...props}
+      />
     );
   },
 );
 
-Dropdown.displayName = "Dropdown";
+DropdownPopup.displayName = "Dropdown.Popup";
+
+// Dropdown Item Component
+export interface DropdownItemProps
+  extends
+    React.ComponentProps<typeof Menu.Item>,
+    Pick<DropdownVariants, "size"> {
+  className?: string;
+  /**
+   * Whether to show a check indicator when selected
+   */
+  showIndicator?: boolean;
+  /**
+   * Whether this item is selected
+   */
+  selected?: boolean;
+}
+
+const DropdownItem = React.forwardRef<HTMLDivElement, DropdownItemProps>(
+  (
+    {
+      className,
+      size,
+      showIndicator = false,
+      selected = false,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const { item: itemClass } = dropdownVariants({ size });
+
+    return (
+      <Menu.Item ref={ref} className={cn(itemClass(), className)} {...props}>
+        {children}
+      </Menu.Item>
+    );
+  },
+);
+
+DropdownItem.displayName = "Dropdown.Item";
+
+// Dropdown Item Indicator Component (for check marks, etc.)
+export interface DropdownItemIndicatorProps extends React.HTMLAttributes<HTMLSpanElement> {
+  className?: string;
+}
+
+const DropdownItemIndicator = React.forwardRef<
+  HTMLSpanElement,
+  DropdownItemIndicatorProps
+>(({ className, children, ...props }, ref) => {
+  return (
+    <span ref={ref} className={cn(itemIndicator(), className)} {...props}>
+      {children}
+    </span>
+  );
+});
+
+DropdownItemIndicator.displayName = "Dropdown.ItemIndicator";
+
+// Attach subcomponents
+const DropdownWithSubcomponents = Object.assign(DropdownRoot, {
+  Trigger: DropdownTrigger,
+  Portal: DropdownPortal,
+  Positioner: DropdownPositioner,
+  Popup: DropdownPopup,
+  Item: DropdownItem,
+  ItemIndicator: DropdownItemIndicator,
+});
+
+export { DropdownWithSubcomponents as Dropdown };
