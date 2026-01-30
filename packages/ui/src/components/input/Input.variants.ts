@@ -21,7 +21,7 @@ export const inputVariants = tv({
     variant: {
       bordered: {
         input: [
-          "border border-border bg-background",
+          "border border-border-2 bg-background",
           "focus-visible:ring-primary",
         ],
       },

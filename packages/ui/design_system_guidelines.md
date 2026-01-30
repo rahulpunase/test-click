@@ -62,7 +62,7 @@ We define semantic colors that automatically adapt to light and dark modes. **Al
 - **Text Muted**: `text-text-muted` - Secondary/subtle text (metadata, placeholders)
 - **Background**: `bg-background` - Page and main container backgrounds
 - **Background Muted**: `bg-background-muted` - Secondary/subtle backgrounds
-- **Border**: `border-border` - Default border color (Maps to `var(--color-border)`). Use for inputs, cards, dividers.
+- **Border**: `border-2` - Default border color (Maps to `var(--color-border)`). Use for inputs, cards, dividers.
 - **Muted**: `bg-muted` - Muted background areas
 - **Muted Foreground**: `text-muted-foreground` - Muted foreground text
 
@@ -70,7 +70,7 @@ We define semantic colors that automatically adapt to light and dark modes. **Al
 - **Use semantic color variables**: `bg-primary`, `bg-primary-hover`, etc.
 - **For lighter shades**, use opacity modifiers: `bg-primary/10`, `bg-primary/20`
 - **Use `bg-background` and `text-text-primary` for root elements and cards**
-- **Use `border-border` for all generic borders**
+- **Use `border-2` for all generic borders**
 - **Use `text-text-muted` for secondary text**
 - Always ensure sufficient color contrast (4.5:1 for normal text, 3:1 for large text)
 
@@ -264,7 +264,7 @@ export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
       <div
         ref={ref}
         className={cn(
-          "bg-white dark:bg-neutral-900 border border-border rounded-lg", // Example base styles
+          "bg-white dark:bg-neutral-900 border border-border-2 rounded-lg", // Example base styles
           componentVariants({ variant, size }), 
           className
         )}

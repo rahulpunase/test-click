@@ -67,12 +67,10 @@
   --color-background-hover: var(--color-neutral-100);
 
   /* border colors */
-  --color-border: var(--color-gray-300);
-  --color-border-2: var(--color-gray-400);
-  --color-border-hover: var(--color-gray-400);
-  --color-border-hover-2: var(--color-gray-500);
-  --color-border-active: var(--color-gray-500);
-  --color-border-light: var(--color-gray-200);
+  --color-border-1: var(--color-gray-200);
+  --color-border-2: var(--color-gray-300);
+  --color-border-3: var(--color-gray-400);
+  --color-border-4: var(--color-gray-500);
 
   /* muted colors */
   --color-muted: var(--color-neutral-100);

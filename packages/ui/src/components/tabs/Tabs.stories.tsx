@@ -63,7 +63,7 @@ export const WithIcons: Story = {
       </Tabs.List>
       <Tabs.Content
         value="account"
-        className="p-4 border border-border rounded-md mt-2"
+        className="p-4 border border-2 rounded-md mt-2"
       >
         Account settings.
       </Tabs.Content>
