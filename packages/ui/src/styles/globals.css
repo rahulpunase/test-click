@@ -39,6 +39,7 @@
   --color-success-disabled: var(--color-emerald-100);
 
   /* Error colors */
+  --color-error-light: var(--color-rose-200);
   --color-error: var(--color-rose-500);
   --color-error-hover: var(--color-rose-600);
   --color-error-active: var(--color-rose-700);
@@ -67,6 +68,10 @@
 
   /* border colors */
   --color-border: var(--color-gray-300);
+  --color-border-2: var(--color-gray-400);
+  --color-border-hover: var(--color-gray-400);
+  --color-border-hover-2: var(--color-gray-500);
+  --color-border-active: var(--color-gray-500);
   --color-border-light: var(--color-gray-200);
 
   /* muted colors */

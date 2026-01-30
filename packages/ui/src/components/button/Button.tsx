@@ -1,6 +1,6 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { type LucideIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { buttonVariants, type ButtonVariants } from "./Button.variants";
 
 export interface ButtonProps

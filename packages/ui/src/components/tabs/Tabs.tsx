@@ -2,7 +2,7 @@ import * as React from "react";
 import { Tabs as BaseTabs } from "@base-ui/react/tabs";
 import type { TabsTabProps } from "@base-ui/react/tabs";
 import { tabsVariants } from "./Tabs.variants";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 const {
   root,

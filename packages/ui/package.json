@@ -9,6 +9,7 @@
     "./button/*": "./src/components/button/*.tsx",
     "./card/*": "./src/components/card/*.tsx",
     "./dropdown/*": "./src/components/dropdown/*.tsx",
+    "./input/*": "./src/components/input/*.tsx",
     "./tabs/*": "./src/components/tabs/*.tsx",
     "./styles/globals.css": "./src/styles/globals.css"
   },
@@ -50,11 +51,15 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-slot": "^1.2.4",
     "clsx": "^2.1.1",
     "lucide-react": "^0.469.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-hook-form": "^7.71.1",
     "tailwind-merge": "^2.5.5",
-    "tailwind-variants": "^0.2.1"
+    "tailwind-variants": "^0.2.1",
+    "zod": "^4.3.6"
   }
 }
