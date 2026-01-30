@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as auth from "../auth.js";
 import type * as sample_mutations from "../sample/mutations.js";
 import type * as sample_queries from "../sample/queries.js";
 import type * as sample_service from "../sample/service.js";
@@ -19,6 +20,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  auth: typeof auth;
   "sample/mutations": typeof sample_mutations;
   "sample/queries": typeof sample_queries;
   "sample/service": typeof sample_service;

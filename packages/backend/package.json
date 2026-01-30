@@ -17,6 +17,8 @@
     "predev": "convex env set CONVEX_DEPLOYMENT dev"
   },
   "dependencies": {
+    "@auth/core": "^0.37.4",
+    "@convex-dev/auth": "^0.0.90",
     "@convex-dev/react-query": "^0.1.0",
     "@tanstack/react-query": "^5.90.20",
     "convex": "^1.18.0"

@@ -1,7 +1,8 @@
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ConvexReactClient } from "convex/react";
 import { ConvexQueryClient } from "@convex-dev/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { useMemo } from "react";
+import { AuthProvider } from "./AuthProvider";
 
 export const BackendProvider = ({
   children,
@@ -41,8 +42,8 @@ export const BackendProvider = ({
   }, [convexUrl]);
 
   return (
-    <ConvexProvider client={convex}>
+    <AuthProvider>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </ConvexProvider>
+    </AuthProvider>
   );
 };

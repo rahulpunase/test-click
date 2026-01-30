@@ -1,4 +1,5 @@
 import { defineSchema, defineTable } from "convex/server";
+import { authTables } from "@convex-dev/auth/server";
 import { v } from "convex/values";
 
 /**
@@ -14,6 +15,7 @@ import { v } from "convex/values";
  * }),
  */
 export default defineSchema({
+  ...authTables,
   sample: defineTable({
     name: v.string(),
     dob: v.string(), // Date of birth stored as ISO string
