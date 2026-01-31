@@ -11,8 +11,6 @@ export const BackendProvider = ({
 }) => {
   const convexUrl = import.meta.env.VITE_CONVEX_URL;
 
-  console.log({ convexUrl });
-
   if (!convexUrl) {
     throw new Error(
       "Missing VITE_CONVEX_URL environment variable. " +

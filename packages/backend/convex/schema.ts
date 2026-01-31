@@ -21,4 +21,19 @@ export default defineSchema({
     dob: v.string(), // Date of birth stored as ISO string
     gender: v.string(),
   }),
+
+  organizations: defineTable({
+    name: v.string(),
+    slug: v.string(),
+    logoId: v.optional(v.id("_storage")),
+  }).index("by_slug", ["slug"]),
+
+  members: defineTable({
+    userId: v.id("users"),
+    organizationId: v.id("organizations"),
+    role: v.union(v.literal("admin"), v.literal("member")),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_organizationId", ["organizationId"])
+    .index("by_organizationId_and_userId", ["organizationId", "userId"]),
 });

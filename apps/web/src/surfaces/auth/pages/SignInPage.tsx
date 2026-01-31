@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Card, Form, Input } from "@repo/ui";
+import { Chrome, User } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { User } from "lucide-react";
+import { useAppAuthActions } from "@/common/hooks/authHooks/useAppAuthActions";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -14,6 +15,8 @@ const schema = z.object({
 type SignInFormValues = z.infer<typeof schema>;
 
 export const SignInPage = () => {
+  const { signInWithGoogle, signInWithPassword } = useAppAuthActions();
+
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -23,12 +26,25 @@ export const SignInPage = () => {
   });
 
   const onSubmit = (data: SignInFormValues) => {
-    console.log("Login data:", data);
-    // TODO: Implement actual login logic
+    signInWithPassword(data.email, data.password);
+  };
+
+  const onGoogleClick = () => {
+    signInWithGoogle();
   };
 
   return (
-    <div className="flex h-full w-full items-center justify-center p-4">
+    <div className="flex h-full w-full flex-col items-center justify-center p-4 gap-4">
+      <Button
+        variant="outlined"
+        color="tertiary"
+        className="w-full max-w-md bg-white/50 backdrop-blur-sm"
+        onClick={onGoogleClick}
+      >
+        <Chrome className="w-4 h-4 mr-2" />
+        Continue with Google
+      </Button>
+
       <Card className="w-full max-w-md">
         <Card.Header title="Login" className="text-center" icon={<User />} />
         <Card.Content>

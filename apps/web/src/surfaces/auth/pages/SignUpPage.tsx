@@ -3,7 +3,7 @@ import { Button, Card, Form, Input } from "@repo/ui";
 import { Chrome } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useAuthActions } from "@repo/backend";
+import { useAppAuthActions } from "@/common/hooks/authHooks/useAppAuthActions";
 
 const schema = z.object({
   fullName: z
@@ -18,7 +18,7 @@ const schema = z.object({
 type SignUpFormValues = z.infer<typeof schema>;
 
 export const SignUpPage = () => {
-  const { signIn } = useAuthActions();
+  const { signInWithGoogle, signInWithPassword } = useAppAuthActions();
 
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(schema),
@@ -30,16 +30,11 @@ export const SignUpPage = () => {
   });
 
   const onSubmit = (data: SignUpFormValues) => {
-    console.log("Register data:", data);
-    // signIn("google", {
-    //   email: data.workEmail,
-    //   password: data.password,
-    // });
-    // TODO: Implement actual register logic
+    signInWithPassword(data.workEmail, data.password);
   };
 
   const onGoogleClick = () => {
-    signIn("google");
+    signInWithGoogle();
   };
 
   return (

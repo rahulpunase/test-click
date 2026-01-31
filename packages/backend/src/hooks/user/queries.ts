@@ -23,3 +23,13 @@ export const useGetCurrentUser = () => {
   );
   return { data, isPending, error };
 };
+
+/**
+ * Hook to get the current user's identity from the auth provider
+ */
+export const useGetIdentity = () => {
+  const { data, isPending, error } = useQuery(
+    convexQuery(api.user.queries.getIdentity, {}),
+  );
+  return { data, isPending, error };
+};

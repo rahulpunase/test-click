@@ -2,14 +2,14 @@ import type { RouteObject } from "react-router";
 
 export const authRoutes: RouteObject[] = [
   {
-    path: "login",
+    path: "signin",
     lazy: async () => {
       const { SignInPage } = await import("./pages/SignInPage");
       return { Component: SignInPage };
     },
   },
   {
-    path: "register",
+    path: "signup",
     lazy: async () => {
       const { SignUpPage } = await import("./pages/SignUpPage");
       return { Component: SignUpPage };

@@ -24,3 +24,10 @@ export const getCurrentUser = query({
     return currentUser;
   },
 });
+
+export const getIdentity = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.auth.getUserIdentity();
+  },
+});

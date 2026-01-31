@@ -12,7 +12,7 @@ export const AuthenticatedLayout = () => {
   useEffect(() => {
     // If not in pending state and either token is missing or user fetch returned null, redirect to login
     if (!isPending && (!token || user === null)) {
-      navigate("/login");
+      navigate("/signin");
     }
   }, [token, user, isPending, navigate]);
 
