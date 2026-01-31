@@ -6,10 +6,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./sample/queries": "./src/hooks/sample/queries.ts",
-    "./sample/mutations": "./src/hooks/sample/mutations.ts",
-    "./schema": "./convex/schema.ts",
-    "./_generated/api": "./convex/_generated/api.d.ts",
-    "./_generated/server": "./convex/_generated/server.d.ts"
+    "./sample/mutations": "./src/hooks/sample/mutations.ts"
   },
   "scripts": {
     "dev": "convex dev",

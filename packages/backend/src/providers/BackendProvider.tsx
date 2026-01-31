@@ -11,6 +11,8 @@ export const BackendProvider = ({
 }) => {
   const convexUrl = import.meta.env.VITE_CONVEX_URL;
 
+  console.log({ convexUrl });
+
   if (!convexUrl) {
     throw new Error(
       "Missing VITE_CONVEX_URL environment variable. " +
@@ -21,7 +23,9 @@ export const BackendProvider = ({
   // Create Convex client and TanStack Query clients
   // Using useMemo to ensure they're only created once per provider instance
   const { queryClient } = useMemo(() => {
-    const convexClient = new ConvexReactClient(convexUrl as string);
+    const convexClient = new ConvexReactClient(convexUrl as string, {
+      verbose: true,
+    });
     const convexQueryClient = new ConvexQueryClient(convexClient);
     const tanstackQueryClient = new QueryClient({
       defaultOptions: {

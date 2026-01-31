@@ -1,6 +1,7 @@
 import { query } from "../_generated/server";
 import { v } from "convex/values";
 import * as service from "./service";
+import { getAuthUserId } from "@convex-dev/auth/server";
 
 /**
  * Get all sample records
@@ -8,7 +9,15 @@ import * as service from "./service";
 export const getAll = query({
   args: {},
   handler: async (ctx) => {
-    return await service.getAllSamples(ctx);
+    const identity = await ctx.auth.getUserIdentity();
+    console.log({ identity });
+
+    const userId = await getAuthUserId(ctx);
+    console.log({ userId });
+    return {
+      identity,
+      userId,
+    };
   },
 });
 
