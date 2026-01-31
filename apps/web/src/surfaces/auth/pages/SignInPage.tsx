@@ -1,0 +1,85 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Card, Form, Input } from "@repo/ui";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { User } from "lucide-react";
+
+const schema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" }),
+});
+
+type SignInFormValues = z.infer<typeof schema>;
+
+export const SignInPage = () => {
+  const form = useForm<SignInFormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data: SignInFormValues) => {
+    console.log("Login data:", data);
+    // TODO: Implement actual login logic
+  };
+
+  return (
+    <div className="flex h-full w-full items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <Card.Header title="Login" className="text-center" icon={<User />} />
+        <Card.Content>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col gap-4"
+            >
+              <Form.Controller
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <Form.Controller.Item>
+                    <Form.Controller.Label>Email</Form.Controller.Label>
+                    <Form.Controller.Field>
+                      <Input
+                        placeholder="m@example.com"
+                        type="email"
+                        {...field}
+                      />
+                    </Form.Controller.Field>
+                    <Form.Controller.Message />
+                  </Form.Controller.Item>
+                )}
+              />
+
+              <Form.Controller
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <Form.Controller.Item>
+                    <Form.Controller.Label>Password</Form.Controller.Label>
+                    <Form.Controller.Field>
+                      <Input
+                        placeholder="••••••••"
+                        type="password"
+                        {...field}
+                      />
+                    </Form.Controller.Field>
+                    <Form.Controller.Message />
+                  </Form.Controller.Item>
+                )}
+              />
+
+              <Button type="submit" className="w-full mt-2" size="lg">
+                Sign In
+              </Button>
+            </form>
+          </Form>
+        </Card.Content>
+      </Card>
+    </div>
+  );
+};

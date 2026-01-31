@@ -8,15 +8,15 @@ export const authRoutes: RouteObject[] = [
       {
         path: "login",
         lazy: async () => {
-          const { LoginPage } = await import("./pages/LoginPage");
-          return { Component: LoginPage };
+          const { SignInPage } = await import("./pages/SignInPage");
+          return { Component: SignInPage };
         },
       },
       {
         path: "register",
         lazy: async () => {
-          const { RegisterPage } = await import("./pages/RegisterPage");
-          return { Component: RegisterPage };
+          const { SignUpPage } = await import("./pages/SignUpPage");
+          return { Component: SignUpPage };
         },
       },
       {
