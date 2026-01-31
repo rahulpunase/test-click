@@ -204,7 +204,6 @@ When creating a new component, you must update `package.json` to expose the comp
 ```json
 {
   "exports": {
-    "./component-name/*": "./src/components/component-name/*.tsx",
     "./styles": "./src/styles/globals.css"
   }
 }

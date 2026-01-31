@@ -1,25 +1,33 @@
-import { Outlet } from "react-router";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router";
+import { useAuthToken } from "@repo/backend";
+import { useFetchCurrentUser } from "@repo/backend/user/queries";
+import { LoadingScreen } from "../components/LoadingScreen";
 
 export const AuthenticatedLayout = () => {
-  // TODO: Add auth check logic here or in a wrapper
+  const navigate = useNavigate();
+  const token = useAuthToken();
+  const { data: user, isPending } = useFetchCurrentUser();
+
+  useEffect(() => {
+    // If not in pending state and either token is missing or user fetch returned null, redirect to login
+    if (!isPending && (!token || user === null)) {
+      navigate("/login");
+    }
+  }, [token, user, isPending, navigate]);
+
+  if (isPending) {
+    return <LoadingScreen />;
+  }
+
+  // Double check to avoid flash of content if useEffect hasn't fired yet
+  // If we settled (not pending) and don't have user/token, we render null (or loading) while redirect happens
+  if (!token || user === null) {
+    return <LoadingScreen />;
+  }
   return (
-    <div className="min-h-screen bg-background text-foreground flex">
-      {/* Placeholder for Sidebar */}
-      <aside className="w-64 border-r border-2 p-4 hidden md:block">
-        <h2 className="text-xl font-bold mb-4">Dashboard</h2>
-        <nav>{/* nav items */}</nav>
-      </aside>
-
-      <div className="flex-1 flex flex-col">
-        {/* Placeholder for Header */}
-        <header className="h-14 border-b border-2 flex items-center px-4">
-          <span className="font-medium">Header</span>
-        </header>
-
-        <main className="flex-1 p-6">
-          <Outlet />
-        </main>
-      </div>
-    </div>
+    <main className="flex-1">
+      <Outlet />
+    </main>
   );
 };

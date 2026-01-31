@@ -1,13 +1,28 @@
 import { createBrowserRouter, type RouteObject } from "react-router";
 import { authRoutes } from "@/surfaces/auth/routes";
 import { homeRoutes } from "@/surfaces/home/routes";
+import { AuthenticatedLayout } from "../layouts/AuthenticatedLayout";
+import { MainLayout } from "../layouts/MainLayout";
+import { PublicLayout } from "../layouts/PublicLayout";
 
 const routes: RouteObject[] = [
-  // Auth Routes
-  ...authRoutes,
+  // Auth Layout
+  {
+    element: <PublicLayout />,
+    children: [...authRoutes],
+  },
 
-  // Home Routes
-  ...homeRoutes,
+  // Authenticated + Main Layout
+  {
+    path: "/",
+    element: <AuthenticatedLayout />,
+    children: [
+      {
+        element: <MainLayout />,
+        children: [...homeRoutes],
+      },
+    ],
+  },
 
   // 404 Fallback
   {
