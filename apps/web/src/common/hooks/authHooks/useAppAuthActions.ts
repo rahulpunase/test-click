@@ -6,22 +6,41 @@ export const useAppAuthActions = () => {
   const { signIn, signOut: signOutFromApp } = useAuthActions();
 
   const signUpWithGoogle = () => {
-    signIn("google", {
+    return signIn("google", {
       redirectTo: redirectUrl,
     });
   };
 
   const signInWithGoogle = () => {
-    signIn("google", {
+    return signIn("google", {
       redirectTo: redirectUrl,
     });
   };
 
   const signInWithPassword = (email: string, password: string) => {
-    signIn("password", {
+    return signIn("password", {
       email,
       password,
       redirectTo: redirectUrl,
+      flow: "signIn",
+    });
+  };
+
+  const signUpWithPassword = ({
+    email,
+    password,
+    fullName,
+  }: {
+    email: string;
+    password: string;
+    fullName: string;
+  }) => {
+    return signIn("password", {
+      email,
+      password,
+      fullName,
+      redirectTo: redirectUrl,
+      flow: "signUp",
     });
   };
 
@@ -33,6 +52,7 @@ export const useAppAuthActions = () => {
     signUpWithGoogle,
     signInWithGoogle,
     signInWithPassword,
+    signUpWithPassword,
     signOut,
   };
 };

@@ -18,3 +18,13 @@ export const fetchCurrentUser = async (ctx: QueryCtx) => {
 
   return user;
 };
+
+/**
+ * Fetch the current user by the email
+ */
+export const findUserByEmail = async (ctx: QueryCtx, email: string) => {
+  return await ctx.db
+    .query("users")
+    .filter((q) => q.eq(q.field("email"), email))
+    .first();
+};

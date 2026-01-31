@@ -4,6 +4,8 @@ import { Chrome, User } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAppAuthActions } from "@/common/hooks/authHooks/useAppAuthActions";
+import { useState } from "react";
+import { ConvexError } from "@repo/backend";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -16,6 +18,7 @@ type SignInFormValues = z.infer<typeof schema>;
 
 export const SignInPage = () => {
   const { signInWithGoogle, signInWithPassword } = useAppAuthActions();
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(schema),
@@ -25,8 +28,23 @@ export const SignInPage = () => {
     },
   });
 
-  const onSubmit = (data: SignInFormValues) => {
-    signInWithPassword(data.email, data.password);
+  const onSubmit = async (data: SignInFormValues) => {
+    setError(null);
+    try {
+      await signInWithPassword(data.email, data.password);
+    } catch (error) {
+      const errorMessage =
+        // Check whether the error is an application error
+        error instanceof ConvexError
+          ? // Access data and cast it to the type we expect
+            (error.data as { message: string }).message
+          : // Must be some developer error,
+            // and prod deployments will not
+            // reveal any more information about it
+            // to the client
+            "Unexpected error occurred";
+      setError(errorMessage);
+    }
   };
 
   const onGoogleClick = () => {
@@ -52,6 +70,8 @@ export const SignInPage = () => {
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-4"
+              autoComplete="on"
+              name="signin"
             >
               <Form.Controller
                 control={form.control}
@@ -64,6 +84,7 @@ export const SignInPage = () => {
                         placeholder="m@example.com"
                         type="email"
                         {...field}
+                        autoComplete="email"
                       />
                     </Form.Controller.Field>
                     <Form.Controller.Message />
@@ -82,6 +103,7 @@ export const SignInPage = () => {
                         placeholder="••••••••"
                         type="password"
                         {...field}
+                        autoComplete="password"
                       />
                     </Form.Controller.Field>
                     <Form.Controller.Message />

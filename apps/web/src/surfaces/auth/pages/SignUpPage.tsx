@@ -18,7 +18,7 @@ const schema = z.object({
 type SignUpFormValues = z.infer<typeof schema>;
 
 export const SignUpPage = () => {
-  const { signInWithGoogle, signInWithPassword } = useAppAuthActions();
+  const { signInWithGoogle, signUpWithPassword } = useAppAuthActions();
 
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(schema),
@@ -30,7 +30,15 @@ export const SignUpPage = () => {
   });
 
   const onSubmit = (data: SignUpFormValues) => {
-    signInWithPassword(data.workEmail, data.password);
+    try {
+      signUpWithPassword({
+        email: data.workEmail,
+        password: data.password,
+        fullName: data.fullName,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onGoogleClick = () => {
@@ -56,6 +64,8 @@ export const SignUpPage = () => {
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-4"
+              name="signup"
+              autoComplete="on"
             >
               <Form.Controller
                 control={form.control}
@@ -64,7 +74,11 @@ export const SignUpPage = () => {
                   <Form.Controller.Item>
                     <Form.Controller.Label>Full Name</Form.Controller.Label>
                     <Form.Controller.Field>
-                      <Input placeholder="John Doe" {...field} />
+                      <Input
+                        placeholder="John Doe"
+                        {...field}
+                        autoComplete="name"
+                      />
                     </Form.Controller.Field>
                     <Form.Controller.Message />
                   </Form.Controller.Item>
@@ -82,6 +96,7 @@ export const SignUpPage = () => {
                         placeholder="name@company.com"
                         type="email"
                         {...field}
+                        autoComplete="email"
                       />
                     </Form.Controller.Field>
                     <Form.Controller.Message />
@@ -100,6 +115,7 @@ export const SignUpPage = () => {
                         placeholder="••••••••"
                         type="password"
                         {...field}
+                        autoComplete="new-password"
                       />
                     </Form.Controller.Field>
                     <Form.Controller.Message />
