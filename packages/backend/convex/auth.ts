@@ -4,4 +4,5 @@ import Google from "@auth/core/providers/google";
 
 export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
   providers: [Google, Password],
+  callbacks: {},
 });

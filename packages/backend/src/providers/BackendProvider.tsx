@@ -22,7 +22,7 @@ export const BackendProvider = ({
 
   // Create Convex client and TanStack Query clients
   // Using useMemo to ensure they're only created once per provider instance
-  const { queryClient } = useMemo(() => {
+  const { convex, queryClient } = useMemo(() => {
     const convexClient = new ConvexReactClient(convexUrl as string, {
       verbose: true,
     });
@@ -46,7 +46,7 @@ export const BackendProvider = ({
   }, [convexUrl]);
 
   return (
-    <AuthProvider>
+    <AuthProvider client={convex}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </AuthProvider>
   );

@@ -6,7 +6,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./sample/queries": "./src/hooks/sample/queries.ts",
-    "./sample/mutations": "./src/hooks/sample/mutations.ts"
+    "./sample/mutations": "./src/hooks/sample/mutations.ts",
+    "./user/queries": "./src/hooks/user/queries.ts",
+    "./user/mutations": "./src/hooks/user/mutations.ts"
   },
   "scripts": {
     "dev": "convex dev",
@@ -18,7 +20,8 @@
     "@convex-dev/auth": "^0.0.90",
     "@convex-dev/react-query": "^0.1.0",
     "@tanstack/react-query": "^5.90.20",
-    "convex": "^1.18.0"
+    "convex": "^1.18.0",
+    "convex-helpers": "^0.1.111"
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
