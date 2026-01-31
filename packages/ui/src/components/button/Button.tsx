@@ -1,5 +1,5 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
-import { type LucideIcon } from "lucide-react";
+import { Loader2, type LucideIcon } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { buttonVariants, type ButtonVariants } from "./Button.variants";
 
@@ -19,6 +19,10 @@ export interface ButtonProps
    * Button content
    */
   children?: React.ReactNode;
+  /**
+   * If true, shows a loading spinner and disables the button
+   */
+  loading?: boolean;
 }
 
 /**
@@ -43,6 +47,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       icon: Icon,
       className,
       children,
+      loading,
+      disabled,
       ...props
     },
     ref,
@@ -51,10 +57,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(buttonVariants({ variant, color, size }), className)}
+        disabled={loading || disabled}
         {...props}
       >
-        {Icon && <Icon className="h-4 w-4" />}
-        {children}
+        {loading ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : (
+          <>
+            {Icon && <Icon className="h-4 w-4" />}
+            {children}
+          </>
+        )}
       </button>
     );
   },

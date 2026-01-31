@@ -1,10 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Card, Form, Input } from "@repo/ui";
 import { Chrome, User } from "lucide-react";
+import { AuthLayout } from "../components/AuthLayout";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAppAuthActions } from "@/common/hooks/authHooks/useAppAuthActions";
 import { useState } from "react";
+import { Link } from "react-router";
 import { ConvexError } from "@repo/backend";
 
 const schema = z.object({
@@ -18,6 +20,7 @@ type SignInFormValues = z.infer<typeof schema>;
 
 export const SignInPage = () => {
   const { signInWithGoogle, signInWithPassword } = useAppAuthActions();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const form = useForm<SignInFormValues>({
@@ -30,6 +33,7 @@ export const SignInPage = () => {
 
   const onSubmit = async (data: SignInFormValues) => {
     setError(null);
+    setLoading(true);
     try {
       await signInWithPassword(data.email, data.password);
     } catch (error) {
@@ -44,6 +48,8 @@ export const SignInPage = () => {
             // to the client
             "Unexpected error occurred";
       setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,12 +58,13 @@ export const SignInPage = () => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center p-4 gap-4">
+    <AuthLayout>
       <Button
         variant="outlined"
         color="tertiary"
         className="w-full max-w-md bg-white/50 backdrop-blur-sm"
         onClick={onGoogleClick}
+        disabled={loading}
       >
         <Chrome className="w-4 h-4 mr-2" />
         Continue with Google
@@ -111,13 +118,23 @@ export const SignInPage = () => {
                 )}
               />
 
-              <Button type="submit" className="w-full mt-2" size="lg">
+              <Button
+                type="submit"
+                className="w-full mt-2"
+                size="lg"
+                loading={loading}
+              >
                 Sign In
               </Button>
+              <div className="text-center text-sm mt-2">
+                <Link to="/signup" className="hover:underline">
+                  Create account to get started?
+                </Link>
+              </div>
             </form>
           </Form>
         </Card.Content>
       </Card>
-    </div>
+    </AuthLayout>
   );
 };

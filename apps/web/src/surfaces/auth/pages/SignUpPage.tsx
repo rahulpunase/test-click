@@ -1,8 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ConvexError } from "@repo/backend";
 import { Button, Card, Form, Input } from "@repo/ui";
 import { Chrome } from "lucide-react";
+import { useState } from "react";
+import { AuthLayout } from "../components/AuthLayout";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Link } from "react-router";
 import { useAppAuthActions } from "@/common/hooks/authHooks/useAppAuthActions";
 
 const schema = z.object({
@@ -19,6 +23,8 @@ type SignUpFormValues = z.infer<typeof schema>;
 
 export const SignUpPage = () => {
   const { signInWithGoogle, signUpWithPassword } = useAppAuthActions();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(schema),
@@ -29,15 +35,29 @@ export const SignUpPage = () => {
     },
   });
 
-  const onSubmit = (data: SignUpFormValues) => {
+  const onSubmit = async (data: SignUpFormValues) => {
+    setError(null);
+    setLoading(true);
     try {
-      signUpWithPassword({
+      await signUpWithPassword({
         email: data.workEmail,
         password: data.password,
         fullName: data.fullName,
       });
     } catch (error) {
-      console.log(error);
+      const errorMessage =
+        // Check whether the error is an application error
+        error instanceof ConvexError
+          ? // Access data and cast it to the type we expect
+            (error.data as { message: string }).message
+          : // Must be some developer error,
+            // and prod deployments will not
+            // reveal any more information about it
+            // to the client
+            "Unexpected error occurred";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,12 +66,13 @@ export const SignUpPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full p-4 gap-4">
+    <AuthLayout>
       <Button
         variant="outlined"
         color="tertiary"
         className="w-full max-w-md bg-white/50 backdrop-blur-sm"
         onClick={onGoogleClick}
+        disabled={loading}
       >
         <Chrome className="w-4 h-4 mr-2" />
         Continue with Google
@@ -123,13 +144,23 @@ export const SignUpPage = () => {
                 )}
               />
 
-              <Button type="submit" className="w-full mt-2" size="lg">
+              <Button
+                type="submit"
+                className="w-full mt-2"
+                size="lg"
+                loading={loading}
+              >
                 Sign Up
               </Button>
+              <div className="text-center text-sm mt-2">
+                <Link to="/signin" className="hover:underline">
+                  Already have an account? Sign In
+                </Link>
+              </div>
             </form>
           </Form>
         </Card.Content>
       </Card>
-    </div>
+    </AuthLayout>
   );
 };

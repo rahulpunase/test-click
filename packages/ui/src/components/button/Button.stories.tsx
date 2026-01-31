@@ -33,6 +33,10 @@ const meta: Meta<typeof Button> = {
       control: "boolean",
       description: "Disable the button",
     },
+    loading: {
+      control: "boolean",
+      description: "Show loading spinner",
+    },
   },
 };
 
@@ -197,6 +201,23 @@ export const Disabled: Story = {
       </Button>
       <Button disabled variant="outlined" color="primary" icon={Plus}>
         Outlined Disabled
+      </Button>
+    </div>
+  ),
+};
+
+// Loading State
+export const Loading: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Button loading variant="solid" color="primary">
+        Solid Loading
+      </Button>
+      <Button loading variant="outlined" color="primary">
+        Outlined Loading
+      </Button>
+      <Button loading variant="ghost" color="primary">
+        Ghost Loading
       </Button>
     </div>
   ),
