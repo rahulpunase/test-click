@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAppAuthActions } from "@/common/hooks/authHooks/useAppAuthActions";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ConvexError } from "@repo/backend";
 
 const schema = z.object({
@@ -22,6 +22,7 @@ export const SignInPage = () => {
   const { signInWithGoogle, signInWithPassword } = useAppAuthActions();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(schema),
@@ -36,12 +37,13 @@ export const SignInPage = () => {
     setLoading(true);
     try {
       await signInWithPassword(data.email, data.password);
-    } catch (error) {
+      navigate("/auth/callback");
+    } catch (err) {
       const errorMessage =
         // Check whether the error is an application error
-        error instanceof ConvexError
+        err instanceof ConvexError
           ? // Access data and cast it to the type we expect
-            (error.data as { message: string }).message
+            (err.data as { message: string }).message
           : // Must be some developer error,
             // and prod deployments will not
             // reveal any more information about it
@@ -117,6 +119,10 @@ export const SignInPage = () => {
                   </Form.Controller.Item>
                 )}
               />
+
+              {error && (
+                <div className="text-red-500 text-sm text-center">{error}</div>
+              )}
 
               <Button
                 type="submit"

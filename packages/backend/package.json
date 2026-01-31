@@ -8,7 +8,8 @@
     "./sample/queries": "./src/hooks/sample/queries.ts",
     "./sample/mutations": "./src/hooks/sample/mutations.ts",
     "./user/queries": "./src/hooks/user/queries.ts",
-    "./user/mutations": "./src/hooks/user/mutations.ts"
+    "./user/mutations": "./src/hooks/user/mutations.ts",
+    "./organizations/queries": "./src/hooks/organizations/queries.ts"
   },
   "scripts": {
     "dev": "convex dev",

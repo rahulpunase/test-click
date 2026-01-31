@@ -1,10 +1,12 @@
 import { createBrowserRouter, type RouteObject } from "react-router";
 import { authRoutes } from "@/surfaces/auth/routes";
 import { homeRoutes } from "@/surfaces/home/routes";
+import { onboardingRoutes } from "@/surfaces/onboarding/routes";
 import { AuthenticatedLayout } from "../layouts/AuthenticatedLayout";
 import { MainLayout } from "../layouts/MainLayout";
 import { PublicLayout } from "../layouts/PublicLayout";
 import { LoginCallback } from "@/surfaces/auth/pages/LoginCallback";
+import { WithOrganizationLayout } from "../layouts/WithOrganizationLayout";
 
 const routes: RouteObject[] = [
   {
@@ -23,9 +25,16 @@ const routes: RouteObject[] = [
     element: <AuthenticatedLayout />,
     children: [
       {
-        element: <MainLayout />,
-        children: [...homeRoutes],
+        element: <WithOrganizationLayout />,
+        children: [
+          {
+            element: <MainLayout />,
+            children: [...homeRoutes],
+          },
+        ],
       },
+      // allowed to see these pages even if user have organization
+      ...onboardingRoutes,
     ],
   },
 
