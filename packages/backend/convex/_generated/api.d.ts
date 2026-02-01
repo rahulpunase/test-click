@@ -10,11 +10,15 @@
 
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
+import type * as members_mutations from "../members/mutations.js";
+import type * as members_queries from "../members/queries.js";
+import type * as members_service from "../members/service.js";
 import type * as sample_mutations from "../sample/mutations.js";
 import type * as sample_queries from "../sample/queries.js";
 import type * as sample_service from "../sample/service.js";
 import type * as user_queries from "../user/queries.js";
 import type * as user_service from "../user/service.js";
+import type * as workspaces_mutations from "../workspaces/mutations.js";
 import type * as workspaces_queries from "../workspaces/queries.js";
 import type * as workspaces_service from "../workspaces/service.js";
 
@@ -27,11 +31,15 @@ import type {
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
+  "members/mutations": typeof members_mutations;
+  "members/queries": typeof members_queries;
+  "members/service": typeof members_service;
   "sample/mutations": typeof sample_mutations;
   "sample/queries": typeof sample_queries;
   "sample/service": typeof sample_service;
   "user/queries": typeof user_queries;
   "user/service": typeof user_service;
+  "workspaces/mutations": typeof workspaces_mutations;
   "workspaces/queries": typeof workspaces_queries;
   "workspaces/service": typeof workspaces_service;
 }>;

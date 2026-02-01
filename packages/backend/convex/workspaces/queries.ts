@@ -1,9 +1,9 @@
+import { v } from "convex/values";
 import { query } from "../_generated/server";
-import { fetchUserMemberships as fetchUserMembershipsService } from "./service";
 
-export const fetchUserMemberships = query({
-  args: {},
-  handler: async (ctx) => {
-    return await fetchUserMembershipsService(ctx);
+export const getWorkspaceById = query({
+  args: { workspaceId: v.id("workspaces") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.workspaceId);
   },
 });

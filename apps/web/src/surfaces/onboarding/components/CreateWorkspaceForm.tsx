@@ -4,12 +4,19 @@ import { WorkspaceNameStep } from "./WorkspaceNameStep";
 import { ConfirmUserStep } from "./ConfirmUserStep";
 import { InviteUsersStep } from "./InviteUsersStep";
 import { Building2, User, UserPlus } from "lucide-react";
+import type { Id } from "@repo/backend/types";
 
-export const CreateWorkspaceForm = () => {
+interface CreateWorkspaceFormProps {
+  workspaceId: Id<"workspaces">;
+}
+
+export const CreateWorkspaceForm = ({
+  workspaceId,
+}: CreateWorkspaceFormProps) => {
   const [currentTab, setCurrentTab] = useState("workspace-name");
 
   return (
-    <Card className="w-full max-w-lg mx-auto">
+    <Card className="min-w-2xl">
       <Card.Tabs value={currentTab} onValueChange={setCurrentTab}>
         <Card.Header
           title="Create Workspace"
@@ -36,12 +43,16 @@ export const CreateWorkspaceForm = () => {
 
         <Card.Content className="pt-6">
           <Card.Tabs.Content value="workspace-name">
-            <WorkspaceNameStep onNext={() => setCurrentTab("confirm-user")} />
+            <WorkspaceNameStep
+              onNext={() => setCurrentTab("confirm-user")}
+              workspaceId={workspaceId}
+            />
           </Card.Tabs.Content>
           <Card.Tabs.Content value="confirm-user">
             <ConfirmUserStep
               onNext={() => setCurrentTab("invite-users")}
               onBack={() => setCurrentTab("workspace-name")}
+              workspaceId={workspaceId}
             />
           </Card.Tabs.Content>
           <Card.Tabs.Content value="invite-users">

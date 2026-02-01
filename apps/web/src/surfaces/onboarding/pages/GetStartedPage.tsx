@@ -1,24 +1,33 @@
 import { useNavigate } from "react-router";
-import { useFetchUserMemberships } from "@repo/backend/workspaces/queries";
+import { useFetchUserMemberships } from "@repo/backend/members/queries";
 import { WorkspaceList } from "../components/WorkspaceList";
 import { Card } from "@repo/ui";
 import { Building2 } from "lucide-react";
 
+import { useCreateTemporaryWorkspace } from "@repo/backend/workspaces/mutations";
+
 export const GetStartedPage = () => {
   const navigate = useNavigate();
   const { data: memberships, isPending } = useFetchUserMemberships();
+  const { mutateAsync: createTemporaryWorkspace } =
+    useCreateTemporaryWorkspace();
 
-  const handleCreateNew = () => {
-    navigate("/onboarding/create-workspace");
+  const handleCreateNew = async () => {
+    try {
+      const workspaceId = await createTemporaryWorkspace({});
+      navigate(`/onboarding/create-workspace?workspaceId=${workspaceId}`);
+    } catch (error) {
+      console.error("Failed to create temporary workspace:", error);
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
-      <div className="w-full max-w-lg mb-8 text-center">
+      <div className="w-full mb-8 text-center">
         <h1 className="text-3xl font-bold text-text-primary mb-2">Welcome!</h1>
         <p className="text-text-muted">Let's set up your new workspace.</p>
       </div>
-      <Card>
+      <Card className="min-w-2xl">
         <Card.Tabs>
           <Card.Header>
             <Card.Tabs.List>

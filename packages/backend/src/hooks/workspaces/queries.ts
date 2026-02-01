@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { convexQuery } from "@convex-dev/react-query";
 import { api } from "../../../convex/_generated/api";
+import { Id } from "../../types";
 
-export const useFetchUserMemberships = () => {
+export const useGetWorkspaceById = (workspaceId: Id<"workspaces">) => {
   const { data, isPending, error } = useQuery(
-    convexQuery(api.workspaces.queries.fetchUserMemberships, {}),
+    convexQuery(api.workspaces.queries.getWorkspaceById, { workspaceId }),
   );
 
   return { data, isPending, error };

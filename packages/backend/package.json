@@ -10,7 +10,10 @@
     "./sample/mutations": "./src/hooks/sample/mutations.ts",
     "./user/queries": "./src/hooks/user/queries.ts",
     "./user/mutations": "./src/hooks/user/mutations.ts",
-    "./workspaces/queries": "./src/hooks/workspaces/queries.ts"
+    "./workspaces/queries": "./src/hooks/workspaces/queries.ts",
+    "./workspaces/mutations": "./src/hooks/workspaces/mutations.ts",
+    "./members/queries": "./src/hooks/members/queries.ts",
+    "./members/mutations": "./src/hooks/members/mutations.ts"
   },
   "scripts": {
     "dev": "convex dev",

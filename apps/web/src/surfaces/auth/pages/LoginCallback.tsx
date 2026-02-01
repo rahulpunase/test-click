@@ -1,6 +1,6 @@
 import { Navigate } from "react-router";
 import { useFetchCurrentUser } from "@repo/backend/user/queries";
-import { useFetchUserMemberships } from "@repo/backend/workspaces/queries";
+import { useFetchUserMemberships } from "@repo/backend/members/queries";
 import { LoadingScreen } from "@/common/components/LoadingScreen";
 
 export const LoginCallback = () => {
@@ -13,12 +13,12 @@ export const LoginCallback = () => {
   }
 
   if (user === null) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/signin" replace />;
   }
 
   if (memberships === undefined) {
     return <LoadingScreen />;
   }
 
-  return <Navigate to="/onboarding/get-started" />;
+  return <Navigate to="/onboarding/get-started" replace />;
 };

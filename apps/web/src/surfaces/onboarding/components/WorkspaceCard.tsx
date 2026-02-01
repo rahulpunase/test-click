@@ -1,6 +1,7 @@
 import { Card } from "@repo/ui";
 import { ArrowRight, Users } from "lucide-react";
 import type { Doc } from "@repo/backend/types";
+import { useNavigate } from "react-router";
 
 interface WorkspaceCardProps {
   workspace: Doc<"workspaces">;
@@ -13,8 +14,17 @@ export const WorkspaceCard = ({
   memberCount,
   lastActive,
 }: WorkspaceCardProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/${workspace.slug}`);
+  };
+
   return (
-    <Card className="w-full hover:bg-background-hover transition-colors cursor-pointer group">
+    <Card
+      className="w-full hover:bg-background-hover transition-colors cursor-pointer group"
+      onClick={handleClick}
+    >
       <Card.Content className="flex items-center justify-between p-4">
         <div className="flex items-center gap-4">
           <div className="h-12 w-12 rounded-lg bg-linear-to-br from-primary to-primary-hover flex items-center justify-center text-white font-bold text-xl shadow-sm">

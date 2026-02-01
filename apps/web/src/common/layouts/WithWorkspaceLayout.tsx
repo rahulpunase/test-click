@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router";
-import { useFetchUserMemberships } from "@repo/backend/workspaces/queries";
+import { useFetchUserMemberships } from "@repo/backend/members/queries";
 import { LoadingScreen } from "../components/LoadingScreen";
 
 export const WithWorkspaceLayout = () => {
@@ -11,7 +11,7 @@ export const WithWorkspaceLayout = () => {
   }
 
   if (!memberships || memberships.length === 0) {
-    return <Navigate to="/onboarding/create-workspace" />;
+    return <Navigate to="/onboarding/get-started" />;
   }
 
   return <Outlet />;

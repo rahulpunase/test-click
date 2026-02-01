@@ -10,11 +10,12 @@ import { WithWorkspaceLayout } from "../layouts/WithWorkspaceLayout";
 
 const routes: RouteObject[] = [
   {
-    path: "auth/callback",
+    path: "/auth/callback",
     element: <LoginCallback />,
   },
   // Auth Layout
   {
+    path: "/",
     element: <PublicLayout />,
     children: [...authRoutes],
   },
@@ -25,6 +26,7 @@ const routes: RouteObject[] = [
     element: <AuthenticatedLayout />,
     children: [
       {
+        path: "/:workspaceId",
         element: <WithWorkspaceLayout />,
         children: [
           {

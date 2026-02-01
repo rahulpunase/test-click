@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router";
 import { useAuthToken } from "@repo/backend";
 import { useFetchCurrentUser } from "@repo/backend/user/queries";
 import { LoadingScreen } from "../components/LoadingScreen";
+import { LoginCallback } from "@/surfaces/auth/pages/LoginCallback";
 
 export const PublicLayout = () => {
   const navigate = useNavigate();
@@ -12,7 +13,9 @@ export const PublicLayout = () => {
   useEffect(() => {
     // If we have a token and a user is confirmed by the backend, redirect to home
     if (!isPending && token && user) {
-      navigate("/");
+      navigate("/auth/callback", { replace: true });
+    } else if (!isPending && (!token || user === null)) {
+      navigate("/signin", { replace: true });
     }
   }, [token, user, isPending, navigate]);
 
@@ -23,7 +26,7 @@ export const PublicLayout = () => {
   // If we are authenticated (have token and user), we are about to redirect.
   // Don't render the public content (e.g. login form).
   if (token && user) {
-    return <LoadingScreen />;
+    return <LoginCallback />;
   }
 
   return (

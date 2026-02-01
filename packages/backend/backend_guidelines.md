@@ -6,6 +6,9 @@ This guide outlines the standard process for adding new features, schemas, and A
 
 All database tables are defined in [`convex/schema.ts`](file:///packages/backend/convex/schema.ts).
 
+**Important**: Use `convex-helpers` wherever possible in your backend queries and mutations. Evaluate wherever `convex-helpers` can help.
+
+
 When adding a new feature (e.g., "products"), first define its schema:
 
 ```typescript

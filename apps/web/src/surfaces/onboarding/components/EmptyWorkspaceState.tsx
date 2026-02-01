@@ -8,7 +8,7 @@ export const EmptyWorkspaceState = ({
   onCreateNew,
 }: EmptyWorkspaceStateProps) => {
   return (
-    <Card className="w-full">
+    <Card className="w-full bg-background-muted">
       <Card.Content className="flex flex-col items-center justify-center py-12 px-4 text-center">
         {/* Placeholder for an empty state illustration if available, otherwise just text */}
         <h3 className="text-lg font-medium text-text-primary mb-2">
