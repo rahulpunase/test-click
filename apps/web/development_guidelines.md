@@ -22,6 +22,8 @@ import { ComponentName } from "@repo/ui";
 - `Checkbox`
 - `Input`
 - `Form`
+- `List`
+- `Skeleton`
 
 **Utilities:**
 Utilities can be imported from the utils path:

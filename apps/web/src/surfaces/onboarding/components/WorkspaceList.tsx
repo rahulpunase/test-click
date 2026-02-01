@@ -33,17 +33,12 @@ export const WorkspaceList = ({
       </div>
 
       <div className="pt-4 border-t border-border-1 mt-6">
-        <button
-          onClick={onCreateNew}
-          className="text-primary-hover hover:text-primary-active font-medium hover:underline text-sm mb-1"
-        >
+        <a onClick={onCreateNew} className="link text-sm">
           Create a new workspace
-        </button>
+        </a>
         <p className="text-sm text-text-muted">
           Not seeing your workspace?{" "}
-          <button className="text-primary-hover hover:underline">
-            Try a different email address
-          </button>
+          <a className="link">Try a different email address</a>
         </p>
       </div>
     </div>

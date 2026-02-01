@@ -5,7 +5,7 @@ export const dropdownVariants = tv({
     trigger:
       "inline-flex items-center justify-between gap-2 w-full px-3 py-2 h-9 text-sm font-medium transition-all duration-200 rounded-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50",
     popup:
-      "z-50 mt-1 min-w-[8rem] overflow-auto rounded-md bg-white shadow-lg border border-border-2 p-1 outline-none",
+      "z-50 mt-1 min-w-[8rem] overflow-auto rounded-md bg-white shadow-sm border border-border-2 p-1 outline-none",
     item: "relative flex items-center gap-2 px-3 py-2 text-sm rounded cursor-pointer outline-none transition-colors data-[highlighted]:bg-background-hover data-[disabled]:opacity-50 data-[disabled]:pointer-events-none",
     itemIcon:
       "flex items-center justify-center h-4 w-4 text-text-muted group-hover/item:text-text-primary transition-colors",

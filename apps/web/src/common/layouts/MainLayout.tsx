@@ -1,13 +1,11 @@
 import { Outlet } from "react-router";
+import { AppSidebar } from "../components/AppSidebar";
 
 export const MainLayout = () => {
   return (
     <div className="min-h-screen bg-background text-foreground flex">
       {/* Placeholder for Sidebar */}
-      <aside className="w-64 border-r border-border-2 p-4 hidden md:block">
-        <h2 className="text-xl font-bold mb-4">Dashboard</h2>
-        <nav>{/* nav items */}</nav>
-      </aside>
+      <AppSidebar />
 
       <div className="flex-1 flex flex-col">
         {/* Placeholder for Header */}

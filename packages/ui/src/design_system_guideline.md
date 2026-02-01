@@ -2,7 +2,7 @@
 
 ## Overview
 
-This design system provides a comprehensive foundation for building consistent, accessible, and beautiful user interfaces across all applications in the monorepo. It's built on modern web technologies and follows industry best practices.
+This design system provides a comprehensive foundation for building consistent, accessible, and beautiful user interfaces across all applications in the monorepo - packages/ui. It's built on modern web technologies and follows industry best practices.
 
 ## Philosophy
 
@@ -104,6 +104,11 @@ Follow the predefined scale: xs, sm, base, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl
 - **H4**: text-xl, font-semibold
 - **Body**: text-base, font-normal
 - **Small**: text-sm, font-normal
+
+#### Links
+- **Always use the `.link` class** for anchors and button-styled links (`<a>`, `<button>`).
+- The `.link` class applies standard link color and hover states (`text-link`, `hover:text-link-hover`) defined in global styles.
+- Example: `<a className="link" onClick={...}>Create account</a>`
 
 ### Spacing
 
@@ -355,3 +360,6 @@ export type ComponentVariants = VariantProps<typeof componentVariants>
 - Restore focus when closing overlays
 
 ###
+
+
+
