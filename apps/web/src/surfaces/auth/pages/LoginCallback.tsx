@@ -20,9 +20,5 @@ export const LoginCallback = () => {
     return <LoadingScreen />;
   }
 
-  if (memberships.length === 0) {
-    return <Navigate to="/onboarding/create-organization" />;
-  }
-
-  return <Navigate to="/onboarding/choose-organization" />;
+  return <Navigate to="/onboarding/get-started" />;
 };

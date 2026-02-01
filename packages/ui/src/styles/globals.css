@@ -75,6 +75,10 @@
   /* muted colors */
   --color-muted: var(--color-neutral-100);
   --color-muted-foreground: var(--color-neutral-500);
+
+  /* Link colors */
+  --color-link: var(--color-sky-700);
+  --color-link-hover: var(--color-sky-800);
 }
 
 /* CSS Custom Properties for Theme */

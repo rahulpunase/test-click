@@ -62,7 +62,7 @@ We define semantic colors that automatically adapt to light and dark modes. **Al
 - **Text Muted**: `text-text-muted` - Secondary/subtle text (metadata, placeholders)
 - **Background**: `bg-background` - Page and main container backgrounds
 - **Background Muted**: `bg-background-muted` - Secondary/subtle backgrounds
-- **Border**: `border-2` - Default border color (Maps to `var(--color-border)`). Use for inputs, cards, dividers.
+- **Border**: `border-border-2` - Default border color (Maps to `var(--color-border-2)`). Use for inputs, cards, dividers.
 - **Muted**: `bg-muted` - Muted background areas
 - **Muted Foreground**: `text-muted-foreground` - Muted foreground text
 
@@ -70,7 +70,7 @@ We define semantic colors that automatically adapt to light and dark modes. **Al
 - **Use semantic color variables**: `bg-primary`, `bg-primary-hover`, etc.
 - **For lighter shades**, use opacity modifiers: `bg-primary/10`, `bg-primary/20`
 - **Use `bg-background` and `text-text-primary` for root elements and cards**
-- **Use `border-2` for all generic borders**
+- **Use `border-border-2` for all generic borders**
 - **Use `text-text-muted` for secondary text**
 - Always ensure sufficient color contrast (4.5:1 for normal text, 3:1 for large text)
 
@@ -503,7 +503,7 @@ When creating new components:
 ### Component Patterns
 
 #### Simple Components
-Single element components like `Button`, `Badge`, `Avatar`.
+Single element components like `Button`, `Checkbox`, `Input`.
 
 #### Compound Components (Dot Notation)
 For components with distinct related parts (like `AlertDialog`, `Card`, `DropdownMenu`), use the **Compound Component Pattern with Dot Notation**.
@@ -554,6 +554,53 @@ Card.Content = CardContent
 //   <Card.Content>...</Card.Content>
 // </Card>
 ```
+
+---
+
+## Component API Reference
+
+### Compound Components
+Below is a reference of the exposed subcomponents for the compound components in the library. **Only** use these exposed subcomponents.
+
+#### `Card`
+- `Card.Header` (Props: `title?: ReactNode`, `icon?: ReactNode`)
+- `Card.Content`
+- `Card.Footer`
+- `Card.Tabs`
+  - `Card.Tabs.List`
+  - `Card.Tabs.Trigger`
+  - `Card.Tabs.Content`
+
+> **Note:** `Card` does **not** expose a `Title` subcomponent. Use the `title` prop on `Card.Header` instead.
+
+#### `AlertDialog`
+- `AlertDialog.Header`
+- `AlertDialog.Title`
+- `AlertDialog.Description`
+- `AlertDialog.Content`
+- `AlertDialog.Actions`
+
+#### `Dropdown`
+- `Dropdown.Trigger`
+- `Dropdown.Content`
+- `Dropdown.Popup`
+- `Dropdown.Item`
+- `Dropdown.ItemIndicator`
+
+#### `Tabs`
+- `Tabs.List`
+- `Tabs.Trigger`
+- `Tabs.Content`
+
+#### `Form`
+- `Form.Base` (The `<form>` element)
+- `Form.Item`
+- `Form.Controller` (Wraps `react-hook-form` Controller)
+  - `Form.Controller.Item`
+  - `Form.Controller.Label`
+  - `Form.Controller.Field` (The Slot for the input)
+  - `Form.Controller.Description`
+  - `Form.Controller.Message`
 
 ---
 

@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./types": "./src/types/index.ts",
     "./sample/queries": "./src/hooks/sample/queries.ts",
     "./sample/mutations": "./src/hooks/sample/mutations.ts",
     "./user/queries": "./src/hooks/user/queries.ts",

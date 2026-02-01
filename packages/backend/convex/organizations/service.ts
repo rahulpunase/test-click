@@ -24,5 +24,11 @@ export const fetchUserMemberships = async (ctx: QueryCtx) => {
       ...membership,
       organization: organizations[index],
     }))
-    .filter((m) => m.organization !== null);
+    .filter(
+      (
+        m,
+      ): m is (typeof memberships)[number] & {
+        organization: NonNullable<(typeof organizations)[number]>;
+      } => m.organization !== null,
+    );
 };
