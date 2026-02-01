@@ -106,9 +106,10 @@ ListGroup.displayName = "ListGroup";
  * -----------------------------------------------------------------------------------------------*/
 
 export interface ListItemProps extends Omit<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  React.HTMLAttributes<HTMLElement>,
   "title"
 > {
+  as?: React.ElementType;
   icon?: React.ReactElement<{ className?: string }>;
   title?: React.ReactNode;
   description?: React.ReactNode;
@@ -116,12 +117,15 @@ export interface ListItemProps extends Omit<
   selected?: boolean;
   disabled?: boolean;
   asChild?: boolean;
+  type?: "button" | "submit" | "reset";
+  [key: string]: any;
 }
 
-export const ListItem = forwardRef<HTMLButtonElement, ListItemProps>(
+export const ListItem = forwardRef<HTMLElement, ListItemProps>(
   (
     {
       className,
+      as,
       icon,
       title,
       description,
@@ -150,46 +154,16 @@ export const ListItem = forwardRef<HTMLButtonElement, ListItemProps>(
         })
       : null;
 
-    if (onClick) {
-      return (
-        <button
-          ref={ref}
-          disabled={disabled}
-          onClick={onClick}
-          className={cn(item(), className)}
-          type="button"
-          {...props}
-        >
-          {iconElement}
-          <div className={itemContent()}>
-            {title && <span className={itemTitle()}>{title}</span>}
-            {description && (
-              <span className={itemDescription()}>{description}</span>
-            )}
-          </div>
-          {action && (
-            <div
-              className={itemAction()}
-              onClick={(e) => e.stopPropagation()}
-              onKeyDown={(e) => e.stopPropagation()}
-              role="button"
-              tabIndex={0}
-            >
-              {action}
-            </div>
-          )}
-        </button>
-      );
-    }
-
-    // Cast the ref for div usage since we know it's not a button here, but TS expects Button ref due to forwardRef logic
-    const divRef = ref as React.ForwardedRef<HTMLDivElement>;
+    const Component = as || (onClick ? "button" : "div");
 
     return (
-      <div
-        ref={divRef}
+      <Component
+        ref={ref}
+        disabled={disabled}
+        onClick={onClick}
         className={cn(item(), className)}
-        {...(props as React.HTMLAttributes<HTMLDivElement>)}
+        {...(onClick && !as ? { type: "button" } : {})}
+        {...props}
       >
         {iconElement}
         <div className={itemContent()}>
@@ -209,7 +183,7 @@ export const ListItem = forwardRef<HTMLButtonElement, ListItemProps>(
             {action}
           </div>
         )}
-      </div>
+      </Component>
     );
   },
 );

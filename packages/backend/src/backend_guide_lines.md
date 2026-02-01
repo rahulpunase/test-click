@@ -8,6 +8,7 @@ All database tables are defined in [`convex/schema.ts`](file:///packages/backend
 
 **Important**: Use `convex-helpers` wherever possible in your backend queries and mutations. Evaluate wherever `convex-helpers` can help.
 
+Important! Always add the related hooks when creating a new query or mutation. 
 
 When adding a new feature (e.g., "products"), first define its schema:
 

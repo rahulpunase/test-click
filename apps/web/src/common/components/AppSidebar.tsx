@@ -50,13 +50,12 @@ export const AppSidebar = () => {
 
       <div className="flex-1 py-2 overflow-y-auto">
         <List>
-          <Link to="/inbox">
-            <List.Item
-              icon={<Inbox size={20} />}
-              title={isCollapsed ? null : "Inbox"}
-              onClick={() => {}}
-            />
-          </Link>
+          <List.Item
+            as={Link}
+            to="/inbox"
+            icon={<Inbox size={20} />}
+            title={isCollapsed ? null : "Inbox"}
+          />
           <List.Item
             icon={<MessageSquareReply size={20} />}
             title={isCollapsed ? null : "Replies"}

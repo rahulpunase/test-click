@@ -10,3 +10,11 @@ export const useGetWorkspaceById = (workspaceId: Id<"workspaces">) => {
 
   return { data, isPending, error };
 };
+
+export const useGetWorkspaceBySlug = (slug: string) => {
+  const { data, isPending, error } = useQuery(
+    convexQuery(api.workspaces.queries.getWorkspaceBySlug, { slug }),
+  );
+
+  return { data, isPending, error };
+};
