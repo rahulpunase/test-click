@@ -1,8 +1,13 @@
 import { MutationCtx, QueryCtx } from "../_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
-import { getAll, getOneFrom } from "convex-helpers/server/relationships";
+import {
+  getAll,
+  getOneFrom,
+  getOneFromOrThrow,
+} from "convex-helpers/server/relationships";
 import { Id } from "../_generated/dataModel";
 import { pruneNull } from "convex-helpers";
+import { ConvexError } from "convex/values";
 
 export const fetchUserMemberships = async (ctx: QueryCtx) => {
   const userId = await getAuthUserId(ctx);
@@ -100,15 +105,21 @@ export const getMemberWithProfile = async (
     .unique();
 
   if (!member) {
-    return null;
+    throw new ConvexError("Member not found");
   }
 
-  const profile = await getOneFrom(
+  const user = await ctx.db.get(member.userId);
+
+  if (!user) {
+    throw new ConvexError("User not found");
+  }
+
+  const profile = await getOneFromOrThrow(
     ctx.db,
     "member_profiles",
     "by_memberId",
     member._id,
   );
 
-  return { member, profile };
+  return { member, profile, user };
 };

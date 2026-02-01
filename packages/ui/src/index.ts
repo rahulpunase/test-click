@@ -9,3 +9,4 @@ export * from "./components/input";
 export * from "./components/form";
 export * from "./components/list";
 export * from "./components/skeleton";
+export * from "./components/avatar";

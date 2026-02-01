@@ -1,6 +1,7 @@
-import { v } from "convex/values";
+import { ConvexError, v } from "convex/values";
 import { query } from "../_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
+import { getOneFromOrThrow } from "convex-helpers/server/relationships";
 
 export const getWorkspaceById = query({
   args: { workspaceId: v.id("workspaces") },
@@ -14,29 +15,28 @@ export const getWorkspaceBySlug = query({
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
 
-    const workspace = await ctx.db
-      .query("workspaces")
-      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+    if (!userId) {
+      throw new ConvexError("Unauthorized");
+    }
+
+    const workspace = await getOneFromOrThrow(
+      ctx.db,
+      "workspaces",
+      "by_slug",
+      args.slug,
+    );
+
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_workspaceId_and_userId", (q) =>
+        q.eq("workspaceId", workspace._id).eq("userId", userId),
+      )
       .unique();
 
-    if (!workspace) {
-      return null;
+    if (!member) {
+      throw new ConvexError("Not a member");
     }
 
-    let isMember = false;
-    if (userId) {
-      const member = await ctx.db
-        .query("members")
-        .withIndex("by_workspaceId_and_userId", (q) =>
-          q.eq("workspaceId", workspace._id).eq("userId", userId),
-        )
-        .unique();
-      isMember = !!member;
-    }
-
-    return {
-      workspace,
-      isMember,
-    };
+    return workspace;
   },
 });

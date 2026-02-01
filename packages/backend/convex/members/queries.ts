@@ -1,3 +1,4 @@
+import { ConvexError } from "convex/values";
 import { v } from "convex/values";
 import { query } from "../_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
@@ -18,7 +19,7 @@ export const getMemberWithProfile = query({
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
     if (!userId) {
-      return null;
+      throw new ConvexError("Unauthorized");
     }
     return await getMemberWithProfileService(ctx, userId, args.workspaceId);
   },

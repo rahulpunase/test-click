@@ -13,9 +13,12 @@ import { List } from "@repo/ui";
 import { useState } from "react";
 import { cn } from "@repo/ui/utils";
 import { Link } from "react-router";
+import { useGlobalData } from "@/common/providers/globalDataProvider/globalDataProvider";
 
 export const AppSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const { workSpace } = useGlobalData();
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -30,7 +33,9 @@ export const AppSidebar = () => {
     >
       <div className="flex items-center justify-between p-4 h-14 border-b border-border-1">
         {!isCollapsed && (
-          <span className="font-semibold text-text-primary truncate">App</span>
+          <span className="font-semibold text-text-primary truncate">
+            {workSpace.name}
+          </span>
         )}
         <button
           onClick={toggleCollapse}

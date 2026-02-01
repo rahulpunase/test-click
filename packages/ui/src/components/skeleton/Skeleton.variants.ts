@@ -5,7 +5,7 @@ export const skeletonVariants = tv({
   base: styles.skeleton,
   variants: {
     circle: {
-      true: "rounded-full",
+      true: styles.circle,
     },
   },
 });

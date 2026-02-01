@@ -6,7 +6,6 @@ import { useAuthToken } from "@repo/backend";
 
 export const Home = () => {
   const { data: user, isPending, error } = useGetCurrentUser();
-  console.log(user?._id);
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <h1 className="text-2xl font-bold">Home Surface</h1>

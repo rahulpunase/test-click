@@ -1,3 +1,4 @@
+import { ConvexError } from "convex/values";
 import { query } from "../_generated/server";
 import * as service from "./service";
 
@@ -19,7 +20,7 @@ export const getCurrentUser = query({
   handler: async (ctx) => {
     const currentUser = await service.fetchCurrentUser(ctx);
     if (!currentUser) {
-      throw new Error("User is not authenticated");
+      throw new ConvexError("Unauthorized");
     }
     return currentUser;
   },

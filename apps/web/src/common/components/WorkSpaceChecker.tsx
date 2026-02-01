@@ -2,6 +2,7 @@ import React from "react";
 import { useGetWorkspaceBySlug } from "@repo/backend/workspaces/queries";
 import { LoadingScreen } from "./LoadingScreen";
 import { Navigate } from "react-router";
+import { GlobalDataProvider } from "../providers/globalDataProvider/globalDataProvider";
 
 type Props = {
   children: React.ReactNode;
@@ -20,7 +21,11 @@ const WorkSpaceChecker = ({ children, workSpaceSlug }: Props) => {
     return <Navigate to="/onboarding/get-started" />;
   }
 
-  return children;
+  return (
+    <GlobalDataProvider defaultValue={{ workSpace: workspace }}>
+      {children}
+    </GlobalDataProvider>
+  );
 };
 
 export default WorkSpaceChecker;
