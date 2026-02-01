@@ -7,6 +7,8 @@ export const dropdownVariants = tv({
     popup:
       "z-50 mt-1 min-w-[8rem] overflow-auto rounded-md bg-white shadow-lg border border-border-2 p-1 outline-none",
     item: "relative flex items-center gap-2 px-3 py-2 text-sm rounded cursor-pointer outline-none transition-colors data-[highlighted]:bg-background-hover data-[disabled]:opacity-50 data-[disabled]:pointer-events-none",
+    itemIcon:
+      "flex items-center justify-center h-4 w-4 text-text-muted group-hover/item:text-text-primary transition-colors",
     itemIndicator: "inline-flex items-center justify-center w-4 h-4 ml-auto",
     icon: "h-4 w-4 shrink-0 transition-transform duration-200",
   },

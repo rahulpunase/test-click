@@ -7,3 +7,4 @@ export * from "./components/alert-dialog";
 export * from "./components/checkbox";
 export * from "./components/input";
 export * from "./components/form";
+export * from "./components/list";

@@ -1,6 +1,10 @@
+---
+trigger: always_on
+---
+
 # Backend Development Guidelines
 
-This guide outlines the standard process for adding new features, schemas, and API endpoints to the backend package. We follow a strict structure to ensure maintainability, type safety, and clean separation of concerns.
+This guide outlines the standard process for adding new features, schemas, and API endpoints to the packages/backend package. We follow a strict structure to ensure maintainability, type safety, and clean separation of concerns.
 
 ## 1. Schema Definition
 

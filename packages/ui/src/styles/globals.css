@@ -66,6 +66,7 @@
   --color-background: var(--color-neutral-50);
   --color-background-muted: var(--color-neutral-100);
   --color-background-hover: var(--color-neutral-100);
+  --color-background-1: var(--color-neutral-200);
 
   /* border colors */
   --color-border-1: var(--color-gray-200);
@@ -80,6 +81,27 @@
   /* Link colors */
   --color-link: var(--color-sky-700);
   --color-link-hover: var(--color-sky-800);
+
+  /* Animations */
+  --animate-shimmer: shimmer 2s infinite linear;
+
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@keyframes custom_shimmer {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
 }
 
 /* CSS Custom Properties for Theme */

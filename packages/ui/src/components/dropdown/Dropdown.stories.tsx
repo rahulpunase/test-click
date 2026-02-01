@@ -26,17 +26,15 @@ export const Default: Story = {
           <ChevronDown className="h-4 w-4" />
         </Dropdown.Trigger>
         <Dropdown.Content sideOffset={5}>
-          <Dropdown.Popup>
-            <Dropdown.Item onClick={() => console.log("Edit")}>
-              Edit
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Duplicate")}>
-              Duplicate
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Archive")}>
-              Archive
-            </Dropdown.Item>
-          </Dropdown.Popup>
+          <Dropdown.Item label="Edit" onClick={() => console.log("Edit")} />
+          <Dropdown.Item
+            label="Duplicate"
+            onClick={() => console.log("Duplicate")}
+          />
+          <Dropdown.Item
+            label="Archive"
+            onClick={() => console.log("Archive")}
+          />
         </Dropdown.Content>
       </Dropdown>
     );
@@ -55,17 +53,9 @@ export const Filled: Story = {
           <ChevronDown className="h-4 w-4" />
         </Dropdown.Trigger>
         <Dropdown.Content sideOffset={5}>
-          <Dropdown.Popup>
-            <Dropdown.Item onClick={() => console.log("New")}>
-              New
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Open")}>
-              Open
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Save")}>
-              Save
-            </Dropdown.Item>
-          </Dropdown.Popup>
+          <Dropdown.Item label="New" onClick={() => console.log("New")} />
+          <Dropdown.Item label="Open" onClick={() => console.log("Open")} />
+          <Dropdown.Item label="Save" onClick={() => console.log("Save")} />
         </Dropdown.Content>
       </Dropdown>
     );
@@ -87,17 +77,18 @@ export const CustomTrigger: Story = {
           <ChevronDown className="h-4 w-4" />
         </Dropdown.Trigger>
         <Dropdown.Content sideOffset={5}>
-          <Dropdown.Popup>
-            <Dropdown.Item onClick={() => console.log("Option 1")}>
-              Option 1
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Option 2")}>
-              Option 2
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Option 3")}>
-              Option 3
-            </Dropdown.Item>
-          </Dropdown.Popup>
+          <Dropdown.Item
+            label="Option 1"
+            onClick={() => console.log("Option 1")}
+          />
+          <Dropdown.Item
+            label="Option 2"
+            onClick={() => console.log("Option 2")}
+          />
+          <Dropdown.Item
+            label="Option 3"
+            onClick={() => console.log("Option 3")}
+          />
         </Dropdown.Content>
       </Dropdown>
     );
@@ -117,20 +108,21 @@ export const WithIcons: Story = {
           <ChevronDown className="h-4 w-4" />
         </Dropdown.Trigger>
         <Dropdown.Content sideOffset={5}>
-          <Dropdown.Popup>
-            <Dropdown.Item onClick={() => console.log("Profile")}>
-              <User className="h-4 w-4" />
-              Profile
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Settings")}>
-              <Settings className="h-4 w-4" />
-              Settings
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Logout")}>
-              <LogOut className="h-4 w-4" />
-              Logout
-            </Dropdown.Item>
-          </Dropdown.Popup>
+          <Dropdown.Item
+            label="Profile"
+            icon={<User />}
+            onClick={() => console.log("Profile")}
+          />
+          <Dropdown.Item
+            label="Settings"
+            icon={<Settings />}
+            onClick={() => console.log("Settings")}
+          />
+          <Dropdown.Item
+            label="Logout"
+            icon={<LogOut />}
+            onClick={() => console.log("Logout")}
+          />
         </Dropdown.Content>
       </Dropdown>
     );
@@ -149,22 +141,21 @@ export const WithDestructiveItems: Story = {
           <ChevronDown className="h-4 w-4" />
         </Dropdown.Trigger>
         <Dropdown.Content sideOffset={5}>
-          <Dropdown.Popup>
-            <Dropdown.Item onClick={() => console.log("Edit")}>
-              <Settings className="h-4 w-4" />
-              Edit
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Duplicate")}>
-              Duplicate
-            </Dropdown.Item>
-            <Dropdown.Item
-              variant="destructive"
-              onClick={() => console.log("Delete")}
-            >
-              <Trash2 className="h-4 w-4" />
-              Delete
-            </Dropdown.Item>
-          </Dropdown.Popup>
+          <Dropdown.Item
+            label="Edit"
+            icon={<Settings />}
+            onClick={() => console.log("Edit")}
+          />
+          <Dropdown.Item
+            label="Duplicate"
+            onClick={() => console.log("Duplicate")}
+          />
+          <Dropdown.Item
+            variant="destructive"
+            label="Delete"
+            icon={<Trash2 />}
+            onClick={() => console.log("Delete")}
+          />
         </Dropdown.Content>
       </Dropdown>
     );
@@ -183,20 +174,23 @@ export const WithDisabledItems: Story = {
           <ChevronDown className="h-4 w-4" />
         </Dropdown.Trigger>
         <Dropdown.Content sideOffset={5}>
-          <Dropdown.Popup>
-            <Dropdown.Item onClick={() => console.log("Low")}>
-              Low Priority
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("Medium")}>
-              Medium Priority
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => console.log("High")}>
-              High Priority
-            </Dropdown.Item>
-            <Dropdown.Item disabled onClick={() => console.log("Urgent")}>
-              Urgent (Disabled)
-            </Dropdown.Item>
-          </Dropdown.Popup>
+          <Dropdown.Item
+            label="Low Priority"
+            onClick={() => console.log("Low")}
+          />
+          <Dropdown.Item
+            label="Medium Priority"
+            onClick={() => console.log("Medium")}
+          />
+          <Dropdown.Item
+            label="High Priority"
+            onClick={() => console.log("High")}
+          />
+          <Dropdown.Item
+            disabled
+            label="Urgent (Disabled)"
+            onClick={() => console.log("Urgent")}
+          />
         </Dropdown.Content>
       </Dropdown>
     );
@@ -215,29 +209,27 @@ export const CustomItems: Story = {
           <ChevronDown className="h-4 w-4" />
         </Dropdown.Trigger>
         <Dropdown.Content sideOffset={5}>
-          <Dropdown.Popup>
-            <Dropdown.Item
-              onClick={() => console.log("Active")}
-              className="text-success hover:bg-success/10"
-            >
-              <span className="h-2 w-2 rounded-full bg-success" />
-              Active
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => console.log("Pending")}
-              className="text-warning hover:bg-warning/10"
-            >
-              <span className="h-2 w-2 rounded-full bg-warning" />
-              Pending
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => console.log("Inactive")}
-              className="text-error hover:bg-error/10"
-            >
-              <span className="h-2 w-2 rounded-full bg-error" />
-              Inactive
-            </Dropdown.Item>
-          </Dropdown.Popup>
+          <Dropdown.Item
+            onClick={() => console.log("Active")}
+            className="text-success hover:bg-success/10"
+          >
+            <span className="h-2 w-2 rounded-full bg-success mr-2" />
+            Active
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => console.log("Pending")}
+            className="text-warning hover:bg-warning/10"
+          >
+            <span className="h-2 w-2 rounded-full bg-warning mr-2" />
+            Pending
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => console.log("Inactive")}
+            className="text-error hover:bg-error/10"
+          >
+            <span className="h-2 w-2 rounded-full bg-error mr-2" />
+            Inactive
+          </Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
     );
@@ -259,17 +251,18 @@ export const AllVariants: Story = {
               <ChevronDown className="h-4 w-4" />
             </Dropdown.Trigger>
             <Dropdown.Content sideOffset={5}>
-              <Dropdown.Popup>
-                <Dropdown.Item onClick={() => console.log("Option 1")}>
-                  Option 1
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => console.log("Option 2")}>
-                  Option 2
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => console.log("Option 3")}>
-                  Option 3
-                </Dropdown.Item>
-              </Dropdown.Popup>
+              <Dropdown.Item
+                label="Option 1"
+                onClick={() => console.log("Option 1")}
+              />
+              <Dropdown.Item
+                label="Option 2"
+                onClick={() => console.log("Option 2")}
+              />
+              <Dropdown.Item
+                label="Option 3"
+                onClick={() => console.log("Option 3")}
+              />
             </Dropdown.Content>
           </Dropdown>
         </div>
@@ -281,21 +274,50 @@ export const AllVariants: Story = {
               <ChevronDown className="h-4 w-4" />
             </Dropdown.Trigger>
             <Dropdown.Content sideOffset={5}>
-              <Dropdown.Popup>
-                <Dropdown.Item onClick={() => console.log("Option 1")}>
-                  Option 1
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => console.log("Option 2")}>
-                  Option 2
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => console.log("Option 3")}>
-                  Option 3
-                </Dropdown.Item>
-              </Dropdown.Popup>
+              <Dropdown.Item
+                label="Option 1"
+                onClick={() => console.log("Option 1")}
+              />
+              <Dropdown.Item
+                label="Option 2"
+                onClick={() => console.log("Option 2")}
+              />
+              <Dropdown.Item
+                label="Option 3"
+                onClick={() => console.log("Option 3")}
+              />
             </Dropdown.Content>
           </Dropdown>
         </div>
       </div>
+    );
+  },
+};
+
+/**
+ * Dropdown with asChild trigger (custom button component)
+ */
+export const WithAsChild: Story = {
+  render: () => {
+    return (
+      <Dropdown>
+        <Dropdown.Trigger asChild>
+          <button className="bg-secondary text-white px-4 py-2 rounded-full font-bold hover:bg-secondary-hover transition-colors flex items-center gap-2">
+            <span className="flex-1 text-left">AsChild Trigger</span>
+            <ChevronDown className="h-4 w-4" />
+          </button>
+        </Dropdown.Trigger>
+        <Dropdown.Content sideOffset={5}>
+          <Dropdown.Item
+            label="Option 1"
+            onClick={() => console.log("Option 1")}
+          />
+          <Dropdown.Item
+            label="Option 2"
+            onClick={() => console.log("Option 2")}
+          />
+        </Dropdown.Content>
+      </Dropdown>
     );
   },
 };
