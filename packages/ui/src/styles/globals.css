@@ -58,7 +58,8 @@
   --font-mono: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   /* Text colors */
-  --color-text-primary: var(--color-neutral-900);
+  --color-text-primary: var(--color-neutral-800);
+  --color-text-secondary: var(--color-neutral-700);
   --color-text-muted: var(--color-neutral-500);
 
   /* background colors */

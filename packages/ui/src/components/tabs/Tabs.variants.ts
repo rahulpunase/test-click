@@ -5,11 +5,11 @@ export const tabsVariants = tv({
     root: "flex w-full flex-col",
     list: "flex w-full justify-start gap-1",
     trigger: [
-      "relative flex items-center gap-2 px-3 py-1 rounded-md text-base",
+      "relative flex items-center gap-2 px-3 py-1 rounded-md text-base text-text-secondary",
       "hover:bg-background-hover cursor-pointer font-normal",
       "aria-selected:font-medium",
       "after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-0.5",
-      "after:bg-transparent aria-selected:after:bg-text-primary",
+      "after:bg-transparent aria-selected:after:bg-text-secondary",
       "after:transition-colors after:duration-200",
     ],
     content:

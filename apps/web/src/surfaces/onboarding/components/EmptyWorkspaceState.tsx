@@ -18,7 +18,12 @@ export const EmptyWorkspaceState = ({
           You are not a member of any workspace yet. Create a new one to get
           started.
         </p>
-        <Button variant="text" color="tertiary" onClick={onCreateNew}>
+        <Button
+          variant="text"
+          color="tertiary"
+          className="underline"
+          onClick={onCreateNew}
+        >
           Create a new workspace
         </Button>
       </Card.Content>

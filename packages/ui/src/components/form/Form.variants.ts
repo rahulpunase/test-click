@@ -5,11 +5,11 @@ export const formVariants = tv({
 });
 
 export const formItemVariants = tv({
-  base: "space-y-1.5",
+  base: "flex flex-col gap-1",
 });
 
 export const formLabelVariants = tv({
-  base: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  base: "text-sm mb-1 font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
   variants: {
     error: {
       true: "text-error",

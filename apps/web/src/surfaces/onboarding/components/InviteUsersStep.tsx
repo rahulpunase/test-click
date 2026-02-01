@@ -45,13 +45,10 @@ export const InviteUsersStep = ({ onFinish, onBack }: InviteUsersStepProps) => {
                     {...field}
                     className="w-full"
                   />
-                  <p className="text-xs text-text-muted">
-                    Separate multiple emails with commas.
-                  </p>
                 </div>
               </Form.Controller.Field>
               <Form.Controller.Description>
-                Get your team on board right away.
+                Separate multiple emails with commas.
               </Form.Controller.Description>
               <Form.Controller.Message />
             </Form.Controller.Item>
