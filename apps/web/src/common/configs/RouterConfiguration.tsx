@@ -6,7 +6,7 @@ import { AuthenticatedLayout } from "../layouts/AuthenticatedLayout";
 import { MainLayout } from "../layouts/MainLayout";
 import { PublicLayout } from "../layouts/PublicLayout";
 import { LoginCallback } from "@/surfaces/auth/pages/LoginCallback";
-import { WithOrganizationLayout } from "../layouts/WithOrganizationLayout";
+import { WithWorkspaceLayout } from "../layouts/WithWorkspaceLayout";
 
 const routes: RouteObject[] = [
   {
@@ -25,7 +25,7 @@ const routes: RouteObject[] = [
     element: <AuthenticatedLayout />,
     children: [
       {
-        element: <WithOrganizationLayout />,
+        element: <WithWorkspaceLayout />,
         children: [
           {
             element: <MainLayout />,

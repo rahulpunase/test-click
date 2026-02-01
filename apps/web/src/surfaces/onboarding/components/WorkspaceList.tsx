@@ -1,32 +1,32 @@
-import { OrganizationCard } from "./OrganizationCard";
-import { EmptyOrganizationState } from "./EmptyOrganizationState";
+import { WorkspaceCard } from "./WorkspaceCard";
+import { EmptyWorkspaceState } from "./EmptyWorkspaceState";
 import type { Doc, Id } from "@repo/backend/types";
 
-interface OrganizationListProps {
+interface WorkspaceListProps {
   memberships: Array<{
     _id: Id<"members">;
     role: "admin" | "member";
-    organization: Doc<"organizations">;
+    workspace: Doc<"workspaces">;
     userId: Id<"users">;
   }>;
   onCreateNew: () => void;
 }
 
-export const OrganizationList = ({
+export const WorkspaceList = ({
   memberships,
   onCreateNew,
-}: OrganizationListProps) => {
+}: WorkspaceListProps) => {
   if (memberships.length === 0) {
-    return <EmptyOrganizationState onCreateNew={onCreateNew} />;
+    return <EmptyWorkspaceState onCreateNew={onCreateNew} />;
   }
 
   return (
     <div className="space-y-4 w-full max-w-2xl">
       <div className="flex flex-col gap-3">
         {memberships.map((membership) => (
-          <OrganizationCard
-            key={membership.organization._id}
-            organization={membership.organization}
+          <WorkspaceCard
+            key={membership.workspace._id}
+            workspace={membership.workspace}
             // We don't have member count in the query yet, passing undefined for now or mock if needed
           />
         ))}
@@ -37,10 +37,10 @@ export const OrganizationList = ({
           onClick={onCreateNew}
           className="text-primary-hover hover:text-primary-active font-medium hover:underline text-sm mb-1"
         >
-          Create a new organisation
+          Create a new workspace
         </button>
         <p className="text-sm text-text-muted">
-          Not seeing your organisation?{" "}
+          Not seeing your workspace?{" "}
           <button className="text-primary-hover hover:underline">
             Try a different email address
           </button>

@@ -1,6 +1,6 @@
 import { Navigate } from "react-router";
 import { useFetchCurrentUser } from "@repo/backend/user/queries";
-import { useFetchUserMemberships } from "@repo/backend/organizations/queries";
+import { useFetchUserMemberships } from "@repo/backend/workspaces/queries";
 import { LoadingScreen } from "@/common/components/LoadingScreen";
 
 export const LoginCallback = () => {

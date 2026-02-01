@@ -54,9 +54,9 @@ Backend types, queries, and mutations must be imported from the specific paths e
   import { ... } from "@repo/backend/user/mutations";
   ```
 
-- **Organization Queries:**
+- **Workspace Queries:**
   ```typescript
-  import { ... } from "@repo/backend/organizations/queries";
+  import { ... } from "@repo/backend/workspaces/queries";
   ```
 
 - **Sample Queries & Mutations:**

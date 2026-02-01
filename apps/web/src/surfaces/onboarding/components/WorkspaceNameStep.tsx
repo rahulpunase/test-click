@@ -5,20 +5,20 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
-  organizationName: z.string().min(2, {
-    message: "Organization name must be at least 2 characters.",
+  workspaceName: z.string().min(2, {
+    message: "Workspace name must be at least 2 characters.",
   }),
 });
 
-interface OrganizationNameStepProps {
+interface WorkspaceNameStepProps {
   onNext: () => void;
 }
 
-export const OrganizationNameStep = ({ onNext }: OrganizationNameStepProps) => {
+export const WorkspaceNameStep = ({ onNext }: WorkspaceNameStepProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      organizationName: "",
+      workspaceName: "",
     },
   });
 
@@ -35,10 +35,10 @@ export const OrganizationNameStep = ({ onNext }: OrganizationNameStepProps) => {
       >
         <Form.Controller
           control={form.control}
-          name="organizationName"
+          name="workspaceName"
           render={({ field }) => (
             <Form.Controller.Item>
-              <Form.Controller.Label>Organization Name</Form.Controller.Label>
+              <Form.Controller.Label>Workspace Name</Form.Controller.Label>
               <Form.Controller.Field>
                 <Input placeholder="Acme Inc." {...field} />
               </Form.Controller.Field>

@@ -4,7 +4,7 @@ import { api } from "../../../convex/_generated/api";
 
 export const useFetchUserMemberships = () => {
   const { data, isPending, error } = useQuery(
-    convexQuery(api.organizations.queries.fetchUserMemberships, {}),
+    convexQuery(api.workspaces.queries.fetchUserMemberships, {}),
   );
 
   return { data, isPending, error };

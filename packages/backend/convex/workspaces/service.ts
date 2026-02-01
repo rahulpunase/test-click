@@ -14,21 +14,21 @@ export const fetchUserMemberships = async (ctx: QueryCtx) => {
     .withIndex("by_userId", (q) => q.eq("userId", userId))
     .collect();
 
-  const organizations = await getAll(
+  const workspaces = await getAll(
     ctx.db,
-    memberships.map((m) => m.organizationId),
+    memberships.map((m) => m.workspaceId),
   );
 
   return memberships
     .map((membership, index) => ({
       ...membership,
-      organization: organizations[index],
+      workspace: workspaces[index],
     }))
     .filter(
       (
         m,
       ): m is (typeof memberships)[number] & {
-        organization: NonNullable<(typeof organizations)[number]>;
-      } => m.organization !== null,
+        workspace: NonNullable<(typeof workspaces)[number]>;
+      } => m.workspace !== null,
     );
 };

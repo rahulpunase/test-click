@@ -22,7 +22,7 @@ export default defineSchema({
     gender: v.string(),
   }),
 
-  organizations: defineTable({
+  workspaces: defineTable({
     name: v.string(),
     slug: v.string(),
     logoId: v.optional(v.id("_storage")),
@@ -30,10 +30,10 @@ export default defineSchema({
 
   members: defineTable({
     userId: v.id("users"),
-    organizationId: v.id("organizations"),
+    workspaceId: v.id("workspaces"),
     role: v.union(v.literal("admin"), v.literal("member")),
   })
     .index("by_userId", ["userId"])
-    .index("by_organizationId", ["organizationId"])
-    .index("by_organizationId_and_userId", ["organizationId", "userId"]),
+    .index("by_workspaceId", ["workspaceId"])
+    .index("by_workspaceId_and_userId", ["workspaceId", "userId"]),
 });

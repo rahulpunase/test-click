@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
-import { useFetchUserMemberships } from "@repo/backend/organizations/queries";
-import { OrganizationList } from "../components/OrganizationList";
+import { useFetchUserMemberships } from "@repo/backend/workspaces/queries";
+import { WorkspaceList } from "../components/WorkspaceList";
 import { Building2 } from "lucide-react";
 
 export const GetStartedPage = () => {
@@ -8,7 +8,7 @@ export const GetStartedPage = () => {
   const { data: memberships, isPending } = useFetchUserMemberships();
 
   const handleCreateNew = () => {
-    navigate("/onboarding/create-organization");
+    navigate("/onboarding/create-workspace");
   };
 
   return (
@@ -17,7 +17,7 @@ export const GetStartedPage = () => {
         <div className="flex items-center gap-2 mb-8">
           <Building2 className="w-6 h-6 text-text-primary" />
           <h1 className="text-xl font-semibold text-text-primary">
-            My organisations
+            My workspaces
           </h1>
         </div>
 
@@ -25,7 +25,7 @@ export const GetStartedPage = () => {
           <div className="px-6 py-4 border-b border-border-1 bg-white">
             <div className="flex items-center gap-4">
               <span className="text-sm font-semibold text-text-primary border-b-2 border-primary-hover pb-4 -mb-4.5 z-10">
-                Organisations
+                Workspaces
               </span>
             </div>
           </div>
@@ -35,7 +35,7 @@ export const GetStartedPage = () => {
               <h2 className="text-sm font-medium text-text-muted mb-4">
                 Ready to launch
               </h2>
-              <OrganizationList
+              <WorkspaceList
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 memberships={(memberships || []) as any}
                 onCreateNew={handleCreateNew}

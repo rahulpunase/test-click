@@ -9,11 +9,11 @@ export const onboardingRoutes: RouteObject[] = [
     },
   },
   {
-    path: "onboarding/create-organization",
+    path: "onboarding/create-workspace",
     lazy: async () => {
-      const { CreateOrganizationPage } =
-        await import("./pages/CreateOrganizationPage");
-      return { Component: CreateOrganizationPage };
+      const { CreateWorkspacePage } =
+        await import("./pages/CreateWorkspacePage");
+      return { Component: CreateWorkspacePage };
     },
   },
 ];
