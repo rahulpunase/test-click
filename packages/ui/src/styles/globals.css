@@ -85,6 +85,9 @@
   /* Link colors */
   --color-link: var(--color-sky-700);
   --color-link-hover: var(--color-sky-800);
+
+  /* Gray colors */
+  --color-gray: var(--color-gray-300);
 }
 
 .link {

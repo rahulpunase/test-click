@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 import { updateMemberProfile as updateMemberProfileService } from "./service";
 import { getAuthUserId } from "@convex-dev/auth/server";
+import { Errors } from "../errors/service";
 
 export const updateMemberProfile = mutation({
   args: {
@@ -17,16 +18,16 @@ export const updateMemberProfile = mutation({
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
     if (!userId) {
-      throw new Error("Unauthenticated");
+      throw Errors.Auth.unauthenticated();
     }
 
     const member = await ctx.db.get(args.memberId);
     if (!member) {
-      throw new Error("Member not found");
+      throw Errors.Member.notFound();
     }
 
     if (member.userId !== userId) {
-      throw new Error("Unauthorized");
+      throw Errors.Auth.unauthorized();
     }
 
     const { memberId, ...updates } = args;

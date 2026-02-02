@@ -1,4 +1,5 @@
-import { ConvexError, v } from "convex/values";
+import { v } from "convex/values";
+import { Errors } from "../errors/service";
 import { query } from "../_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { getOneFromOrThrow } from "convex-helpers/server/relationships";
@@ -16,7 +17,7 @@ export const getWorkspaceBySlug = query({
     const userId = await getAuthUserId(ctx);
 
     if (!userId) {
-      throw new ConvexError("Unauthorized");
+      throw Errors.Auth.unauthorized();
     }
 
     const workspace = await getOneFromOrThrow(
@@ -34,7 +35,7 @@ export const getWorkspaceBySlug = query({
       .unique();
 
     if (!member) {
-      throw new ConvexError("Not a member");
+      throw Errors.Member.notAMember();
     }
 
     return workspace;

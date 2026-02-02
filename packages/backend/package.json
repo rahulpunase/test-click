@@ -13,7 +13,9 @@
     "./workspaces/queries": "./src/hooks/workspaces/queries.ts",
     "./workspaces/mutations": "./src/hooks/workspaces/mutations.ts",
     "./members/queries": "./src/hooks/members/queries.ts",
-    "./members/mutations": "./src/hooks/members/mutations.ts"
+    "./members/mutations": "./src/hooks/members/mutations.ts",
+    "./presence/queries": "./src/hooks/presence/queries.ts",
+    "./sidebar/queries": "./src/hooks/sidebar/queries.ts"
   },
   "scripts": {
     "dev": "convex dev",
@@ -23,6 +25,7 @@
   "dependencies": {
     "@auth/core": "^0.37.4",
     "@convex-dev/auth": "^0.0.90",
+    "@convex-dev/presence": "^0.3.0",
     "@convex-dev/react-query": "^0.1.0",
     "@tanstack/react-query": "^5.90.20",
     "convex": "^1.18.0",

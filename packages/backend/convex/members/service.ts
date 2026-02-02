@@ -7,7 +7,7 @@ import {
 } from "convex-helpers/server/relationships";
 import { Id } from "../_generated/dataModel";
 import { pruneNull } from "convex-helpers";
-import { ConvexError } from "convex/values";
+import { Errors } from "../errors/service";
 
 export const fetchUserMemberships = async (ctx: QueryCtx) => {
   const userId = await getAuthUserId(ctx);
@@ -97,21 +97,16 @@ export const getMemberWithProfile = async (
   userId: Id<"users">,
   workspaceId: Id<"workspaces">,
 ) => {
-  const member = await ctx.db
-    .query("members")
-    .withIndex("by_workspaceId_and_userId", (q) =>
-      q.eq("workspaceId", workspaceId).eq("userId", userId),
-    )
-    .unique();
+  const member = await getMember(ctx, workspaceId, userId);
 
   if (!member) {
-    throw new ConvexError("Member not found");
+    throw Errors.Member.notFound();
   }
 
   const user = await ctx.db.get(member.userId);
 
   if (!user) {
-    throw new ConvexError("User not found");
+    throw Errors.User.notFound();
   }
 
   const profile = await getOneFromOrThrow(
@@ -122,4 +117,17 @@ export const getMemberWithProfile = async (
   );
 
   return { member, profile, user };
+};
+
+export const getMember = async (
+  ctx: QueryCtx,
+  workspaceId: Id<"workspaces">,
+  userId: Id<"users">,
+) => {
+  return await ctx.db
+    .query("members")
+    .withIndex("by_workspaceId_and_userId", (q) =>
+      q.eq("workspaceId", workspaceId).eq("userId", userId),
+    )
+    .unique();
 };

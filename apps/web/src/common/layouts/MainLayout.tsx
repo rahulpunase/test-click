@@ -1,27 +1,31 @@
-import { Navigate, Outlet, useParams } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import { AppSidebar } from "../components/app-sidebar/AppSidebar";
+import { AppRail } from "../components/app-sidebar/app-rail/AppRail";
 import { ProfileDropdown } from "../components/profile-dropdown/ProfileDropdown";
+import { useGlobalData } from "../providers/globalDataProvider/globalDataProvider";
 
 export const MainLayout = () => {
-  const { workspaceId: workSpaceSlug } = useParams();
+  const { workSpace } = useGlobalData();
 
-  if (!workSpaceSlug) {
+  if (!workSpace) {
     return <Navigate to="/onboarding/get-started" />;
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex">
-      {/* Placeholder for Sidebar */}
-      <AppSidebar />
+    <div className="h-screen bg-background text-foreground flex flex-col">
+      {/* Header */}
+      <header className="h-10 border-b border-border-2 flex items-center px-4 space-between shrink-0">
+        <div className="flex-1">Header</div>
+        <ProfileDropdown />
+      </header>
 
-      <div className="flex-1 flex flex-col">
-        {/* Placeholder for Header */}
-        <header className="h-14 border-b border-border-2 flex items-center px-4 space-between">
-          <div className="flex-1">Header</div>
-          <ProfileDropdown />
-        </header>
+      <div className="flex flex-1 overflow-hidden">
+        {/* Rail */}
+        <AppRail />
+        {/* Sidebar */}
+        <AppSidebar />
 
-        <main className="flex-1 p-4">
+        <main className="flex-1 p-4 overflow-auto">
           <Outlet />
         </main>
       </div>

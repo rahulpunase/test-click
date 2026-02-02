@@ -3,6 +3,7 @@ import { createContext, useContext, type ReactNode } from "react";
 
 interface GlobalData {
   workSpace: Doc<"workspaces">;
+  user: Doc<"users">;
 }
 
 const GlobalDataContext = createContext<GlobalData | undefined>(undefined);

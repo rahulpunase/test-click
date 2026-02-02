@@ -4,6 +4,7 @@ import type { Id } from "@repo/backend/types";
 import { useGlobalData } from "@/common/providers/globalDataProvider/globalDataProvider";
 import { ChevronDownIcon, LogOutIcon } from "lucide-react";
 import { useAppAuthActions } from "@/common/hooks/authHooks/useAppAuthActions";
+import { Presense } from "../presence/Presense";
 // Local Avatar component removed in favor of @repo/ui Avatar
 
 export const ProfileDropdown = () => {
@@ -30,12 +31,15 @@ export const ProfileDropdown = () => {
   return (
     <Dropdown>
       <Dropdown.Trigger asChild>
-        <div className="rounded-full p-1 border border-border-2 flex items-center gap-1 hover:bg-background-muted cursor-pointer">
+        <div className="rounded-full p-1 border border-border-2 flex items-center gap-1 hover:bg-background-muted cursor-pointer relative">
           <Avatar
             src={memberInfo.user.image ?? undefined}
             fallback={userInitial}
-            size="xs"
+            size="xxs"
           />
+          <div className="absolute top-0 right-[-2px]">
+            <Presense memberId={memberInfo?.member._id} />
+          </div>
           <div>
             <ChevronDownIcon className="h-4 w-4 text-text-muted" />
           </div>

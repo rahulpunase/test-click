@@ -3,6 +3,7 @@ import { mutation } from "../_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { getOneFrom } from "convex-helpers/server/relationships";
 import { createMember } from "../members/service";
+import { Errors } from "../errors/service";
 
 export const createTemporaryWorkspace = mutation({
   args: {},
@@ -10,7 +11,7 @@ export const createTemporaryWorkspace = mutation({
     const userId = await getAuthUserId(ctx);
 
     if (!userId) {
-      throw new Error("User is not authenticated");
+      throw Errors.Auth.unauthenticated();
     }
 
     // Generate a temporary name and slug
@@ -43,7 +44,7 @@ export const updateName = mutation({
     const userId = await getAuthUserId(ctx);
 
     if (!userId) {
-      throw new Error("User is not authenticated");
+      throw Errors.Auth.unauthenticated();
     }
 
     const member = await ctx.db

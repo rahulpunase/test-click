@@ -10,3 +10,4 @@ export * from "./components/form";
 export * from "./components/list";
 export * from "./components/skeleton";
 export * from "./components/avatar";
+export * from "./components/separator";

@@ -27,6 +27,16 @@ export default defineSchema({
 });
 ```
 
+
+**Important**: Use getting member by workspace ID and user ID, always use `getMember` from `convex/members/service.ts`.
+
+**Important**: Use the centralized error service for throwing errors. Import the `Errors` object from `convex/errors/service.ts` and use the domain-specific function (e.g., `Errors.Auth.unauthenticated()`, `Errors.Member.notFound()`). Do NOT use `throw new ConvexError(...)` or `throw new Error(...)` directly. 
+
+If you need a new error type:
+1. Add the error message string to `convex/errors/constants.ts`
+2. Add a semantic function to the `Errors` object in `convex/errors/service.ts` (e.g., under `Auth`, `Member`, etc.)
+3. Use the new function in your queries/mutations. 
+
 ## 2. Backend Implementation
 
 We organize backend logic by feature/domain rather than by function type.
