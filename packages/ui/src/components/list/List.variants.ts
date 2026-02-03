@@ -5,7 +5,7 @@ export const listVariants = tv({
     base: "w-full flex flex-col",
     group: "flex flex-col w-full",
     groupHeader:
-      "flex items-center justify-between py-2 px-3 text-sm font-medium text-text-muted bg-background-muted/50 rounded-md",
+      "flex items-center justify-between py-2 px-2 text-sm font-medium text-text-muted rounded-md",
     groupTitle: "font-semibold text-text-muted text-xs",
     groupDescription: "text-xs text-text-muted mt-0.5",
     groupContent: "flex flex-col border-border-2",

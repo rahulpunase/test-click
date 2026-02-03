@@ -32,7 +32,7 @@ export interface ListGroupProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
   "title"
 > {
-  title?: React.ReactNode;
+  label?: React.ReactNode;
   description?: React.ReactNode;
   action?: React.ReactNode;
   collapsible?: boolean;
@@ -44,7 +44,7 @@ export const ListGroup = forwardRef<HTMLDivElement, ListGroupProps>(
   (
     {
       className,
-      title,
+      label,
       description,
       action,
       collapsible = false,
@@ -72,7 +72,7 @@ export const ListGroup = forwardRef<HTMLDivElement, ListGroupProps>(
 
     return (
       <div ref={ref} className={cn(group(), className)} {...props}>
-        {(title || description || action) && (
+        {(label || description || action) && (
           <div
             className={cn(
               groupHeader(),
@@ -83,7 +83,7 @@ export const ListGroup = forwardRef<HTMLDivElement, ListGroupProps>(
             <div className="flex items-center gap-2">
               {collapsible && <ChevronRight className={chevron()} />}
               <div className="flex flex-col">
-                {title && <span className={groupTitle()}>{title}</span>}
+                {label && <span className={groupTitle()}>{label}</span>}
                 {description && (
                   <span className={groupDescription()}>{description}</span>
                 )}
@@ -111,7 +111,7 @@ export interface ListItemProps extends Omit<
 > {
   as?: React.ElementType;
   icon?: React.ReactElement<{ className?: string }>;
-  title?: React.ReactNode;
+  label?: React.ReactNode;
   description?: React.ReactNode;
   action?: React.ReactNode;
   selected?: boolean;
@@ -127,7 +127,7 @@ export const ListItem = forwardRef<HTMLElement, ListItemProps>(
       className,
       as,
       icon,
-      title,
+      label,
       description,
       action,
       selected = false,
@@ -167,7 +167,7 @@ export const ListItem = forwardRef<HTMLElement, ListItemProps>(
       >
         {iconElement}
         <div className={itemContent()}>
-          {title && <span className={itemTitle()}>{title}</span>}
+          {label && <span className={itemTitle()}>{label}</span>}
           {description && (
             <span className={itemDescription()}>{description}</span>
           )}

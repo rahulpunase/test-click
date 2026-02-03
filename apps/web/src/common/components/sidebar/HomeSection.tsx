@@ -17,26 +17,26 @@ export const HomeSection = () => {
           as={Link}
           to="/inbox"
           icon={<Inbox size={20} />}
-          title="Inbox"
+          label="Inbox"
         />
         <List.Item
           icon={<MessageSquareReply size={20} />}
-          title="Replies"
+          label="Replies"
           onClick={() => {}}
         />
         <List.Item
           icon={<CheckSquare size={20} />}
-          title="My tasks"
+          label="My tasks"
           onClick={() => {}}
         />
         <List.Item
           icon={<ListTodo size={20} />}
-          title="All tasks"
+          label="All tasks"
           onClick={() => {}}
         />
         <List.Item
           icon={<MoreHorizontal size={20} />}
-          title="More"
+          label="More"
           onClick={() => {}}
         />
       </List.Group>

@@ -28,9 +28,9 @@ type Story = StoryObj<typeof List>;
 export const Default: Story = {
   render: () => (
     <List className="max-w-md">
-      <List.Item title="Account Settings" icon={<Settings />} />
-      <List.Item title="Profile" icon={<User />} />
-      <List.Item title="Billing" icon={<CreditCard />} />
+      <List.Item label="Account Settings" icon={<Settings />} />
+      <List.Item label="Profile" icon={<User />} />
+      <List.Item label="Billing" icon={<CreditCard />} />
     </List>
   ),
 };
@@ -39,12 +39,12 @@ export const WithDescriptions: Story = {
   render: () => (
     <List className="max-w-md">
       <List.Item
-        title="Push Notifications"
+        label="Push Notifications"
         description="Receive daily updates"
         icon={<Bell />}
       />
       <List.Item
-        title="Dark Mode"
+        label="Dark Mode"
         description="Switch between light and dark themes"
         icon={<Moon />}
       />
@@ -55,13 +55,13 @@ export const WithDescriptions: Story = {
 export const WithGroups: Story = {
   render: () => (
     <List className="max-w-md">
-      <List.Group title="General">
-        <List.Item title="Account" icon={<User />} />
-        <List.Item title="Notifications" icon={<Bell />} />
+      <List.Group label="General">
+        <List.Item label="Account" icon={<User />} />
+        <List.Item label="Notifications" icon={<Bell />} />
       </List.Group>
-      <List.Group title="Billing">
-        <List.Item title="Payment Methods" icon={<CreditCard />} />
-        <List.Item title="History" />
+      <List.Group label="Billing">
+        <List.Item label="Payment Methods" icon={<CreditCard />} />
+        <List.Item label="History" />
       </List.Group>
     </List>
   ),
@@ -70,13 +70,13 @@ export const WithGroups: Story = {
 export const CollapsibleGroups: Story = {
   render: () => (
     <List className="max-w-md">
-      <List.Group title="General Settings" collapsible defaultExpanded>
-        <List.Item title="Profile" />
-        <List.Item title="Security" />
+      <List.Group label="General Settings" collapsible defaultExpanded>
+        <List.Item label="Profile" />
+        <List.Item label="Security" />
       </List.Group>
-      <List.Group title="Advanced Settings" collapsible>
-        <List.Item title="API Keys" />
-        <List.Item title="Webhooks" />
+      <List.Group label="Advanced Settings" collapsible>
+        <List.Item label="API Keys" />
+        <List.Item label="Webhooks" />
       </List.Group>
     </List>
   ),
@@ -85,15 +85,15 @@ export const CollapsibleGroups: Story = {
 export const NestedGroups: Story = {
   render: () => (
     <List className="max-w-md">
-      <List.Group title="Organization" collapsible defaultExpanded>
-        <List.Item title="Overview" />
-        <List.Group title="Members" collapsible>
-          <List.Item title="Active Members" />
-          <List.Item title="Pending Invitations" />
+      <List.Group label="Organization" collapsible defaultExpanded>
+        <List.Item label="Overview" />
+        <List.Group label="Members" collapsible>
+          <List.Item label="Active Members" />
+          <List.Item label="Pending Invitations" />
         </List.Group>
-        <List.Group title="Teams" collapsible>
-          <List.Item title="Engineering" />
-          <List.Item title="Design" />
+        <List.Group label="Teams" collapsible>
+          <List.Item label="Engineering" />
+          <List.Item label="Design" />
         </List.Group>
       </List.Group>
     </List>
@@ -104,13 +104,13 @@ export const Interactive: Story = {
   render: () => (
     <List className="max-w-md">
       <List.Item
-        title="Click me"
+        label="Click me"
         description="I have a hover state"
         onClick={() => alert("Clicked!")}
         icon={<User />}
       />
       <List.Item
-        title="Interactive Item"
+        label="Interactive Item"
         description="With action button"
         action={
           <button className="text-xs bg-background-muted px-2 py-1 rounded">
@@ -119,13 +119,13 @@ export const Interactive: Story = {
         }
       />
       <List.Item
-        title="Disabled Item"
+        label="Disabled Item"
         description="Cannot be clicked"
         disabled
         onClick={() => alert("Should not fire")}
       />
       <List.Item
-        title="Selected Item"
+        label="Selected Item"
         description="Currently active"
         selected
         onClick={() => {}}
@@ -138,7 +138,7 @@ export const WithActionMenu: Story = {
   render: () => (
     <List className="max-w-md">
       <List.Item
-        title="Project Alpha"
+        label="Project Alpha"
         description="Last updated 2 hours ago"
         action={
           <Dropdown>
@@ -157,7 +157,7 @@ export const WithActionMenu: Story = {
         }
       />
       <List.Item
-        title="Project Beta"
+        label="Project Beta"
         description="Last updated 5 days ago"
         action={
           <Dropdown>
