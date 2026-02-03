@@ -178,3 +178,68 @@ export const WithActionMenu: Story = {
     </List>
   ),
 };
+
+export const ExpandableItems: Story = {
+  render: () => (
+    <List className="max-w-md border border-border-2 rounded-lg p-2">
+      <List.Item
+        label="Dashboard"
+        icon={<Settings />}
+        description="Expandable with Icon (Hover to see chevron)"
+      >
+        <List.Item.Expandable>
+          <List.Item label="Analytics" />
+          <List.Item label="Reports" />
+        </List.Item.Expandable>
+      </List.Item>
+
+      <List.Item label="Documents" description="Expandable without Icon">
+        <List.Item.Expandable>
+          <List.Item label="Private" icon={<User />} />
+          <List.Item label="Shared" icon={<User />} />
+        </List.Item.Expandable>
+      </List.Item>
+
+      <List.Item label="Deeply Nested" icon={<Settings />}>
+        <List.Item.Expandable>
+          <List.Item label="Level 1">
+            <List.Item.Expandable>
+              <List.Item label="Level 2">
+                <List.Item.Expandable>
+                  <List.Item label="Level 3" />
+                </List.Item.Expandable>
+              </List.Item>
+            </List.Item.Expandable>
+          </List.Item>
+        </List.Item.Expandable>
+      </List.Item>
+    </List>
+  ),
+};
+
+export const GroupWithExpandableItems: Story = {
+  render: () => (
+    <List className="max-w-md border border-border-2 rounded-lg p-2">
+      <List.Group label="Management" collapsible defaultExpanded>
+        <List.Item label="Team" icon={<User />}>
+          <List.Item.Expandable>
+            <List.Item label="Admins" />
+            <List.Item label="Members" />
+            <List.Item label="Guests" />
+          </List.Item.Expandable>
+        </List.Item>
+        <List.Item label="Settings" icon={<Settings />}>
+          <List.Item.Expandable>
+            <List.Item label="General" />
+            <List.Item label="Security" />
+          </List.Item.Expandable>
+        </List.Item>
+      </List.Group>
+
+      <List.Group label="Resources" collapsible>
+        <List.Item label="Documentation" />
+        <List.Item label="API Reference" />
+      </List.Group>
+    </List>
+  ),
+};

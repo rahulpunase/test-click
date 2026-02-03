@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { listVariants } from "./List.variants";
-import { cn } from "../../lib/utils";
+import { cn, isChildByType } from "../../lib/utils";
 import React from "react";
 
 /* -------------------------------------------------------------------------------------------------
@@ -102,6 +102,20 @@ export const ListGroup = forwardRef<HTMLDivElement, ListGroupProps>(
 ListGroup.displayName = "ListGroup";
 
 /* -------------------------------------------------------------------------------------------------
+ * ListItemExpandable
+ * -----------------------------------------------------------------------------------------------*/
+
+export interface ListItemExpandableProps {
+  children?: React.ReactNode;
+}
+
+export const ListItemExpandable = ({ children }: ListItemExpandableProps) => {
+  return <>{children}</>;
+};
+
+ListItemExpandable.displayName = "ListItemExpandable";
+
+/* -------------------------------------------------------------------------------------------------
  * ListItem
  * -----------------------------------------------------------------------------------------------*/
 
@@ -118,6 +132,7 @@ export interface ListItemProps extends Omit<
   disabled?: boolean;
   asChild?: boolean;
   type?: "button" | "submit" | "reset";
+  defaultExpanded?: boolean;
   [key: string]: any;
 }
 
@@ -132,12 +147,34 @@ export const ListItem = forwardRef<HTMLElement, ListItemProps>(
       action,
       selected = false,
       disabled = false,
+      defaultExpanded = false,
       onClick,
+      children,
       ...props
     },
     ref,
   ) => {
+    // Detect if we have an expandable child
+    const childrenArray = React.Children.toArray(children);
+    const expandableChild = childrenArray.find((child) =>
+      isChildByType(child, ListItemExpandable),
+    );
+    const otherChildren = childrenArray.filter(
+      (child) => child !== expandableChild,
+    );
+
+    const isExpandable = !!expandableChild;
+    const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+
+    const handleToggle = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (isExpandable) {
+        setIsExpanded((prev: boolean) => !prev);
+      }
+    };
+
     const clickable = !!onClick && !disabled;
+
     const {
       item,
       itemIcon,
@@ -145,24 +182,73 @@ export const ListItem = forwardRef<HTMLElement, ListItemProps>(
       itemTitle,
       itemDescription,
       itemAction,
-    } = listVariants({ clickable, selected, disabled });
+      chevron,
+    } = listVariants({
+      clickable,
+      selected,
+      disabled,
+      expanded: isExpanded,
+    });
 
-    const iconElement = icon
-      ? React.cloneElement(icon, {
-          className: cn(itemIcon(), icon.props.className),
-          ...icon.props,
-        })
-      : null;
+    // Icon Logic
+    // If expandable:
+    // - If no icon: Show Chevron
+    // - If icon: Show Icon normally, Show Chevron on Hover (overlay)
+    let iconElement = null;
 
-    const Component = as || (onClick ? "button" : "div");
+    if (isExpandable) {
+      if (icon) {
+        // Icon with Hover Chevron
+        iconElement = (
+          <div
+            className="relative flex items-center justify-center mr-3 h-4 w-4 cursor-pointer z-10"
+            onClick={handleToggle}
+            role="button"
+            tabIndex={0}
+          >
+            {React.cloneElement(icon, {
+              className: cn(
+                "transition-opacity duration-200 group-hover/item:opacity-0 absolute w-full h-full",
+                icon.props.className,
+              ),
+              ...icon.props,
+            })}
+            <ChevronRight
+              className={cn(
+                chevron(),
+                "absolute opacity-0 group-hover/item:opacity-100 transition-opacity duration-200 w-full h-full",
+              )}
+            />
+          </div>
+        );
+      } else {
+        // Just Chevron
+        iconElement = (
+          <div
+            className="flex items-center justify-center mr-3 h-4 w-4 cursor-pointer z-10"
+            onClick={handleToggle}
+          >
+            <ChevronRight className={cn(chevron(), "w-full h-full")} />
+          </div>
+        );
+      }
+    } else if (icon) {
+      // Normal Icon
+      iconElement = React.cloneElement(icon, {
+        className: cn(itemIcon(), icon.props.className),
+        ...icon.props,
+      });
+    }
 
-    return (
+    const Component = as || (clickable ? "button" : "div");
+
+    const mainContent = (
       <Component
         ref={ref}
         disabled={disabled}
         onClick={onClick}
         className={cn(item(), className)}
-        {...(onClick && !as ? { type: "button" } : {})}
+        {...(clickable && !as ? { type: "button" } : {})}
         {...props}
       >
         {iconElement}
@@ -171,6 +257,7 @@ export const ListItem = forwardRef<HTMLElement, ListItemProps>(
           {description && (
             <span className={itemDescription()}>{description}</span>
           )}
+          {otherChildren}
         </div>
         {action && (
           <div
@@ -185,6 +272,21 @@ export const ListItem = forwardRef<HTMLElement, ListItemProps>(
         )}
       </Component>
     );
+
+    if (isExpandable) {
+      return (
+        <div className="flex flex-col w-full">
+          {mainContent}
+          {isExpanded && (
+            <div className="flex flex-col border-l border-border-2 ml-4 pl-1">
+              {expandableChild}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    return mainContent;
   },
 );
 
@@ -195,5 +297,7 @@ ListItem.displayName = "ListItem";
 
 export const List = Object.assign(ListComponent, {
   Group: ListGroup,
-  Item: ListItem,
+  Item: Object.assign(ListItem, {
+    Expandable: ListItemExpandable,
+  }),
 });

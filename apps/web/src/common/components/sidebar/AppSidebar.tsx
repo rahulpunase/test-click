@@ -18,7 +18,7 @@ export const AppSidebar = () => {
 
       <div className="flex-1 pb-2 px-2 overflow-y-auto">
         <HomeSection />
-        <Separator orientation="horizontal" className="my-3" />
+        <Separator orientation="horizontal" className="my-2" />
         <SpacesSection />
       </div>
     </div>
