@@ -2,10 +2,12 @@ import { useGlobalData } from "@/common/providers/globalDataProvider/globalDataP
 import { HomeSection } from "./HomeSection";
 import { Separator } from "@repo/ui";
 import { SpacesSection } from "./spaces/SpacesSection";
+import {
+  useGetUserSidebarConfiguration,
+  useGetConstants,
+} from "@repo/backend/sidebar/queries";
 
 export const AppSidebar = () => {
-  const { workSpace } = useGlobalData();
-
   return (
     <div className="flex flex-col border-r border-border-2 bg-background w-52 h-full">
       {/* <div className="flex items-center justify-between p-3 h-10 border-b border-border-1 shrink-0">

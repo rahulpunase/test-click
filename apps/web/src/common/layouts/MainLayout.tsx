@@ -1,8 +1,7 @@
 import { Navigate, Outlet } from "react-router";
-import { AppSidebar } from "../components/app-sidebar/AppSidebar";
-import { AppRail } from "../components/app-sidebar/app-rail/AppRail";
 import { ProfileDropdown } from "../components/profile-dropdown/ProfileDropdown";
 import { useGlobalData } from "../providers/globalDataProvider/globalDataProvider";
+import { Sidebar } from "../components/sidebar/Sidebar";
 
 export const MainLayout = () => {
   const { workSpace } = useGlobalData();
@@ -20,10 +19,7 @@ export const MainLayout = () => {
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Rail */}
-        <AppRail />
-        {/* Sidebar */}
-        <AppSidebar />
+        <Sidebar />
 
         <main className="flex-1 p-4 overflow-auto">
           <Outlet />

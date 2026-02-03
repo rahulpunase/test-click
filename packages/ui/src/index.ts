@@ -11,3 +11,4 @@ export * from "./components/list";
 export * from "./components/skeleton";
 export * from "./components/avatar";
 export * from "./components/separator";
+export * from "./components/tooltip";

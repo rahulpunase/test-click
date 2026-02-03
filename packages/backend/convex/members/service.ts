@@ -49,6 +49,7 @@ export const createMember = async (
   });
 
   await createMemberProfile(ctx, memberId);
+  // also create member
 
   return memberId;
 };

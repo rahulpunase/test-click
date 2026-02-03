@@ -83,7 +83,7 @@ export const Navigations: Navigation[] = [
   },
 ];
 
-const Home: Home[] = [
+export const Home: Home[] = [
   {
     id: "inbox",
     title: "Inbox",
@@ -132,3 +132,20 @@ const Home: Home[] = [
     icon: "all-channels",
   },
 ];
+
+const DefaultItemsInMemberSidebar = Home.filter((item) =>
+  [
+    "home",
+    "spaces",
+    "chat",
+    "planner",
+    "ai",
+    "teams",
+    "docs",
+    "dashboard",
+    "whiteboard",
+    "forms",
+    "goals",
+    "time-sheets",
+  ].includes(item.id),
+);
