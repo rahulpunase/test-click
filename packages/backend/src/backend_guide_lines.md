@@ -55,6 +55,22 @@ convex/
 
 ### Writing Queries & Mutations
 
+**Documentation Requirement**:
+All queries and mutations MUST have a JSDoc comment explaining what they do, their arguments, and potential errors thrown.
+
+Example:
+```typescript
+/**
+ * Retrieves a product by its ID.
+ *
+ * @param ctx - The query context.
+ * @param args - The arguments for the query.
+ * @param args.id - The ID of the product to retrieve.
+ * @returns The product document, or null if not found.
+ */
+export const getById = query({ ... });
+```
+
 **`queries.ts`**:
 ```typescript
 import { query } from "../_generated/server";

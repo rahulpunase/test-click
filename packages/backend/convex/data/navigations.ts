@@ -2,6 +2,7 @@ type Navigation = {
   id: string;
   title: string;
   icon: string;
+  isPinned: boolean;
   description?: string;
 };
 
@@ -17,68 +18,80 @@ export const Navigations: Navigation[] = [
     id: "home",
     title: "Home",
     icon: "home",
+    isPinned: true,
     description: "Home is where you'll find everything",
   },
   {
     id: "spaces",
     title: "Spaces",
+    isPinned: true,
     icon: "spaces",
   },
   {
     id: "chat",
     title: "Chat",
+    isPinned: true,
     icon: "chat",
   },
   {
     id: "planner",
     title: "Planner",
+    isPinned: true,
     icon: "planner",
   },
   {
     id: "ai",
     title: "AI",
+    isPinned: true,
     icon: "ai",
   },
   // teams
   {
     id: "teams",
     title: "Teams",
+    isPinned: true,
     icon: "teams",
   },
   //docs
   {
     id: "docs",
     title: "Docs",
+    isPinned: true,
     icon: "docs",
   },
   // dashboard
   {
     id: "dashboard",
     title: "Dashboard",
+    isPinned: true,
     icon: "dashboard",
   },
   // whiteboard
   {
     id: "whiteboard",
     title: "Whiteboard",
+    isPinned: true,
     icon: "whiteboard",
   },
   // forms
   {
     id: "forms",
     title: "Forms",
+    isPinned: true,
     icon: "forms",
   },
   // goals
   {
     id: "goals",
     title: "Goals",
+    isPinned: true,
     icon: "goals",
   },
   // time sheets
   {
     id: "time-sheets",
     title: "Time Sheets",
+    isPinned: true,
     icon: "time-sheets",
   },
 ];

@@ -40,7 +40,7 @@ function useAvailableHeight(ref: React.RefObject<HTMLElement | null>) {
 export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const availableHeight = useAvailableHeight(containerRef);
-  const { isNavConfigDialogOpen, setNavConfigDialogOpen } = useSidebarStore();
+  const { setNavConfigDialogOpen } = useSidebarStore();
 
   const itemsToRender = useMemo(() => {
     if (!userSelectedNavItems.length) {
@@ -65,18 +65,24 @@ export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
     const itemSpace = ITEM_HEIGHT + GAP;
     const maxItems = Math.floor((availableHeight + GAP) / itemSpace);
 
-    if (itemsToRender.length <= maxItems) {
-      return { visibleItems: itemsToRender, overflowItems: [] };
-    }
+    // Separate pinned and unpinned items
+    const pinnedItems = itemsToRender.filter((item) => item.isPinned);
+    const unpinnedItems = itemsToRender.filter((item) => !item.isPinned);
 
-    // If we have overflow, we need space for the "More" button
-    // "More" button takes same space as an item.
-    // So visible items count = maxItems - 1
-    const visibleCount = Math.max(0, maxItems - 1);
+    // Check if we need a "More" button
+    // We need it if there are unpinned items OR if pinned items don't fit
+    const needsMoreButton =
+      unpinnedItems.length > 0 || pinnedItems.length > maxItems;
+
+    // If we need the "More" button, we reserve one slot for it
+    const visibleCount = needsMoreButton ? Math.max(0, maxItems - 1) : maxItems;
+
+    const visiblePinned = pinnedItems.slice(0, visibleCount);
+    const overflowPinned = pinnedItems.slice(visibleCount);
 
     return {
-      visibleItems: itemsToRender.slice(0, visibleCount),
-      overflowItems: itemsToRender.slice(visibleCount),
+      visibleItems: visiblePinned,
+      overflowItems: [...overflowPinned, ...unpinnedItems],
     };
   }, [itemsToRender, availableHeight]);
 
@@ -99,40 +105,34 @@ export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
           );
         })}
 
-        {overflowItems.length > 0 && (
-          <Dropdown>
-            <Dropdown.Trigger asChild>
-              <AppRailItem icon={MoreHorizontal} label="More" active={false} />
-            </Dropdown.Trigger>
-            <Dropdown.Content side="right" align="start" className="w-56 ml-2">
-              <div className="p-1">
-                <div className="flex flex-row flex-wrap gap-1">
-                  {overflowItems.map((item) => {
-                    const Icon = iconMapper[item.icon];
-                    return (
-                      <AppRailItem
-                        key={item.id}
-                        icon={Icon}
-                        label={item.title}
-                      />
-                    );
-                  })}
-                </div>
-                <div className="py-1">
-                  <Button
-                    variant="outlined"
-                    color="tertiary"
-                    className="w-full"
-                    size="sm"
-                    onClick={() => setNavConfigDialogOpen(true)}
-                  >
-                    Configure
-                  </Button>
-                </div>
+        <Dropdown>
+          <Dropdown.Trigger asChild>
+            <AppRailItem icon={MoreHorizontal} label="More" active={false} />
+          </Dropdown.Trigger>
+          <Dropdown.Content side="right" align="start" className="w-56 ml-2">
+            <div className="p-1">
+              <div className="flex flex-row flex-wrap gap-1">
+                {overflowItems.map((item) => {
+                  const Icon = iconMapper[item.icon];
+                  return (
+                    <AppRailItem key={item.id} icon={Icon} label={item.title} />
+                  );
+                })}
               </div>
-            </Dropdown.Content>
-          </Dropdown>
-        )}
+              <div className="py-1">
+                <Button
+                  variant="outlined"
+                  color="tertiary"
+                  className="w-full"
+                  size="sm"
+                  onClick={() => setNavConfigDialogOpen(true)}
+                >
+                  Configure
+                </Button>
+              </div>
+            </div>
+          </Dropdown.Content>
+        </Dropdown>
       </div>
 
       <div className="">

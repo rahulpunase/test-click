@@ -243,3 +243,36 @@ export const GroupWithExpandableItems: Story = {
     </List>
   ),
 };
+
+export const WithLeftContent: Story = {
+  render: () => (
+    <List className="max-w-md border border-border-2 rounded-lg p-2">
+      <List.Item label="Custom Checkbox">
+        <List.Item.LeftContent>
+          <div className="w-4 h-4 border border-primary rounded bg-primary/20 flex items-center justify-center text-[10px] text-primary">
+            ✓
+          </div>
+        </List.Item.LeftContent>
+      </List.Item>
+      <List.Item
+        label="Expandable with Left Content"
+        description="LeftContent replaces Chevron/Icon logic"
+      >
+        <List.Item.LeftContent>
+          <div className="w-4 h-4 rounded-full bg-secondary text-white flex items-center justify-center text-[10px]">
+            !
+          </div>
+        </List.Item.LeftContent>
+        <List.Item.Expandable>
+          <List.Item label="Child 1" />
+          <List.Item label="Child 2" />
+        </List.Item.Expandable>
+      </List.Item>
+      <List.Item label="Text Left Content">
+        <List.Item.LeftContent>
+          <span className="text-xs font-bold text-tertiary">#1</span>
+        </List.Item.LeftContent>
+      </List.Item>
+    </List>
+  ),
+};

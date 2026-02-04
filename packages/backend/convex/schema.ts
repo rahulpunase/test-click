@@ -1,6 +1,7 @@
 import { defineSchema, defineTable } from "convex/server";
 import { authTables } from "@convex-dev/auth/server";
 import { v } from "convex/values";
+import { sidebar } from "./sidebar/table";
 
 /**
  * Database schema definition
@@ -52,37 +53,5 @@ export default defineSchema({
     contactPhone: v.optional(v.string()),
   }).index("by_memberId", ["memberId"]),
 
-  sidebar: defineTable({
-    memberId: v.id("members"),
-    configuration: v.object({
-      navigation: v.array(
-        v.object({
-          id: v.string(),
-          title: v.string(),
-          icon: v.string(),
-          isSelected: v.optional(v.boolean()),
-          description: v.optional(v.string()),
-        }),
-      ),
-      home: v.array(
-        v.object({
-          id: v.string(),
-          title: v.string(),
-          icon: v.string(),
-          isSelected: v.optional(v.boolean()),
-          description: v.optional(v.string()),
-        }),
-      ),
-      sections: v.array(
-        v.object({
-          id: v.string(),
-          title: v.string(),
-          icon: v.string(),
-          isSelected: v.optional(v.boolean()),
-          description: v.optional(v.string()),
-          isUserCreated: v.optional(v.boolean()),
-        }),
-      ),
-    }),
-  }).index("by_memberId", ["memberId"]),
+  sidebar,
 });

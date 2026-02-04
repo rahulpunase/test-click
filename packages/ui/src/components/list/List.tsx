@@ -102,6 +102,20 @@ export const ListGroup = forwardRef<HTMLDivElement, ListGroupProps>(
 ListGroup.displayName = "ListGroup";
 
 /* -------------------------------------------------------------------------------------------------
+ * ListItemLeftContent
+ * -----------------------------------------------------------------------------------------------*/
+
+export interface ListItemLeftContentProps {
+  children?: React.ReactNode;
+}
+
+export const ListItemLeftContent = ({ children }: ListItemLeftContentProps) => {
+  return <>{children}</>;
+};
+
+ListItemLeftContent.displayName = "ListItemLeftContent";
+
+/* -------------------------------------------------------------------------------------------------
  * ListItemExpandable
  * -----------------------------------------------------------------------------------------------*/
 
@@ -112,7 +126,6 @@ export interface ListItemExpandableProps {
 export const ListItemExpandable = ({ children }: ListItemExpandableProps) => {
   return <>{children}</>;
 };
-
 ListItemExpandable.displayName = "ListItemExpandable";
 
 /* -------------------------------------------------------------------------------------------------
@@ -158,8 +171,11 @@ export const ListItem = forwardRef<HTMLElement, ListItemProps>(
     const expandableChild = childrenArray.find((child) =>
       isChildByType(child, ListItemExpandable),
     );
+    const leftContentChild = childrenArray.find((child) =>
+      isChildByType(child, ListItemLeftContent),
+    );
     const otherChildren = childrenArray.filter(
-      (child) => child !== expandableChild,
+      (child) => child !== expandableChild && child !== leftContentChild,
     );
 
     const isExpandable = !!expandableChild;
@@ -195,7 +211,14 @@ export const ListItem = forwardRef<HTMLElement, ListItemProps>(
     // - If icon: Show Icon normally, Show Chevron on Hover (overlay)
     let iconElement = null;
 
-    if (isExpandable) {
+    if (leftContentChild) {
+      // If LeftContent is provided, it takes precedence and replaces the icon/expandable logic for this slot
+      iconElement = (
+        <div className="flex items-center justify-center mr-3 shrink-0">
+          {leftContentChild}
+        </div>
+      );
+    } else if (isExpandable) {
       if (icon) {
         // Icon with Hover Chevron
         iconElement = (
@@ -298,5 +321,6 @@ export const List = Object.assign(ListComponent, {
   Group: ListGroup,
   Item: Object.assign(ListItem, {
     Expandable: ListItemExpandable,
+    LeftContent: ListItemLeftContent,
   }),
 });

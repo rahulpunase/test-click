@@ -15,7 +15,8 @@
     "./members/queries": "./src/hooks/members/queries.ts",
     "./members/mutations": "./src/hooks/members/mutations.ts",
     "./presence/queries": "./src/hooks/presence/queries.ts",
-    "./sidebar/queries": "./src/hooks/sidebar/queries.ts"
+    "./sidebar/queries": "./src/hooks/sidebar/queries.ts",
+    "./sidebar/mutations": "./src/hooks/sidebar/mutations.ts"
   },
   "scripts": {
     "dev": "convex dev",
