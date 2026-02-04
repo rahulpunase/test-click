@@ -1,21 +1,17 @@
 import { AppRail } from "./app-rail/AppRail";
 import { AppSidebar } from "./AppSidebar";
-import { useGlobalData } from "@/common/providers/globalDataProvider/globalDataProvider";
-import {
-  useGetConstants,
-  useGetUserSidebarConfiguration,
-} from "@repo/backend/sidebar/queries";
+import { useSidebarItemsToRender } from "./hooks/useSidebarItemsToRender";
+import { NavConfigDialog } from "./nav-config-dialog/NavConfigDialog";
 
 export const Sidebar = () => {
-  const { workSpace } = useGlobalData();
-  const { data: sidebarConfiguration } = useGetUserSidebarConfiguration(
-    workSpace._id,
-  );
-  const { data: constants } = useGetConstants();
+  const {
+    navItems,
+    homeSectionItems,
+    userSelectedNavItems,
+    userSelectedHomeSectionItems,
+  } = useSidebarItemsToRender();
 
-  const navItems = constants?.navigations ?? [];
-
-  const userSelectedNavItems = sidebarConfiguration?.navigation ?? [];
+  console.log({ homeSectionItems, userSelectedNavItems });
 
   return (
     <>
@@ -25,7 +21,12 @@ export const Sidebar = () => {
         userSelectedNavItems={userSelectedNavItems}
       />
       {/* Sidebar */}
-      <AppSidebar />
+      <AppSidebar
+        homeSectionItems={homeSectionItems}
+        userSelectedHomeSectionItems={userSelectedHomeSectionItems}
+      />
+
+      <NavConfigDialog />
     </>
   );
 };

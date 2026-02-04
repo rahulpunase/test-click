@@ -9,7 +9,7 @@
  */
 
 import type * as auth from "../auth.js";
-import type * as constants from "../constants.js";
+import type * as data_navigations from "../data/navigations.js";
 import type * as errors_constants from "../errors/constants.js";
 import type * as errors_service from "../errors/service.js";
 import type * as errors_util from "../errors/util.js";
@@ -36,7 +36,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
-  constants: typeof constants;
+  "data/navigations": typeof data_navigations;
   "errors/constants": typeof errors_constants;
   "errors/service": typeof errors_service;
   "errors/util": typeof errors_util;

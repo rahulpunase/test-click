@@ -131,6 +131,18 @@ export const Home: Home[] = [
     title: "All Channels",
     icon: "all-channels",
   },
+  // all spaces
+  {
+    id: "all-spaces",
+    title: "All Spaces",
+    icon: "all-spaces",
+  },
+  // all tasks
+  {
+    id: "all-tasks",
+    title: "All Tasks",
+    icon: "all-tasks",
+  },
 ];
 
 const DefaultItemsInMemberSidebar = Home.filter((item) =>

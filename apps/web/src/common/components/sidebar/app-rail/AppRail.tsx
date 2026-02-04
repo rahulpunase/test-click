@@ -5,7 +5,8 @@ import type { Navitems, UserSelectedNavItems } from "../Sidebar.types";
 import { useMemo, useRef, useState, useEffect } from "react";
 import { iconMapper } from "../constants/iconMapper";
 import { Settings, Plus, MoreHorizontal } from "lucide-react";
-import { Dropdown } from "@repo/ui";
+import { Button, Dropdown, Separator } from "@repo/ui";
+import { useSidebarStore } from "../hooks/useSidebarStore";
 
 type AppRailProps = {
   navItems: Navitems["navigations"];
@@ -39,6 +40,7 @@ function useAvailableHeight(ref: React.RefObject<HTMLElement | null>) {
 export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const availableHeight = useAvailableHeight(containerRef);
+  const { isNavConfigDialogOpen, setNavConfigDialogOpen } = useSidebarStore();
 
   const itemsToRender = useMemo(() => {
     if (!userSelectedNavItems.length) {
@@ -103,16 +105,31 @@ export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
               <AppRailItem icon={MoreHorizontal} label="More" active={false} />
             </Dropdown.Trigger>
             <Dropdown.Content side="right" align="start" className="w-56 ml-2">
-              {overflowItems.map((item) => {
-                const Icon = iconMapper[item.icon];
-                return (
-                  <Dropdown.Item
-                    key={item.id}
-                    icon={Icon ? <Icon className="w-4 h-4" /> : undefined}
-                    label={item.title}
-                  />
-                );
-              })}
+              <div className="p-1">
+                <div className="flex flex-row flex-wrap gap-1">
+                  {overflowItems.map((item) => {
+                    const Icon = iconMapper[item.icon];
+                    return (
+                      <AppRailItem
+                        key={item.id}
+                        icon={Icon}
+                        label={item.title}
+                      />
+                    );
+                  })}
+                </div>
+                <div className="py-1">
+                  <Button
+                    variant="outlined"
+                    color="tertiary"
+                    className="w-full"
+                    size="sm"
+                    onClick={() => setNavConfigDialogOpen(true)}
+                  >
+                    Configure
+                  </Button>
+                </div>
+              </div>
             </Dropdown.Content>
           </Dropdown>
         )}

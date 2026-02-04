@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./dialog/*": "./src/components/dialog/*.tsx",
     "./list/*": "./src/components/list/*.tsx",
     "./separator/*": "./src/components/separator/*.tsx",
     "./tooltip/*": "./src/components/tooltip/*.tsx",

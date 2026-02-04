@@ -133,7 +133,6 @@ export interface ListItemProps extends Omit<
   asChild?: boolean;
   type?: "button" | "submit" | "reset";
   defaultExpanded?: boolean;
-  [key: string]: any;
 }
 
 export const ListItem = forwardRef<HTMLElement, ListItemProps>(

@@ -1,23 +1,27 @@
-import { useGlobalData } from "@/common/providers/globalDataProvider/globalDataProvider";
 import { HomeSection } from "./HomeSection";
 import { Separator } from "@repo/ui";
 import { SpacesSection } from "./spaces/SpacesSection";
-import {
-  useGetUserSidebarConfiguration,
-  useGetConstants,
-} from "@repo/backend/sidebar/queries";
+import type {
+  HomeSectionItems,
+  UserSelectedHomeSectionItems,
+} from "./Sidebar.types";
 
-export const AppSidebar = () => {
+type AppSidebarProps = {
+  homeSectionItems: HomeSectionItems;
+  userSelectedHomeSectionItems: UserSelectedHomeSectionItems;
+};
+
+export const AppSidebar = ({
+  homeSectionItems,
+  userSelectedHomeSectionItems,
+}: AppSidebarProps) => {
   return (
     <div className="flex flex-col border-r border-border-2 bg-background w-52 h-full">
-      {/* <div className="flex items-center justify-between p-3 h-10 border-b border-border-1 shrink-0">
-        <span className="font-semibold text-text-primary truncate">
-          {workSpace.name}
-        </span>
-      </div> */}
-
       <div className="flex-1 pb-2 px-2 overflow-y-auto">
-        <HomeSection />
+        <HomeSection
+          homeSectionItems={homeSectionItems}
+          userSelectedHomeSectionItems={userSelectedHomeSectionItems}
+        />
         <Separator orientation="horizontal" className="my-2" />
         <SpacesSection />
       </div>

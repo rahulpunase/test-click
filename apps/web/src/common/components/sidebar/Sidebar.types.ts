@@ -10,3 +10,7 @@ export type UserSidebarConfiguration = NonNullable<
 >;
 
 export type UserSelectedNavItems = UserSidebarConfiguration["navigation"];
+
+export type HomeSectionItems = Navitems["home"];
+
+export type UserSelectedHomeSectionItems = UserSidebarConfiguration["home"];
