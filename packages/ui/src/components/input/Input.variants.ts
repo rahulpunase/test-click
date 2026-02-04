@@ -5,7 +5,7 @@ export const inputVariants = tv({
     root: "flex flex-col gap-1.5 w-full",
     label: "text-sm font-medium text-text-primary",
     input: [
-      "w-full px-4 py-2 h-8 text-base",
+      "w-full px-4 py-2 h-8 text-sm",
       "rounded-md transition-colors",
       "placeholder:text-muted-foreground",
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0",

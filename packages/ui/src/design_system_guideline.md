@@ -30,7 +30,7 @@ Design tokens are the foundational building blocks of the design system. They en
 
 ### Colors
 
-We use a semantic color system with CSS variables defined in `globals.css`:
+We use a semantic color system with CSS variables defined in `globals.css` using Tailwind CSS v4 `@theme` configuration:
 
 #### Brand Colors
 - **Primary**: Custom brand blue with semantic variants
@@ -59,6 +59,7 @@ We use a semantic color system with CSS variables defined in `globals.css`:
 We define semantic colors that automatically adapt to light and dark modes. **Always prefer these over raw neutral colors.**
 
 - **Text Primary**: `text-text-primary` - Main text color (Maps to `var(--color-text-primary)`)
+- **Text Secondary**: `text-text-secondary` - Secondary text color (Maps to `var(--color-text-secondary)`)
 - **Text Muted**: `text-text-muted` - Secondary/subtle text (metadata, placeholders)
 - **Background**: `bg-background` - Page and main container backgrounds
 - **Background Muted**: `bg-background-muted` - Secondary/subtle backgrounds
@@ -91,7 +92,7 @@ We define semantic colors that automatically adapt to light and dark modes. **Al
 ### Typography
 
 #### Font Families
-- **Sans**: Inter - primary font for all text
+- **Sans**: "Open Sans", Inter - primary font for all text
 - **Mono**: Fira Code - for code blocks and technical content
 
 #### Font Sizes

@@ -33,6 +33,14 @@ import { cn } from "@repo/ui/utils";
 
 **Reference:** `packages/ui/package.json`
 
+## 1.1 Implementation & Usage
+
+**CRITICAL RULE:** Whenever you add or implement a new component from `packages/ui`, **ALWAYS** refer to its Storybook documentation first.
+- The Storybook contains the source of truth for props, variants, and usage examples.
+- Check the Storybook stories to understand how the component is intended to be composed and used.
+- Do not guess prop names or usage patterns; verified examples are in Storybook.
+- To run Storybook: `/run-storybook` or `pnpm storybook` in `packages/ui`.
+
 ## 2. Backend Imports
 
 Backend types, queries, and mutations must be imported from the specific paths exposed by the `@repo/backend` package.

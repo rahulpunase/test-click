@@ -29,11 +29,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     if (Icon) {
       return (
-        <div className={styles.controlWrapper()}>
+        <div className={styles.controlWrapper({ className })}>
           <Icon className={styles.icon()} />
           <input
             ref={ref}
-            className={styles.input({ className })}
+            className={styles.input()}
             aria-invalid={error}
             {...props}
           />

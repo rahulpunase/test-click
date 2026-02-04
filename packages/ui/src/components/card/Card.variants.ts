@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants";
 
 export const cardVariants = tv({
   slots: {
-    card: "bg-background border border-border-2 rounded-lg transition-all shadow-sm",
+    card: "bg-background border border-border-2 rounded-lg transition-all",
     header: "px-4 py-3 border-b border-border-1",
     headerTop: "flex items-center justify-between",
     headerBottom: "mt-2 -mx-0 transition-all duration-200",

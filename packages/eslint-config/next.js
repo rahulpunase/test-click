@@ -52,6 +52,15 @@ export const nextJsConfig = [
       ...pluginReactHooks.configs.recommended.rules,
       // React scope no longer necessary with new JSX transform.
       "react/react-in-jsx-scope": "off",
+      "no-restricted-syntax": [
+        "warn",
+        {
+          selector:
+            "Literal[value=/(bg|text|border|outline|ring|divide|shadow|decoration|accent)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/]",
+          message:
+            "Do not use raw Tailwind colors. Use semantic tokens from the design system instead (e.g., bg-primary, text-error).",
+        },
+      ],
     },
   },
 ];

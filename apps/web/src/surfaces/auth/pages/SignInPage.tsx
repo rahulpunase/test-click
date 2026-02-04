@@ -66,6 +66,7 @@ export const SignInPage = () => {
         color="tertiary"
         className="w-full max-w-md bg-white/50 backdrop-blur-sm"
         onClick={onGoogleClick}
+        size="lg"
         disabled={loading}
       >
         <Chrome className="w-4 h-4 mr-2" />
@@ -133,7 +134,7 @@ export const SignInPage = () => {
                 Sign In
               </Button>
               <div className="text-center text-sm mt-2">
-                <Link to="/signup" className="hover:underline">
+                <Link to="/signup" className="link">
                   Create account to get started?
                 </Link>
               </div>
