@@ -5,12 +5,13 @@ export const dialogVariants = tv({
     overlay:
       "fixed inset-0 z-50 bg-background/80 transition-opacity duration-200 data-[state=closed]:opacity-0 data-[state=open]:opacity-100",
     content:
-      "fixed left-[50%] top-[50%] z-50 flex flex-col translate-x-[-50%] translate-y-[-50%] gap-4 border border-border-2 bg-background p-4 shadow-lg transition-all duration-200 data-[state=closed]:opacity-0 data-[state=closed]:scale-95 data-[state=open]:opacity-100 data-[state=open]:scale-100 sm:rounded-lg max-h-[90vh] overflow-y-auto",
-    header: "flex flex-col space-y-2 text-center sm:text-left",
-    footer: "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      "fixed left-[50%] top-[50%] z-50 flex flex-col translate-x-[-50%] translate-y-[-50%] gap-4 border border-border-2 bg-background pt-4 shadow-lg transition-all duration-200 data-[state=closed]:opacity-0 data-[state=closed]:scale-95 data-[state=open]:opacity-100 data-[state=open]:scale-100 sm:rounded-lg max-h-[90vh] overflow-y-auto",
+    header: "flex flex-col space-y-2 text-center sm:text-left px-4",
+    footer:
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 border-t border-border-2 pt-4 pb-4 px-4",
     title:
       "text-base font-medium leading-none tracking-tight text-text-primary",
-    description: "text-sm text-text-muted font-normal",
+    description: "text-sm text-text-muted-2 font-normal",
     close:
       "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
   },

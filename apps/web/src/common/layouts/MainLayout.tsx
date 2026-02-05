@@ -2,6 +2,7 @@ import { Navigate, Outlet } from "react-router";
 import { ProfileDropdown } from "../components/profile-dropdown/ProfileDropdown";
 import { useGlobalData } from "../providers/globalDataProvider/globalDataProvider";
 import { Sidebar } from "../components/sidebar/Sidebar";
+import { CreateSpaceDialog } from "../components/spaces/CreateSpaceDialog";
 
 export const MainLayout = () => {
   const { workSpace } = useGlobalData();
@@ -24,6 +25,7 @@ export const MainLayout = () => {
         <main className="flex-1 p-4 overflow-auto">
           <Outlet />
         </main>
+        <CreateSpaceDialog />
       </div>
     </div>
   );

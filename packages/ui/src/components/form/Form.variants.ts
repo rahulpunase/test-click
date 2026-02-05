@@ -9,7 +9,7 @@ export const formItemVariants = tv({
 });
 
 export const formLabelVariants = tv({
-  base: "text-sm mb-1 font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+  base: "text-sm mb-1 font-normal leading-none text-text-muted peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
   variants: {
     error: {
       true: "text-error",

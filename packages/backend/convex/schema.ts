@@ -4,6 +4,9 @@ import { sidebar } from "./sidebar/table";
 import { workspaces } from "./workspaces/table";
 import { members, member_profiles } from "./members/table";
 import { sample } from "./sample/table";
+import { spaces } from "./spaces/table";
+import { projects } from "./projects/table";
+import { folders } from "./folders/table";
 
 /**
  * Database schema definition
@@ -24,4 +27,7 @@ export default defineSchema({
   members,
   member_profiles,
   sidebar,
+  spaces,
+  projects,
+  folders,
 });

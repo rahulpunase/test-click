@@ -77,7 +77,13 @@ Example:
  * @param args.id - The ID of the product to retrieve.
  * @returns The product document, or null if not found.
  */
-export const getById = query({ ... });
+export const getProductById = query({ ... });
+```
+
+**Naming Convention**:
+Avoid ambiguous names like `list`, `get`, `create`, `update`. Instead, use descriptive names like:
+- Queries: `getProducts`, `getProductById`, `getProductsByCategory`
+- Mutations: `createProduct`, `updateProductPrice`, `deleteProduct`
 ```
 
 **`queries.ts`**:
@@ -85,7 +91,7 @@ export const getById = query({ ... });
 import { query } from "../_generated/server";
 import { v } from "convex/values";
 
-export const getById = query({
+export const getProductById = query({
   args: { id: v.id("products") },
   handler: async (ctx, args) => {
     return await ctx.db.get(args.id);
@@ -98,7 +104,7 @@ export const getById = query({
 import { mutation } from "../_generated/server";
 import { v } from "convex/values";
 
-export const create = mutation({
+export const createProduct = mutation({
   args: { name: v.string(), price: v.number() },
   handler: async (ctx, args) => {
     // Validation logic...
@@ -135,7 +141,7 @@ import type { Id } from "../../../convex/_generated/dataModel";
 
 export const useGetProduct = (id: Id<"products">) => {
   const { data, isPending, error } = useQuery(
-    convexQuery(api.products.queries.getById, { id })
+    convexQuery(api.products.queries.getProductById, { id })
   );
   return { data, isPending, error };
 };
@@ -151,7 +157,7 @@ import { api } from "../../../convex/_generated/api";
 
 export const useCreateProduct = () => {
   const { mutate, isPending, error } = useMutation({
-    mutationFn: useConvexMutation(api.products.mutations.create),
+    mutationFn: useConvexMutation(api.products.mutations.createProduct),
   });
   return { mutate, isPending, error };
 };

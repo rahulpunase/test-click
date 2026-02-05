@@ -1,7 +1,15 @@
 import { Button, Dropdown, List, Separator } from "@repo/ui";
-import { Ellipsis, PlusIcon, LayoutGrid, Shuffle } from "lucide-react";
+import { Ellipsis, PlusIcon, LayoutGrid, Shuffle, Hash } from "lucide-react";
+import { useCreateSpaceStore } from "./store";
+import { useGlobalData } from "../../providers/globalDataProvider/globalDataProvider";
+import { useGetSpaces } from "@repo/backend/spaces/queries";
+import { SpaceItem } from "./SpaceItem";
 
 export const SpacesSection = () => {
+  const { toggle: openCreateSpaceDialog } = useCreateSpaceStore();
+  const { workSpace } = useGlobalData();
+  const { data: spaces } = useGetSpaces(workSpace._id);
+
   return (
     <List>
       <List.Group
@@ -18,7 +26,12 @@ export const SpacesSection = () => {
                 />
               </Dropdown.Trigger>
               <Dropdown.Content align="start" side="bottom">
-                <Dropdown.Item icon={<PlusIcon />}>Create space</Dropdown.Item>
+                <Dropdown.Item
+                  icon={<PlusIcon />}
+                  onClick={openCreateSpaceDialog}
+                >
+                  Create space
+                </Dropdown.Item>
                 <Dropdown.Item icon={<LayoutGrid />}>
                   Manage spaces
                 </Dropdown.Item>
@@ -33,10 +46,15 @@ export const SpacesSection = () => {
               variant="outlined"
               color="tertiary"
               size="sm"
+              onClick={openCreateSpaceDialog}
             />
           </div>
         }
-      ></List.Group>
+      >
+        {spaces?.map((space) => (
+          <SpaceItem key={space._id} space={space} />
+        ))}
+      </List.Group>
     </List>
   );
 };

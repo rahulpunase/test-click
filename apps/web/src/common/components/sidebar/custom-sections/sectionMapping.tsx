@@ -1,4 +1,4 @@
-import { SpacesSection } from "../spaces/SpacesSection";
+import { SpacesSection } from "../../spaces/SpacesSection";
 
 export const sectionMapping = {
   spaces: SpacesSection,

@@ -45,6 +45,43 @@ import { cn } from "@repo/ui/utils";
 
 ** IMPORTANT ** 
 
+## 1.2 Specific Component Usage Rules
+
+**Form Component:**
+- Always use the `Form` namespace for subcomponents.
+- Use `Form.Base` for the form element (not just `form`).
+- Use `Form.Controller` along with `Form.Controller.Label`, `Form.Controller.Field`, `Form.Controller.Message`.
+- **DO NOT** make assumptions about export names. Check `Form.stories.tsx` or the component source.
+- Example:
+  ```tsx
+  <Form {...form}>
+    <Form.Base ...>
+      <Form.Controller ... render={({ field }) => (
+        <Form.Item>
+          <Form.Controller.Label>Label</Form.Controller.Label>
+          <Form.Controller.Field>
+             <Input {...field} />
+          </Form.Controller.Field>
+          <Form.Controller.Message />
+        </Form.Item>
+      )} />
+  </Form>
+  ```
+
+**Dialog Component:**
+- Always use dot notation for Dialog subcomponents: `Dialog.Content`, `Dialog.Title`, `Dialog.Description`, etc.
+- Named exports like `DialogContent` may **NOT** be available.
+- Example:
+  ```tsx
+  <Dialog>
+    <Dialog.Content>
+       <Dialog.Header>
+         <Dialog.Title>Title</Dialog.Title>
+       </Dialog.Header>
+    </Dialog.Content>
+  </Dialog>
+  ```
+
 ## 2. Backend Imports
 
 Backend types, queries, and mutations must be imported from the specific paths exposed by the `@repo/backend` package.

@@ -73,10 +73,9 @@ User
   └── Workspaces (multiple)
         ├── Members (with roles: creator, admin, member)
         └── Spaces (multiple)
-              └── Folders (multiple)
-                    └── Lists (multiple)
-                          └── Tasks (multiple)
-                                └── Sub-tasks (multiple)
+              └── Projects (multiple)
+                    ├── Folders (recursive)
+                    └── Tasks (multiple)
 ```
 
 ### Current Schema
@@ -125,29 +124,30 @@ spaces: {
   color?: string
   icon?: string
   createdBy: Id<"members">
-  createdAt: number
+  updatedAt?: number
 }
 
-folders: {
-  spaceId: Id<"spaces">
-  name: string
-  color?: string
-  icon?: string
-  createdBy: Id<"members">
-  createdAt: number
-}
-
-lists: {
-  folderId?: Id<"folders">  // Can be directly under space
+projects: {
   spaceId: Id<"spaces">
   name: string
   templateId?: Id<"templates">
   createdBy: Id<"members">
-  createdAt: number
+  updatedAt?: number
+}
+
+folders: {
+  projectId: Id<"projects">
+  parentId?: Id<"folders"> // Recursive
+  name: string
+  color?: string
+  icon?: string
+  type?: string
+  createdBy: Id<"members">
+  updatedAt?: number
 }
 
 tasks: {
-  listId: Id<"lists">
+  projectId: Id<"projects">
   name: string
   description?: string
   status: string            // Defined by list template

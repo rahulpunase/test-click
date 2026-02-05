@@ -25,6 +25,9 @@ export const Errors = {
     notAMember: (): ConvexErrorType => {
       return throwConvexError(ErrorMessages.NOT_A_MEMBER);
     },
+    permissions: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.NO_PERMISSION);
+    },
   },
   Workspace: {
     notFound: (): ConvexErrorType => {
