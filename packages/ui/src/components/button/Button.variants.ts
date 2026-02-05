@@ -28,8 +28,26 @@ export const buttonVariants = tv({
       md: "text-sm px-3 py-1.5 h-7",
       lg: "text-base px-4 py-2 h-8",
     },
+    iconOnly: {
+      true: "",
+    },
   },
   compoundVariants: [
+    {
+      size: "sm",
+      iconOnly: true,
+      class: "px-1", // Match py-1
+    },
+    {
+      size: "md",
+      iconOnly: true,
+      class: "px-1.5", // Match py-1.5
+    },
+    {
+      size: "lg",
+      iconOnly: true,
+      class: "px-2", // Match py-2
+    },
     // Primary Solid
     {
       variant: "solid",

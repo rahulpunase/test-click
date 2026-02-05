@@ -9,7 +9,7 @@ export interface CheckboxProps
     Omit<CheckboxVariants, "error"> {
   error?: boolean;
   className?: string;
-  label?: string;
+  label?: React.ReactNode;
   description?: string;
 }
 
@@ -37,19 +37,15 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
 
     if (label || description) {
       return (
-        <div className={styles.wrapper()}>
+        <label htmlFor={uniqueId} className={styles.wrapper()}>
           {checkboxContent}
           <div className="grid gap-1.5 leading-none">
-            {label && (
-              <label htmlFor={uniqueId} className={styles.label()}>
-                {label}
-              </label>
-            )}
+            {label && <span className={styles.label()}>{label}</span>}
             {description && (
               <p className={styles.description()}>{description}</p>
             )}
           </div>
-        </div>
+        </label>
       );
     }
 

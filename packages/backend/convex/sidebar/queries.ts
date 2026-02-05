@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { query } from "../_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { getMember } from "../members/service";
-import { Home, Navigations } from "../data/navigations";
+import { CustomSections, Home, Navigations } from "../data/navigations";
 import { Errors } from "../errors/service";
 
 export const getUserSidebarConfiguration = query({
@@ -36,6 +36,7 @@ export const getConstants = query({
     return {
       navigations: Navigations,
       home: Home,
+      sections: CustomSections,
     };
   },
 });

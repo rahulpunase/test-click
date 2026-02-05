@@ -1,6 +1,6 @@
-import { Dropdown, List } from "@repo/ui";
+import { Button, Dropdown, List, Separator } from "@repo/ui";
 import { Link } from "react-router";
-import { LoaderCircle, MoreHorizontal } from "lucide-react";
+import { Edit, LoaderCircle, MoreHorizontal, Pin, PinOff } from "lucide-react";
 
 import type {
   HomeSectionItems,
@@ -8,6 +8,7 @@ import type {
 } from "./Sidebar.types";
 import { useMemo } from "react";
 import { iconMapper } from "./constants/iconMapper";
+import { useSidebarStore } from "./hooks/useSidebarStore";
 
 type HomeSectionProps = {
   homeSectionItems: HomeSectionItems;
@@ -20,6 +21,7 @@ export const HomeSection = ({
   homeSectionItems,
   userSelectedHomeSectionItems,
 }: HomeSectionProps) => {
+  const { openNavConfigDialog } = useSidebarStore();
   const itemsToRender = useMemo(() => {
     // No items are pinned
     if (!userSelectedHomeSectionItems.length) {
@@ -28,50 +30,83 @@ export const HomeSection = ({
     return userSelectedHomeSectionItems;
   }, [homeSectionItems, userSelectedHomeSectionItems]);
 
-  const visibleItems = itemsToRender.slice(0, BY_DEFAULT_VISIBLE_ITEMS);
-  const hiddenItems = itemsToRender.slice(BY_DEFAULT_VISIBLE_ITEMS);
+  const { visibleItems, overflowItems } = useMemo(() => {
+    const pinnedItems = itemsToRender.filter((item) => item.isPinned);
+    const unpinnedItems = itemsToRender.filter((item) => !item.isPinned);
+
+    // Check if we need a "More" button
+    // We need it if there are unpinned items OR if pinned items don't fit
+    const needsMoreButton =
+      unpinnedItems.length > 0 || pinnedItems.length > BY_DEFAULT_VISIBLE_ITEMS;
+
+    // If we need the "More" button, we reserve one slot for it
+    const visibleCount = needsMoreButton
+      ? Math.max(0, BY_DEFAULT_VISIBLE_ITEMS - 1)
+      : BY_DEFAULT_VISIBLE_ITEMS;
+
+    const visiblePinned = pinnedItems.slice(0, visibleCount);
+    const overflowPinned = pinnedItems.slice(visibleCount);
+
+    return {
+      visibleItems: visiblePinned,
+      overflowItems: [...overflowPinned, ...unpinnedItems],
+    };
+  }, [itemsToRender]);
 
   return (
-    <List>
-      <List.Group>
-        <div className="py-2 px-2 font-bold">Home</div>
+    <div>
+      <div className="py-2 px-2 font-bold">Home</div>
+      <List>
         {visibleItems.map((item) => {
           const Icon = iconMapper[item.icon];
           return (
             <List.Item
               key={item.id}
               as={Link}
-              to={item.id}
               icon={Icon ? <Icon /> : <LoaderCircle />}
               label={item.title}
             />
           );
         })}
-        {hiddenItems.length > 0 && (
+        {overflowItems.length > 0 && (
           <Dropdown>
             <Dropdown.Trigger asChild>
               <List.Item icon={<MoreHorizontal />} label="More" />
             </Dropdown.Trigger>
-            <Dropdown.Content align="start" className="w-56">
-              {hiddenItems.map((item) => {
+            <Dropdown.Content align="start" side="right" className="min-w-48">
+              {overflowItems.map((item) => {
                 const Icon = iconMapper[item.icon];
                 return (
-                  <Link to={item.id} key={item.id}>
-                    <Dropdown.Item>
-                      {Icon ? (
-                        <Icon className="w-4 h-4" />
-                      ) : (
-                        <LoaderCircle className="w-4 h-4" />
-                      )}
-                      <span>{item.title}</span>
-                    </Dropdown.Item>
-                  </Link>
+                  <Dropdown.Item
+                    icon={Icon ? <Icon /> : <LoaderCircle />}
+                    label={item.title}
+                  >
+                    <Dropdown.Item.RightAction>
+                      <Button
+                        aria-label="pin-action"
+                        icon={item.isPinned ? PinOff : Pin}
+                        variant="ghost"
+                        color="tertiary"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          console.log("pin clicked");
+                        }}
+                      />
+                    </Dropdown.Item.RightAction>
+                  </Dropdown.Item>
                 );
               })}
+              <Separator className="my-2" />
+              <Dropdown.Item
+                onClick={() => openNavConfigDialog("home")}
+                icon={<Edit />}
+                label="Configure"
+              />
             </Dropdown.Content>
           </Dropdown>
         )}
-      </List.Group>
-    </List>
+      </List>
+    </div>
   );
 };

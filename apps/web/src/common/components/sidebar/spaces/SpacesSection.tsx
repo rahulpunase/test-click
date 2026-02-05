@@ -1,47 +1,42 @@
-import { List } from "@repo/ui";
-import { Link } from "react-router";
-import {
-  Inbox,
-  MessageSquareReply,
-  CheckSquare,
-  ListTodo,
-  MoreHorizontal,
-} from "lucide-react";
+import { Button, Dropdown, List, Separator } from "@repo/ui";
+import { Ellipsis, PlusIcon, LayoutGrid, Shuffle } from "lucide-react";
 
 export const SpacesSection = () => {
   return (
     <List>
-      <List.Group label="Spaces">
-        <List.Group label="List" collapsible defaultExpanded>
-          <List.Item
-            as={Link}
-            to="/inbox"
-            icon={<Inbox size={20} />}
-            label="Inbox"
-          />
-          <List.Item
-            icon={<MessageSquareReply size={20} />}
-            label="Replies"
-            onClick={() => {}}
-          />
-          <List.Item
-            icon={<CheckSquare size={20} />}
-            label="My tasks"
-            onClick={() => {}}
-          />
-        </List.Group>
-
-        <List.Item
-          icon={<ListTodo size={20} />}
-          label="All tasks"
-          onClick={() => {}}
-        />
-        <List.Item
-          icon={<MoreHorizontal size={20} />}
-          label="More"
-          onClick={() => {}}
-        />
-      </List.Group>
+      <List.Group
+        label="Spaces"
+        action={
+          <div className="flex flex-row gap-1">
+            <Dropdown>
+              <Dropdown.Trigger asChild>
+                <Button
+                  icon={Ellipsis}
+                  variant="ghost"
+                  color="tertiary"
+                  size="sm"
+                />
+              </Dropdown.Trigger>
+              <Dropdown.Content align="start" side="bottom">
+                <Dropdown.Item icon={<PlusIcon />}>Create space</Dropdown.Item>
+                <Dropdown.Item icon={<LayoutGrid />}>
+                  Manage spaces
+                </Dropdown.Item>
+                <Separator className="my-2" />
+                <Dropdown.Item icon={<Shuffle />}>
+                  Re order section
+                </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown>
+            <Button
+              icon={PlusIcon}
+              variant="outlined"
+              color="tertiary"
+              size="sm"
+            />
+          </div>
+        }
+      ></List.Group>
     </List>
   );
 };

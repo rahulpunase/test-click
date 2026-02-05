@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@/test-utils";
+import { render, screen } from "../../test-utils";
 import { Button } from "./Button";
 import { Plus } from "lucide-react";
 
@@ -97,5 +97,21 @@ describe("Button", () => {
     render(<Button icon={Plus} aria-label="Add item" />);
     const button = screen.getByRole("button", { name: "Add item" });
     expect(button).toBeInTheDocument();
+  });
+
+  it("applies square padding for icon-only buttons", () => {
+    const { rerender } = render(
+      <Button icon={Plus} size="sm" aria-label="Add" />,
+    );
+    let button = screen.getByRole("button");
+    expect(button).toHaveClass("px-1");
+
+    rerender(<Button icon={Plus} size="md" aria-label="Add" />);
+    button = screen.getByRole("button");
+    expect(button).toHaveClass("px-1.5");
+
+    rerender(<Button icon={Plus} size="lg" aria-label="Add" />);
+    button = screen.getByRole("button");
+    expect(button).toHaveClass("px-2");
   });
 });

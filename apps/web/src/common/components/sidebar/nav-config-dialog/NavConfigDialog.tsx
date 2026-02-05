@@ -6,7 +6,8 @@ import { NavigationTabSection } from "./NavigationTabSection";
 import { HomeTabSection } from "./HomeTabSection";
 
 export function NavConfigDialog() {
-  const { isNavConfigDialogOpen, setNavConfigDialogOpen } = useSidebarStore();
+  const { isNavConfigDialogOpen, setNavConfigDialogOpen, defaultTab } =
+    useSidebarStore();
 
   return (
     <Dialog open={isNavConfigDialogOpen} onOpenChange={setNavConfigDialogOpen}>
@@ -17,7 +18,7 @@ export function NavConfigDialog() {
             Customize your navigation, home screen, and sections.
           </Dialog.Description>
         </Dialog.Header>
-        <Tabs defaultValue="navigation">
+        <Tabs defaultValue={defaultTab}>
           <Tabs.List>
             <Tabs.Trigger
               value="navigation"

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Menu } from "@base-ui/react/menu";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "../../lib/utils";
+import { cn, isChildByType } from "../../lib/utils";
 import { dropdownVariants, type DropdownVariants } from "./Dropdown.variants";
 
 // Dropdown Root Component
@@ -110,11 +110,34 @@ export interface DropdownItemProps extends Omit<
   icon?: React.ReactElement<{ className?: string }>;
 }
 
+export const DropdownRightAction = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, children, ...props }, ref) => {
+  return (
+    <div ref={ref} className={cn("ml-auto", className)} {...props}>
+      {children}
+    </div>
+  );
+});
+
+DropdownRightAction.displayName = "Dropdown.RightAction";
+
 const DropdownItem = React.forwardRef<HTMLDivElement, DropdownItemProps>(
   ({ className, variant = "normal", label, icon, children, ...props }, ref) => {
     const { item: itemClass, itemIcon: itemIconClass } = dropdownVariants({
       itemVariant: variant,
     });
+
+    const childrenArray = React.Children.toArray(children);
+
+    const rightAction = childrenArray.find((child) =>
+      isChildByType(child, DropdownRightAction),
+    );
+
+    const otherChildren = childrenArray.filter(
+      (child) => child !== rightAction,
+    );
 
     // Clone icon to inject class for sizing
     const iconElement = icon
@@ -127,7 +150,8 @@ const DropdownItem = React.forwardRef<HTMLDivElement, DropdownItemProps>(
       <Menu.Item ref={ref} className={cn(itemClass(), className)} {...props}>
         {iconElement}
         {label && <span className="flex-1 truncate">{label}</span>}
-        {children}
+        {otherChildren}
+        {rightAction}
       </Menu.Item>
     );
   },
@@ -155,12 +179,15 @@ const DropdownItemIndicator = React.forwardRef<
 
 DropdownItemIndicator.displayName = "Dropdown.ItemIndicator";
 
+const RootDropdownItem = Object.assign(DropdownItem, {
+  RightAction: DropdownRightAction,
+});
+
 // Attach subcomponents
 const DropdownWithSubcomponents = Object.assign(DropdownRoot, {
   Trigger: DropdownTrigger,
   Content: DropdownContent,
-  Item: DropdownItem,
-  ItemIndicator: DropdownItemIndicator,
+  Item: RootDropdownItem,
   // Popup is NO LONGER attached
 });
 

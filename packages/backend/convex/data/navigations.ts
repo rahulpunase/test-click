@@ -14,6 +14,16 @@ type Home = {
   description?: string;
 };
 
+type CustomSections = {
+  id: string;
+  title: string;
+  icon: string;
+  isPinned: boolean;
+  description?: string;
+  isUserCreated: boolean;
+  order?: number;
+};
+
 export const Navigations: Navigation[] = [
   {
     id: "home",
@@ -169,19 +179,45 @@ export const Home: Home[] = [
   },
 ];
 
-const DefaultItemsInMemberSidebar = Home.filter((item) =>
-  [
-    "home",
-    "spaces",
-    "chat",
-    "planner",
-    "ai",
-    "teams",
-    "docs",
-    "dashboard",
-    "whiteboard",
-    "forms",
-    "goals",
-    "time-sheets",
-  ].includes(item.id),
-);
+export const CustomSections: CustomSections[] = [
+  {
+    id: "spaces",
+    title: "Spaces",
+    icon: "space",
+    isPinned: true,
+    order: 0,
+    isUserCreated: false,
+  },
+  {
+    id: "channels",
+    title: "Channels",
+    icon: "channels",
+    isPinned: true,
+    order: 1,
+    isUserCreated: false,
+  },
+  {
+    id: "favorites",
+    title: "Favorites",
+    icon: "favorites",
+    isPinned: true,
+    order: 2,
+    isUserCreated: false,
+  },
+  {
+    id: "recents",
+    title: "Recents",
+    icon: "recent",
+    isPinned: true,
+    order: 3,
+    isUserCreated: false,
+  },
+  {
+    id: "direct-messages",
+    title: "Direct messages",
+    icon: "direct-messages",
+    isPinned: true,
+    order: 4,
+    isUserCreated: false,
+  },
+];

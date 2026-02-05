@@ -2,6 +2,8 @@ import { Checkbox, List } from "@repo/ui";
 import { useSidebarItemsToRender } from "../hooks/useSidebarItemsToRender";
 import { useUpdateHome } from "@repo/backend/sidebar/mutations";
 import { useGlobalData } from "@/common/providers/globalDataProvider/globalDataProvider";
+import { iconMapper } from "../constants/iconMapper";
+import { Loader2 } from "lucide-react";
 
 export const HomeTabSection = () => {
   const { homeSectionItems, userSelectedHomeSectionItems } =
@@ -44,22 +46,25 @@ export const HomeTabSection = () => {
   };
 
   return (
-    <div className="py-3">
-      <List className="gap-1">
+    <div className="py-5">
+      <List className="gap-3">
         {finalState.map((item) => {
+          const Icon = iconMapper[item.icon] ?? Loader2;
           return (
-            <List.Item
+            <Checkbox
               key={item.id}
-              label={item.title}
+              defaultChecked={item.isPinned}
+              onCheckedChange={() => handleCheckedChange(item.id)}
+              label={
+                <div className="flex flex-row items-center gap-2">
+                  <Icon className="h-4 w-4 text-text-secondary" />
+                  <span className="text-sm font-normal leading-none text-text-secondary">
+                    {item.title}
+                  </span>
+                </div>
+              }
               description={item.description}
-            >
-              <List.Item.LeftContent>
-                <Checkbox
-                  defaultChecked={item.isPinned}
-                  onCheckedChange={() => handleCheckedChange(item.id)}
-                />
-              </List.Item.LeftContent>
-            </List.Item>
+            />
           );
         })}
       </List>

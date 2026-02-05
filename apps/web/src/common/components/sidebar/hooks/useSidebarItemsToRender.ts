@@ -13,6 +13,7 @@ export const useSidebarItemsToRender = () => {
 
   const navItems = constants?.navigations ?? [];
   const homeSectionItems = constants?.home ?? [];
+  const sections = constants?.sections ?? [];
 
   const userSelectedNavItems = sidebarConfiguration?.navigation ?? [];
   const userSelectedHomeSectionItems = sidebarConfiguration?.home ?? [];
@@ -22,5 +23,6 @@ export const useSidebarItemsToRender = () => {
     homeSectionItems,
     userSelectedNavItems,
     userSelectedHomeSectionItems,
+    sections,
   };
 };

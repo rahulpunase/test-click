@@ -3,19 +3,19 @@ import { tv, type VariantProps } from "tailwind-variants";
 export const checkboxVariants = tv({
   slots: {
     root: "flex flex-col gap-1.5",
-    wrapper: "flex items-start gap-2",
+    wrapper: "flex items-start gap-2 cursor-pointer",
     control: [
       "peer h-4 w-4 shrink-0 rounded-sm border border-text-primary ring-offset-background cursor-pointer",
-      "bg-text-secondary hover:bg-text-primary",
+      "bg-background",
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       "disabled:cursor-not-allowed disabled:opacity-50",
-      "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground ",
+      "aria-checked:bg-text-secondary aria-checked:text-primary-foreground aria-checked:hover:bg-text-primary",
     ],
     indicator: "flex items-center justify-center text-current ",
     check: "text-white h-3.5 w-3.5",
     label:
-      "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mt-0.5",
-    description: "text-xs text-muted-foreground",
+      "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+    description: "text-xs text-text-muted",
     error: "text-xs text-error font-medium",
   },
   variants: {

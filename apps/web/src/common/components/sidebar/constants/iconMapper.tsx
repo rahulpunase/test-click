@@ -43,4 +43,6 @@ export const iconMapper: Record<string, LucideIcon> = {
   drafts: FileEdit,
   posts: ScrollText,
   "all-channels": Hash,
+  "all-spaces": LayoutGrid,
+  "all-tasks": CheckSquare,
 };

@@ -1,17 +1,12 @@
 "use client";
 
 import { AppRailItem } from "./AppRailItem";
-import type { Navitems, UserSelectedNavItems } from "../Sidebar.types";
 import { useMemo, useRef, useState, useEffect } from "react";
 import { iconMapper } from "../constants/iconMapper";
 import { Settings, Plus, MoreHorizontal } from "lucide-react";
 import { Button, Dropdown, Separator } from "@repo/ui";
 import { useSidebarStore } from "../hooks/useSidebarStore";
-
-type AppRailProps = {
-  navItems: Navitems["navigations"];
-  userSelectedNavItems: UserSelectedNavItems;
-};
+import { useSidebarItemsToRender } from "../hooks/useSidebarItemsToRender";
 
 const ITEM_HEIGHT = 51; // Approx height of one item
 const GAP = 8; // Gap between items (gap-2)
@@ -37,10 +32,11 @@ function useAvailableHeight(ref: React.RefObject<HTMLElement | null>) {
   return height;
 }
 
-export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
+export const AppRail = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const availableHeight = useAvailableHeight(containerRef);
   const { setNavConfigDialogOpen } = useSidebarStore();
+  const { navItems, userSelectedNavItems } = useSidebarItemsToRender();
 
   const itemsToRender = useMemo(() => {
     if (!userSelectedNavItems.length) {
@@ -110,7 +106,7 @@ export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
             <AppRailItem icon={MoreHorizontal} label="More" active={false} />
           </Dropdown.Trigger>
           <Dropdown.Content side="right" align="start" className="w-56 ml-2">
-            <div className="p-1">
+            <div className="px-2">
               <div className="flex flex-row flex-wrap gap-1">
                 {overflowItems.map((item) => {
                   const Icon = iconMapper[item.icon];
@@ -119,17 +115,18 @@ export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
                   );
                 })}
               </div>
-              <div className="py-2">
-                <Button
-                  variant="outlined"
-                  color="tertiary"
-                  className="w-full"
-                  size="sm"
-                  onClick={() => setNavConfigDialogOpen(true)}
-                >
-                  Configure
-                </Button>
-              </div>
+            </div>
+            <Separator className="my-2" />
+            <div className="px-2">
+              <Button
+                variant="outlined"
+                color="tertiary"
+                className="w-full"
+                size="sm"
+                onClick={() => setNavConfigDialogOpen(true)}
+              >
+                Configure
+              </Button>
             </div>
           </Dropdown.Content>
         </Dropdown>
