@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Menu } from "@base-ui/react/menu";
 import { Slot } from "@radix-ui/react-slot";
+import { ChevronRight } from "lucide-react";
 import { cn, isChildByType } from "../../lib/utils";
 import { dropdownVariants, type DropdownVariants } from "./Dropdown.variants";
 
@@ -179,6 +180,96 @@ const DropdownItemIndicator = React.forwardRef<
 
 DropdownItemIndicator.displayName = "Dropdown.ItemIndicator";
 
+// Dropdown Submenu Component
+export interface DropdownSubmenuProps extends React.ComponentProps<
+  typeof Menu.SubmenuRoot
+> {}
+
+const DropdownSubmenu: React.FC<DropdownSubmenuProps> = (props) => {
+  return <Menu.SubmenuRoot {...props} />;
+};
+DropdownSubmenu.displayName = "Dropdown.Submenu";
+
+// Dropdown Submenu Trigger Component
+export interface DropdownSubmenuTriggerProps extends React.ComponentProps<
+  typeof Menu.SubmenuTrigger
+> {
+  className?: string;
+  children?: React.ReactNode;
+  asChild?: boolean;
+}
+
+const DropdownSubmenuTrigger = React.forwardRef<
+  HTMLDivElement,
+  DropdownSubmenuTriggerProps
+>(({ className, children, asChild = false, ...props }, ref) => {
+  const { item: itemClass } = dropdownVariants({ itemVariant: "normal" });
+
+  if (asChild) {
+    return (
+      <Menu.SubmenuTrigger
+        ref={ref}
+        {...props}
+        render={(triggerProps) => <Slot {...triggerProps}>{children}</Slot>}
+      />
+    );
+  }
+
+  return (
+    <Menu.SubmenuTrigger
+      ref={ref}
+      className={cn(itemClass(), "justify-between", className)}
+      {...props}
+    >
+      <div className="flex-1 truncate text-left">{children}</div>
+      <ChevronRight className="h-4 w-4 text-text-muted transition-colors ml-auto" />
+    </Menu.SubmenuTrigger>
+  );
+});
+DropdownSubmenuTrigger.displayName = "Dropdown.SubmenuTrigger";
+
+// Dropdown Submenu Content Component
+export interface DropdownSubmenuContentProps extends React.ComponentProps<
+  typeof Menu.Positioner
+> {
+  className?: string; // For the popup
+}
+
+const DropdownSubmenuContent = React.forwardRef<
+  HTMLDivElement,
+  DropdownSubmenuContentProps
+>(
+  (
+    {
+      children,
+      className,
+      side = "right",
+      align = "start",
+      sideOffset = -4,
+      ...props
+    },
+    ref,
+  ) => {
+    const { popup: popupClass } = dropdownVariants();
+    return (
+      <Menu.Portal>
+        <Menu.Positioner
+          ref={ref}
+          side={side}
+          align={align}
+          sideOffset={sideOffset}
+          {...props}
+        >
+          <Menu.Popup className={cn(popupClass(), className)}>
+            {children}
+          </Menu.Popup>
+        </Menu.Positioner>
+      </Menu.Portal>
+    );
+  },
+);
+DropdownSubmenuContent.displayName = "Dropdown.SubmenuContent";
+
 const RootDropdownItem = Object.assign(DropdownItem, {
   RightAction: DropdownRightAction,
 });
@@ -189,6 +280,9 @@ const DropdownWithSubcomponents = Object.assign(DropdownRoot, {
   Content: DropdownContent,
   Item: RootDropdownItem,
   // Popup is NO LONGER attached
+  Submenu: DropdownSubmenu,
+  SubmenuTrigger: DropdownSubmenuTrigger,
+  SubmenuContent: DropdownSubmenuContent,
 });
 
 export { DropdownWithSubcomponents as Dropdown };

@@ -321,3 +321,66 @@ export const WithAsChild: Story = {
     );
   },
 };
+
+/**
+ * Dropdown with nested submenus
+ */
+export const WithSubmenu: Story = {
+  render: () => {
+    return (
+      <Dropdown>
+        <Dropdown.Trigger variant="bordered">
+          <span className="flex-1 text-left">Options</span>
+          <ChevronDown className="h-4 w-4" />
+        </Dropdown.Trigger>
+        <Dropdown.Content sideOffset={5}>
+          <Dropdown.Item
+            label="Profile"
+            onClick={() => console.log("Profile")}
+          />
+
+          <Dropdown.Submenu>
+            <Dropdown.SubmenuTrigger>More Options</Dropdown.SubmenuTrigger>
+            <Dropdown.SubmenuContent sideOffset={2} alignOffset={-5}>
+              <Dropdown.Item
+                label="Sub Item 1"
+                onClick={() => console.log("Sub Item 1")}
+              />
+              <Dropdown.Item
+                label="Sub Item 2"
+                onClick={() => console.log("Sub Item 2")}
+              />
+
+              <Dropdown.Submenu>
+                <Dropdown.SubmenuTrigger>Even More</Dropdown.SubmenuTrigger>
+                <Dropdown.SubmenuContent sideOffset={2} alignOffset={-5}>
+                  <Dropdown.Item
+                    label="Deep Item"
+                    onClick={() => console.log("Deep Item")}
+                  />
+                </Dropdown.SubmenuContent>
+              </Dropdown.Submenu>
+            </Dropdown.SubmenuContent>
+          </Dropdown.Submenu>
+
+          <Dropdown.Submenu>
+            <Dropdown.SubmenuTrigger asChild>
+              <div className="flex items-center gap-2 px-1 py-1 mx-2 text-sm rounded cursor-pointer outline-none transition-colors hover:bg-background-muted text-text-secondary select-none w-auto">
+                <span className="flex-1">Custom Trigger</span>
+                <ChevronDown className="h-4 w-4 -rotate-90" />
+              </div>
+            </Dropdown.SubmenuTrigger>
+            <Dropdown.SubmenuContent sideOffset={2}>
+              <Dropdown.Item
+                label="Worked"
+                onClick={() => console.log("Worked")}
+              />
+            </Dropdown.SubmenuContent>
+          </Dropdown.Submenu>
+
+          <Dropdown.Item label="Logout" onClick={() => console.log("Logout")} />
+        </Dropdown.Content>
+      </Dropdown>
+    );
+  },
+};

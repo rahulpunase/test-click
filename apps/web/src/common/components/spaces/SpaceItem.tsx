@@ -8,6 +8,9 @@ import {
   Star,
   Trash,
   Plus,
+  ChevronRight,
+  ListCheck,
+  Folder,
 } from "lucide-react";
 import type { Spaces } from "./Spaces.types";
 
@@ -32,16 +35,31 @@ export const SpaceItem = ({ space }: SpaceItemProps) => {
             />
           </Dropdown.Trigger>
           <Dropdown.Content align="start" side="bottom">
-            <Dropdown.Item icon={<Star />}>Favorite</Dropdown.Item>
-            <Dropdown.Item icon={<Edit />}>Edit Space</Dropdown.Item>
-            <Dropdown.Item icon={<Link />}>Copy link</Dropdown.Item>
+            <Dropdown.Item icon={<Star />} label="Favorite" />
+            <Dropdown.Item icon={<Edit />} label="Edit Space" />
+            <Dropdown.Item icon={<Link />} label="Copy link" />
             <Separator className="my-1" />
-            <Dropdown.Item icon={<Plus />}>Create new</Dropdown.Item>
-            <Dropdown.Item icon={<Settings />}>Space settings</Dropdown.Item>
+            <Dropdown.Submenu>
+              <Dropdown.SubmenuTrigger asChild>
+                <Dropdown.Item icon={<Plus />} label="Create new">
+                  <Dropdown.Item.RightAction>
+                    <ChevronRight className="h-4 w-4 text-text-muted transition-colors ml-auto" />
+                  </Dropdown.Item.RightAction>
+                </Dropdown.Item>
+              </Dropdown.SubmenuTrigger>
+              <Dropdown.SubmenuContent sideOffset={5}>
+                <Dropdown.Item icon={<ListCheck />} label="Project" />
+                <Separator className="my-2" />
+                <Dropdown.Item icon={<Folder />} label="New Folder" />
+              </Dropdown.SubmenuContent>
+            </Dropdown.Submenu>
+            <Dropdown.Item icon={<Settings />} label="Space settings" />
             <Separator className="my-1" />
-            <Dropdown.Item icon={<Trash />} variant="destructive">
-              Delete Space
-            </Dropdown.Item>
+            <Dropdown.Item
+              icon={<Trash />}
+              variant="destructive"
+              label="Delete Space"
+            />
           </Dropdown.Content>
         </Dropdown>
       }
