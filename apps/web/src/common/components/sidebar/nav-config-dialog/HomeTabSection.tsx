@@ -1,16 +1,17 @@
 import { Checkbox, List } from "@repo/ui";
 import { useSidebarItemsToRender } from "../hooks/useSidebarItemsToRender";
-import { useUpdateNavigation } from "@repo/backend/sidebar/mutations";
+import { useUpdateHome } from "@repo/backend/sidebar/mutations";
 import { useGlobalData } from "@/common/providers/globalDataProvider/globalDataProvider";
 
-export const NavigationTabSection = () => {
-  const { navItems, userSelectedNavItems } = useSidebarItemsToRender();
-  const { mutate: updateNavigation } = useUpdateNavigation();
+export const HomeTabSection = () => {
+  const { homeSectionItems, userSelectedHomeSectionItems } =
+    useSidebarItemsToRender();
+  const { mutate: updateHome } = useUpdateHome();
   const { workSpace } = useGlobalData();
 
-  const finalState = navItems.map((item) => {
-    const isPinned = userSelectedNavItems.length
-      ? !!userSelectedNavItems.find((navItem) => navItem.id === item.id)
+  const finalState = homeSectionItems.map((item) => {
+    const isPinned = userSelectedHomeSectionItems.length
+      ? !!userSelectedHomeSectionItems.find((navItem) => navItem.id === item.id)
           ?.isPinned
       : item.isPinned;
     return {
@@ -36,9 +37,9 @@ export const NavigationTabSection = () => {
       }
       return item;
     });
-    updateNavigation({
+    updateHome({
       workspaceId: workSpace._id,
-      navigation: newState,
+      home: newState,
     });
   };
 

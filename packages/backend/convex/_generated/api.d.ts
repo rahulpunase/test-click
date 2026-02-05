@@ -17,10 +17,12 @@ import type * as http from "../http.js";
 import type * as members_mutations from "../members/mutations.js";
 import type * as members_queries from "../members/queries.js";
 import type * as members_service from "../members/service.js";
+import type * as members_table from "../members/table.js";
 import type * as presence from "../presence.js";
 import type * as sample_mutations from "../sample/mutations.js";
 import type * as sample_queries from "../sample/queries.js";
 import type * as sample_service from "../sample/service.js";
+import type * as sample_table from "../sample/table.js";
 import type * as sidebar_mutation from "../sidebar/mutation.js";
 import type * as sidebar_queries from "../sidebar/queries.js";
 import type * as sidebar_service from "../sidebar/service.js";
@@ -30,6 +32,7 @@ import type * as user_service from "../user/service.js";
 import type * as workspaces_mutations from "../workspaces/mutations.js";
 import type * as workspaces_queries from "../workspaces/queries.js";
 import type * as workspaces_service from "../workspaces/service.js";
+import type * as workspaces_table from "../workspaces/table.js";
 
 import type {
   ApiFromModules,
@@ -47,10 +50,12 @@ declare const fullApi: ApiFromModules<{
   "members/mutations": typeof members_mutations;
   "members/queries": typeof members_queries;
   "members/service": typeof members_service;
+  "members/table": typeof members_table;
   presence: typeof presence;
   "sample/mutations": typeof sample_mutations;
   "sample/queries": typeof sample_queries;
   "sample/service": typeof sample_service;
+  "sample/table": typeof sample_table;
   "sidebar/mutation": typeof sidebar_mutation;
   "sidebar/queries": typeof sidebar_queries;
   "sidebar/service": typeof sidebar_service;
@@ -60,6 +65,7 @@ declare const fullApi: ApiFromModules<{
   "workspaces/mutations": typeof workspaces_mutations;
   "workspaces/queries": typeof workspaces_queries;
   "workspaces/service": typeof workspaces_service;
+  "workspaces/table": typeof workspaces_table;
 }>;
 
 /**

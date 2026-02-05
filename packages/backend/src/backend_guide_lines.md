@@ -4,26 +4,35 @@ This guide outlines the standard process for adding new features, schemas, and A
 
 ## 1. Schema Definition
 
-All database tables are defined in [`convex/schema.ts`](file:///packages/backend/convex/schema.ts).
+All database tables are defined in feature-specific files and imported into `convex/schema.ts`.
 
 **Important**: Use `convex-helpers` wherever possible in your backend queries and mutations. Evaluate wherever `convex-helpers` can help.
 
 Important! Always add the related hooks when creating a new query or mutation. 
 
-When adding a new feature (e.g., "products"), first define its schema:
+When adding a new feature (e.g., "products"), first define its schema in a separate file (e.g., `convex/products/table.ts`) and then import it into `convex/schema.ts`.
 
+**Example `convex/products/table.ts`**:
 ```typescript
-// convex/schema.ts
+import { defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export const products = defineTable({
+  name: v.string(),
+  price: v.number(),
+  categoryId: v.id("categories"),
+  inStock: v.boolean(),
+});
+```
+
+**Example `convex/schema.ts`**:
+```typescript
+import { defineSchema } from "convex/server";
+import { products } from "./products/table";
+
 export default defineSchema({
   // ... existing tables
-  
-  // New table definition
-  products: defineTable({
-    name: v.string(),
-    price: v.number(),
-    categoryId: v.id("categories"),
-    inStock: v.boolean(),
-  }),
+  products,
 });
 ```
 
@@ -170,7 +179,7 @@ Add your new feature paths to the `exports` field:
 
 ## Summary Checklist
 
-1.  [ ] Define generic schema in `convex/schema.ts`
+1.  [ ] Define schema in `convex/[feature]/table.ts` and import in `convex/schema.ts`
 2.  [ ] Implement logic in `convex/[feature]/{queries,mutations,service}.ts`
 3.  [ ] Create hooks in `src/hooks/[feature]/{queries,mutations}.ts`
 4.  [ ] Add export paths to `package.json`

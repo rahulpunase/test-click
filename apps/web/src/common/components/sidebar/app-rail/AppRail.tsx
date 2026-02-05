@@ -119,7 +119,7 @@ export const AppRail = ({ navItems, userSelectedNavItems }: AppRailProps) => {
                   );
                 })}
               </div>
-              <div className="py-1">
+              <div className="py-2">
                 <Button
                   variant="outlined"
                   color="tertiary"

@@ -19,6 +19,7 @@ import { ComponentName } from "@repo/ui";
 - `Card`
 - `Dropdown`
 - `AlertDialog`
+- `Dialog`
 - `Checkbox`
 - `Input`
 - `Form`
@@ -40,6 +41,9 @@ import { cn } from "@repo/ui/utils";
 - Check the Storybook stories to understand how the component is intended to be composed and used.
 - Do not guess prop names or usage patterns; verified examples are in Storybook.
 - To run Storybook: `/run-storybook` or `pnpm storybook` in `packages/ui`.
+- Also, do not add your own custom classes to the components, until specifically asked to do so.
+
+** IMPORTANT ** 
 
 ## 2. Backend Imports
 

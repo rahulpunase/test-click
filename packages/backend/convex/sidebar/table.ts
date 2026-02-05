@@ -13,7 +13,7 @@ export const homeSchema = v.object({
   id: v.string(),
   title: v.string(),
   icon: v.string(),
-  isPinned: v.optional(v.boolean()),
+  isPinned: v.boolean(),
   description: v.optional(v.string()),
 });
 
@@ -21,7 +21,7 @@ export const sectionSchema = v.object({
   id: v.string(),
   title: v.string(),
   icon: v.string(),
-  isPinned: v.optional(v.boolean()),
+  isPinned: v.boolean(),
   description: v.optional(v.string()),
   isUserCreated: v.optional(v.boolean()),
 });

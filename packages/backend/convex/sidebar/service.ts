@@ -19,7 +19,7 @@ type SidebarConfiguration = {
     id: string;
     title: string;
     icon: string;
-    isSelected?: boolean;
+    isPinned: boolean;
     description?: string;
     isUserCreated?: boolean;
   }[];
@@ -32,7 +32,7 @@ export const createSidebar = async (
 ) => {
   const defaultConfiguration = {
     navigation: Navigations,
-    home: Home,
+    home: [],
     sections: [],
   };
 

@@ -3,6 +3,7 @@ import { Settings, Home, Layout } from "lucide-react";
 
 import { useSidebarStore } from "../hooks/useSidebarStore";
 import { NavigationTabSection } from "./NavigationTabSection";
+import { HomeTabSection } from "./HomeTabSection";
 
 export function NavConfigDialog() {
   const { isNavConfigDialogOpen, setNavConfigDialogOpen } = useSidebarStore();
@@ -40,18 +41,7 @@ export function NavConfigDialog() {
           </Tabs.Content>
 
           <Tabs.Content value="home">
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-text-primary">
-                Home Settings
-              </h3>
-              <p className="text-text-muted text-sm">
-                Customize your home dashboard view.
-              </p>
-              {/* Placeholder content */}
-              <div className="h-32 border border-dashed border-border-2 rounded-md flex items-center justify-center text-text-muted">
-                Home configuration content will go here.
-              </div>
-            </div>
+            <HomeTabSection />
           </Tabs.Content>
 
           <Tabs.Content value="sections">

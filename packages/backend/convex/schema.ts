@@ -1,7 +1,9 @@
-import { defineSchema, defineTable } from "convex/server";
+import { defineSchema } from "convex/server";
 import { authTables } from "@convex-dev/auth/server";
-import { v } from "convex/values";
 import { sidebar } from "./sidebar/table";
+import { workspaces } from "./workspaces/table";
+import { members, member_profiles } from "./members/table";
+import { sample } from "./sample/table";
 
 /**
  * Database schema definition
@@ -17,41 +19,9 @@ import { sidebar } from "./sidebar/table";
  */
 export default defineSchema({
   ...authTables,
-  sample: defineTable({
-    name: v.string(),
-    dob: v.string(), // Date of birth stored as ISO string
-    gender: v.string(),
-  }),
-
-  workspaces: defineTable({
-    name: v.string(),
-    slug: v.string(),
-    logoId: v.optional(v.id("_storage")),
-  }).index("by_slug", ["slug"]),
-
-  members: defineTable({
-    userId: v.id("users"),
-    workspaceId: v.id("workspaces"),
-    role: v.union(
-      v.literal("admin"),
-      v.literal("member"),
-      v.literal("creator"),
-    ),
-  })
-    .index("by_userId", ["userId"])
-    .index("by_workspaceId", ["workspaceId"])
-    .index("by_workspaceId_and_userId", ["workspaceId", "userId"]),
-
-  member_profiles: defineTable({
-    memberId: v.id("members"),
-    name: v.optional(v.string()),
-    displayName: v.optional(v.string()),
-    role: v.optional(v.string()),
-    location: v.optional(v.string()),
-    bio: v.optional(v.string()),
-    contactEmail: v.optional(v.string()),
-    contactPhone: v.optional(v.string()),
-  }).index("by_memberId", ["memberId"]),
-
+  sample,
+  workspaces,
+  members,
+  member_profiles,
   sidebar,
 });

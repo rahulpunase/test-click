@@ -10,6 +10,7 @@ type Home = {
   id: string;
   title: string;
   icon: string;
+  isPinned: boolean;
   description?: string;
 };
 
@@ -101,60 +102,70 @@ export const Home: Home[] = [
     id: "inbox",
     title: "Inbox",
     icon: "inbox",
+    isPinned: true,
   },
   // replies
   {
     id: "replies",
     title: "Replies",
     icon: "replies",
+    isPinned: true,
   },
   // assigned comments
   {
     id: "assigned-comments",
     title: "Assigned Comments",
     icon: "assigned-comments",
+    isPinned: true,
   },
   // my tasks
   {
     id: "my-tasks",
     title: "My Tasks",
     icon: "my-tasks",
+    isPinned: true,
   },
   // chat activity
   {
     id: "chat-activity",
     title: "Chat Activity",
     icon: "chat-activity",
+    isPinned: true,
   },
   // drafts
   {
     id: "drafts",
     title: "Drafts",
     icon: "drafts",
+    isPinned: true,
   },
   // posts
   {
     id: "posts",
     title: "Posts",
     icon: "posts",
+    isPinned: true,
   },
   // all channels
   {
     id: "all-channels",
     title: "All Channels",
     icon: "all-channels",
+    isPinned: true,
   },
   // all spaces
   {
     id: "all-spaces",
     title: "All Spaces",
     icon: "all-spaces",
+    isPinned: true,
   },
   // all tasks
   {
     id: "all-tasks",
     title: "All Tasks",
     icon: "all-tasks",
+    isPinned: true,
   },
 ];
 

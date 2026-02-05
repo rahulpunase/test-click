@@ -15,7 +15,10 @@ export interface CheckboxProps
 
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
   ({ className, error, label, description, id, ...props }, ref) => {
-    const styles = checkboxVariants({ error: !!error });
+    const styles = checkboxVariants({
+      error: !!error,
+      disabled: !!props.disabled,
+    });
     const generatedId = React.useId();
     const uniqueId = id || generatedId;
 
@@ -27,7 +30,7 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
         {...props}
       >
         <BaseCheckbox.Indicator className={styles.indicator()}>
-          <Check className="h-3.5 w-3.5" strokeWidth={3} />
+          <Check className={styles.check()} strokeWidth={3} />
         </BaseCheckbox.Indicator>
       </BaseCheckbox.Root>
     );
