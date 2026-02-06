@@ -54,6 +54,9 @@ const PopoverContent = React.forwardRef<
           align={align}
           side={side}
           sideOffset={sideOffset}
+          style={{
+            zIndex: 100,
+          }}
         >
           <BasePopover.Popup
             ref={ref}

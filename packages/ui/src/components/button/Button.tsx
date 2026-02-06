@@ -10,7 +10,7 @@ export interface ButtonProps
   /**
    * Icon component from lucide-react to display on the left
    */
-  icon?: LucideIcon;
+  icon?: React.ReactElement;
   /**
    * Additional CSS classes
    */

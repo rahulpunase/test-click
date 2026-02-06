@@ -6,9 +6,12 @@ import { useCreateSpaceStore } from "./store";
 import { Switch } from "@repo/ui";
 import { useCreateSpace } from "@repo/backend/spaces/mutations";
 import { useGlobalData } from "../../providers/globalDataProvider/globalDataProvider";
+import { IconSelector } from "@/common/components/icon-selector/IconSelector";
+import { useGetDynamicIcon } from "../icon-selector/useGetDynamicIcon";
 
 const formSchema = z.object({
   name: z.string().min(1, "Space name is required"),
+  icon: z.string().optional(),
   description: z.string().optional(),
   isPrivate: z.boolean(),
   permission: z.enum(["full_edit", "comment_only", "view_only"]),
@@ -30,6 +33,8 @@ export const CreateSpaceDialog = () => {
       permission: "full_edit",
     },
   });
+
+  const Icon = useGetDynamicIcon(form.watch("icon") ?? "");
 
   const onSubmit = (values: FormValues) => {
     mutate(
@@ -66,8 +71,6 @@ export const CreateSpaceDialog = () => {
           </Dialog.Description>
         </Dialog.Header>
         <div className="px-4">
-          {/* <IconSelector value="" onChange={() => {}} /> */}
-
           <Form {...form}>
             <Form.Base
               onSubmit={form.handleSubmit(onSubmit)}
@@ -75,24 +78,34 @@ export const CreateSpaceDialog = () => {
             >
               <div className="space-y-4">
                 {/* Icon & Name Section */}
-                <div className="space-y-2">
-                  <Form.Controller.Label>Name</Form.Controller.Label>
-                  <div className="flex gap-3">
-                    <Form.Controller
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <Form.Item className="w-full space-y-0">
-                          <Form.Controller.Field>
-                            <Input
-                              placeholder="e.g. Marketing, Engineering, HR"
-                              {...field}
-                            />
-                          </Form.Controller.Field>
-                          <Form.Controller.Message />
-                        </Form.Item>
-                      )}
-                    />
+                <div className="flex flex-row gap-2">
+                  <IconSelector
+                    value={form.watch("icon") ?? ""}
+                    onChange={(value) => {
+                      form.setValue("icon", value);
+                    }}
+                  >
+                    <Button variant="outlined" color="tertiary" icon={Icon} />
+                  </IconSelector>
+                  <div className="space-y-2 flex-1">
+                    <Form.Controller.Label>Name</Form.Controller.Label>
+                    <div className="flex gap-3">
+                      <Form.Controller
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <Form.Item className="w-full space-y-0">
+                            <Form.Controller.Field>
+                              <Input
+                                placeholder="e.g. Marketing, Engineering, HR"
+                                {...field}
+                              />
+                            </Form.Controller.Field>
+                            <Form.Controller.Message />
+                          </Form.Item>
+                        )}
+                      />
+                    </div>
                   </div>
                 </div>
 
