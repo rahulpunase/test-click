@@ -20,6 +20,8 @@ import type * as members_queries from "../members/queries.js";
 import type * as members_service from "../members/service.js";
 import type * as members_table from "../members/table.js";
 import type * as presence from "../presence.js";
+import type * as projects_mutations from "../projects/mutations.js";
+import type * as projects_queries from "../projects/queries.js";
 import type * as projects_table from "../projects/table.js";
 import type * as sample_mutations from "../sample/mutations.js";
 import type * as sample_queries from "../sample/queries.js";
@@ -58,6 +60,8 @@ declare const fullApi: ApiFromModules<{
   "members/service": typeof members_service;
   "members/table": typeof members_table;
   presence: typeof presence;
+  "projects/mutations": typeof projects_mutations;
+  "projects/queries": typeof projects_queries;
   "projects/table": typeof projects_table;
   "sample/mutations": typeof sample_mutations;
   "sample/queries": typeof sample_queries;

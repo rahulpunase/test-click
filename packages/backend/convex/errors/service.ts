@@ -34,4 +34,9 @@ export const Errors = {
       return throwConvexError(ErrorMessages.WORKSPACE_NOT_FOUND);
     },
   },
+  Space: {
+    notFound: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.SPACE_NOT_FOUND);
+    },
+  },
 };

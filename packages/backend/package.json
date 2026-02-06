@@ -18,7 +18,9 @@
     "./sidebar/queries": "./src/hooks/sidebar/queries.ts",
     "./sidebar/mutations": "./src/hooks/sidebar/mutations.ts",
     "./spaces/queries": "./src/hooks/spaces/queries.ts",
-    "./spaces/mutations": "./src/hooks/spaces/mutations.ts"
+    "./spaces/mutations": "./src/hooks/spaces/mutations.ts",
+    "./projects/queries": "./src/hooks/projects/queries.ts",
+    "./projects/mutations": "./src/hooks/projects/mutations.ts"
   },
   "scripts": {
     "dev": "convex dev",

@@ -3,6 +3,7 @@ import { ProfileDropdown } from "../components/profile-dropdown/ProfileDropdown"
 import { useGlobalData } from "../providers/globalDataProvider/globalDataProvider";
 import { Sidebar } from "../components/sidebar/Sidebar";
 import { CreateSpaceDialog } from "../components/spaces/CreateSpaceDialog";
+import { CreateProjectDialog } from "../components/projects/CreateProjectDialog";
 
 export const MainLayout = () => {
   const { workSpace } = useGlobalData();
@@ -26,6 +27,7 @@ export const MainLayout = () => {
           <Outlet />
         </main>
         <CreateSpaceDialog />
+        <CreateProjectDialog />
       </div>
     </div>
   );

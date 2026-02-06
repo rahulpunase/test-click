@@ -13,12 +13,16 @@ import {
   Folder,
 } from "lucide-react";
 import type { Spaces } from "./Spaces.types";
+import { useCreateProjectStore } from "../projects/store";
+import { useGetProjects } from "@repo/backend/projects/queries";
 
 interface SpaceItemProps {
   space: Spaces[0];
 }
 
 export const SpaceItem = ({ space }: SpaceItemProps) => {
+  const { open: openProjectDialog } = useCreateProjectStore();
+  const { data: projects } = useGetProjects(space._id);
   return (
     <List.Item
       key={space._id}
@@ -48,7 +52,11 @@ export const SpaceItem = ({ space }: SpaceItemProps) => {
                 </Dropdown.Item>
               </Dropdown.SubmenuTrigger>
               <Dropdown.SubmenuContent sideOffset={5}>
-                <Dropdown.Item icon={<ListCheck />} label="Project" />
+                <Dropdown.Item
+                  icon={<ListCheck />}
+                  label="Project"
+                  onClick={() => openProjectDialog(space._id)}
+                />
                 <Separator className="my-2" />
                 <Dropdown.Item icon={<Folder />} label="New Folder" />
               </Dropdown.SubmenuContent>
@@ -63,6 +71,14 @@ export const SpaceItem = ({ space }: SpaceItemProps) => {
           </Dropdown.Content>
         </Dropdown>
       }
-    />
+    >
+      {projects?.length ? (
+        <List.Item.Expandable>
+          {projects?.map((project) => (
+            <List.Item key={project._id} label={project.name} icon={<Hash />} />
+          ))}
+        </List.Item.Expandable>
+      ) : null}
+    </List.Item>
   );
 };
