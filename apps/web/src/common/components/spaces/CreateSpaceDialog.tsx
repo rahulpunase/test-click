@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Dialog, Form, Button, Input, TextArea } from "@repo/ui";
 import { useCreateSpaceStore } from "./store";
-import { Switch } from "@repo/ui/switch/Switch";
+import { Switch } from "@repo/ui";
 import { useCreateSpace } from "@repo/backend/spaces/mutations";
 import { useGlobalData } from "../../providers/globalDataProvider/globalDataProvider";
 
@@ -66,6 +66,8 @@ export const CreateSpaceDialog = () => {
           </Dialog.Description>
         </Dialog.Header>
         <div className="px-4">
+          {/* <IconSelector value="" onChange={() => {}} /> */}
+
           <Form {...form}>
             <Form.Base
               onSubmit={form.handleSubmit(onSubmit)}

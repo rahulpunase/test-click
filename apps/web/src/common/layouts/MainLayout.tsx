@@ -4,6 +4,7 @@ import { useGlobalData } from "../providers/globalDataProvider/globalDataProvide
 import { Sidebar } from "../components/sidebar/Sidebar";
 import { CreateSpaceDialog } from "../components/spaces/CreateSpaceDialog";
 import { CreateProjectDialog } from "../components/projects/CreateProjectDialog";
+import { IconSelector } from "@/common/components/icon-selector/IconSelector";
 
 export const MainLayout = () => {
   const { workSpace } = useGlobalData();
@@ -17,6 +18,7 @@ export const MainLayout = () => {
       {/* Header */}
       <header className="h-10 border-b border-border-2 flex items-center px-4 space-between shrink-0">
         <div className="flex-1">Header</div>
+        <IconSelector value="" onChange={() => {}} />
         <ProfileDropdown />
       </header>
 

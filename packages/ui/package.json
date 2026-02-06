@@ -5,12 +5,6 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./dialog/*": "./src/components/dialog/*.tsx",
-    "./list/*": "./src/components/list/*.tsx",
-    "./separator/*": "./src/components/separator/*.tsx",
-    "./switch/*": "./src/components/switch/*.tsx",
-    "./textarea/*": "./src/components/textarea/*.tsx",
-    "./tooltip/*": "./src/components/tooltip/*.tsx",
     "./utils": "./src/lib/utils.ts",
     "./styles/globals.css": "./src/styles/globals.css"
   },
