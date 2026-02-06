@@ -16,3 +16,4 @@ export * from "./components/dialog";
 export * from "./components/textarea";
 export * from "./components/popover";
 export * from "./components/switch";
+export * from "./components/icon";

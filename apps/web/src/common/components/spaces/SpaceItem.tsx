@@ -1,4 +1,4 @@
-import { List, Button, Dropdown, Separator } from "@repo/ui";
+import { List, Button, Dropdown, Separator, Icon } from "@repo/ui";
 import {
   Edit,
   Ellipsis,
@@ -11,6 +11,7 @@ import {
   ChevronRight,
   ListCheck,
   Folder,
+  ListCheckIcon,
 } from "lucide-react";
 import type { Spaces } from "./Spaces.types";
 import { useCreateProjectStore } from "../projects/store";
@@ -23,11 +24,12 @@ interface SpaceItemProps {
 export const SpaceItem = ({ space }: SpaceItemProps) => {
   const { open: openProjectDialog } = useCreateProjectStore();
   const { data: projects } = useGetProjects(space._id);
+  const firstLetter = space.name.charAt(0).toUpperCase();
   return (
     <List.Item
       key={space._id}
       label={space.name}
-      icon={<Hash />}
+      icon={<Icon letter={firstLetter} />}
       action={
         <Dropdown>
           <Dropdown.Trigger asChild>
@@ -75,7 +77,11 @@ export const SpaceItem = ({ space }: SpaceItemProps) => {
       {projects?.length ? (
         <List.Item.Expandable>
           {projects?.map((project) => (
-            <List.Item key={project._id} label={project.name} icon={<Hash />} />
+            <List.Item
+              key={project._id}
+              label={project.name}
+              icon={<ListCheckIcon />}
+            />
           ))}
         </List.Item.Expandable>
       ) : null}

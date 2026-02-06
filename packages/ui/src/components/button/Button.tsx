@@ -1,6 +1,8 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
-import { Loader2, type LucideIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { cn } from "../../lib/utils";
+import type { LucideIcon } from "lucide-react";
+import { Icon } from "../icon";
 import { buttonVariants, type ButtonVariants } from "./Button.variants";
 
 export interface ButtonProps
@@ -10,7 +12,7 @@ export interface ButtonProps
   /**
    * Icon component from lucide-react to display on the left
    */
-  icon?: React.ReactElement;
+  icon?: LucideIcon;
   /**
    * Additional CSS classes
    */
@@ -44,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = "solid",
       color = "primary",
       size = "md",
-      icon: Icon,
+      icon,
       className,
       children,
       loading,
@@ -72,7 +74,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <Loader2 className="h-4 w-4 animate-spin" />
         ) : (
           <>
-            {Icon && <Icon className="h-4 w-4" />}
+            {icon && <Icon icon={icon} freeSize={true} className="h-4 w-4" />}
             {children}
           </>
         )}

@@ -56,7 +56,8 @@ export const CreateProjectDialog = () => {
         <Dialog.Header>
           <Dialog.Title>Create a Project</Dialog.Title>
           <Dialog.Description>
-            Projects help you organize tasks and lists within your Space.
+            All projects are located within a Space. Projects can house any type
+            of task.
           </Dialog.Description>
         </Dialog.Header>
         <div className="px-4">

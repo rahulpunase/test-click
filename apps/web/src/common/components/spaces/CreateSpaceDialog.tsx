@@ -8,6 +8,7 @@ import { useCreateSpace } from "@repo/backend/spaces/mutations";
 import { useGlobalData } from "../../providers/globalDataProvider/globalDataProvider";
 import { IconSelector } from "@/common/components/icon-selector/IconSelector";
 import { useGetDynamicIcon } from "../icon-selector/useGetDynamicIcon";
+import { IconSelectorTrigger } from "../icon-selector/IconSelectorTrigger";
 
 const formSchema = z.object({
   name: z.string().min(1, "Space name is required"),
@@ -79,14 +80,19 @@ export const CreateSpaceDialog = () => {
               <div className="space-y-4">
                 {/* Icon & Name Section */}
                 <div className="flex flex-row gap-2">
-                  <IconSelector
-                    value={form.watch("icon") ?? ""}
-                    onChange={(value) => {
-                      form.setValue("icon", value);
-                    }}
-                  >
-                    <Button variant="outlined" color="tertiary" icon={Icon} />
-                  </IconSelector>
+                  <div className="flex items-end">
+                    <IconSelector
+                      value={form.watch("icon") ?? ""}
+                      onChange={(value) => {
+                        form.setValue("icon", value);
+                      }}
+                    >
+                      <IconSelectorTrigger
+                        iconName={form.watch("icon") ?? ""}
+                        letter={"S"}
+                      />
+                    </IconSelector>
+                  </div>
                   <div className="space-y-2 flex-1">
                     <Form.Controller.Label>Name</Form.Controller.Label>
                     <div className="flex gap-3">

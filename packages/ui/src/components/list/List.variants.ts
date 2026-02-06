@@ -16,7 +16,7 @@ export const listVariants = tv({
     itemTitle: "text-text-primary truncate",
     itemDescription: "text-xs text-text-muted truncate",
     itemAction:
-      "ml-2 text-text-muted opacity-0 group-hover/item:opacity-100 focus-within:opacity-100 transition-opacity",
+      "ml-2 flex text-text-muted opacity-0 group-hover/item:opacity-100 focus-within:opacity-100 transition-opacity",
     chevron: "w-4 h-4 text-text-muted transition-transform duration-200",
   },
   variants: {
