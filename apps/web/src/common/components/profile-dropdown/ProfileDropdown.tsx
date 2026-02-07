@@ -13,7 +13,7 @@ export const ProfileDropdown = () => {
     (workSpace._id as Id<"workspaces">) ?? undefined,
   );
 
-  console.log(memberInfo);
+  const { signOut } = useAppAuthActions();
 
   if (isPending || !memberInfo) {
     // Show a skeleton or loading state trigger
@@ -21,8 +21,6 @@ export const ProfileDropdown = () => {
   }
 
   const userInitial = memberInfo.profile.name?.charAt(0) || "?";
-
-  const { signOut } = useAppAuthActions();
 
   const handleLogout = () => {
     signOut();

@@ -20,7 +20,9 @@
     "./spaces/queries": "./src/hooks/spaces/queries.ts",
     "./spaces/mutations": "./src/hooks/spaces/mutations.ts",
     "./projects/queries": "./src/hooks/projects/queries.ts",
-    "./projects/mutations": "./src/hooks/projects/mutations.ts"
+    "./projects/mutations": "./src/hooks/projects/mutations.ts",
+    "./folders/mutations": "./src/hooks/folders/mutations.ts",
+    "./folders/queries": "./src/hooks/folders/queries.ts"
   },
   "scripts": {
     "dev": "convex dev",

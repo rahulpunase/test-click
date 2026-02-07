@@ -1,5 +1,5 @@
 import { Button, Dropdown, List, Separator } from "@repo/ui";
-import { Ellipsis, PlusIcon, LayoutGrid, Shuffle, Hash } from "lucide-react";
+import { Ellipsis, PlusIcon, LayoutGrid, Shuffle } from "lucide-react";
 import { useCreateSpaceStore } from "./store";
 import { useGlobalData } from "../../providers/globalDataProvider/globalDataProvider";
 import { useGetSpaces } from "@repo/backend/spaces/queries";
@@ -12,9 +12,8 @@ export const SpacesSection = () => {
 
   return (
     <List>
-      <List.Group
-        label="Spaces"
-        action={
+      <List.Group label="Spaces">
+        <List.Group.Action>
           <div className="flex flex-row gap-1">
             <Dropdown>
               <Dropdown.Trigger asChild>
@@ -22,7 +21,7 @@ export const SpacesSection = () => {
                   icon={Ellipsis}
                   variant="ghost"
                   color="tertiary"
-                  size="sm"
+                  size="xs"
                 />
               </Dropdown.Trigger>
               <Dropdown.Content align="start" side="bottom">
@@ -45,16 +44,24 @@ export const SpacesSection = () => {
               icon={PlusIcon}
               variant="outlined"
               color="tertiary"
-              size="sm"
+              size="xs"
               onClick={openCreateSpaceDialog}
             />
           </div>
-        }
-      >
+        </List.Group.Action>
         {spaces?.map((space) => (
           <SpaceItem key={space._id} space={space} />
         ))}
       </List.Group>
+      <Button
+        icon={PlusIcon}
+        color="tertiary"
+        variant="ghost"
+        className="justify-start px-2"
+        onClick={openCreateSpaceDialog}
+      >
+        Add space
+      </Button>
     </List>
   );
 };

@@ -26,7 +26,7 @@ const meta: Meta<typeof Button> = {
     },
     size: {
       control: "select",
-      options: ["sm", "md", "lg"],
+      options: ["xs", "sm", "md", "lg"],
       description: "Size of the button",
     },
     disabled: {
@@ -66,19 +66,23 @@ export const WithIcon: Story = {
 
 // Icon Only (no children)
 export const IconOnly: Story = {
-  args: {
-    icon: Plus,
-    variant: "solid",
-    color: "primary",
-    size: "md",
-    "aria-label": "Add item",
-  },
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Button size="xs" icon={Plus}></Button>
+      <Button size="sm" icon={Plus}></Button>
+      <Button size="md" icon={Plus}></Button>
+      <Button size="lg" icon={Plus}></Button>
+    </div>
+  ),
 };
 
 // All Sizes
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
+      <Button size="xs" icon={Plus}>
+        Extra Small
+      </Button>
       <Button size="sm" icon={Plus}>
         Small
       </Button>
@@ -272,7 +276,7 @@ export const CompleteMatrix: Story = {
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Button Variants Matrix</h2>
 
-      {(["sm", "md", "lg"] as const).map((size) => (
+      {(["xs", "sm", "md", "lg"] as const).map((size) => (
         <div key={size}>
           <h3 className="text-lg font-semibold mb-3 capitalize">
             Size: {size}

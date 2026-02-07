@@ -74,7 +74,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <Loader2 className="h-4 w-4 animate-spin" />
         ) : (
           <>
-            {icon && <Icon icon={icon} freeSize={true} className="h-4 w-4" />}
+            {icon && <Icon icon={icon} className="h-4 w-4" />}
             {children}
           </>
         )}

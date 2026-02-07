@@ -13,6 +13,8 @@ import type * as data_navigations from "../data/navigations.js";
 import type * as errors_constants from "../errors/constants.js";
 import type * as errors_service from "../errors/service.js";
 import type * as errors_util from "../errors/util.js";
+import type * as folders_mutations from "../folders/mutations.js";
+import type * as folders_queries from "../folders/queries.js";
 import type * as folders_table from "../folders/table.js";
 import type * as http from "../http.js";
 import type * as members_mutations from "../members/mutations.js";
@@ -53,6 +55,8 @@ declare const fullApi: ApiFromModules<{
   "errors/constants": typeof errors_constants;
   "errors/service": typeof errors_service;
   "errors/util": typeof errors_util;
+  "folders/mutations": typeof folders_mutations;
+  "folders/queries": typeof folders_queries;
   "folders/table": typeof folders_table;
   http: typeof http;
   "members/mutations": typeof members_mutations;

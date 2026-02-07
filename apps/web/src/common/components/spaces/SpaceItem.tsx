@@ -2,7 +2,6 @@ import { List, Button, Dropdown, Separator, Icon } from "@repo/ui";
 import {
   Edit,
   Ellipsis,
-  Hash,
   Link,
   Settings,
   Star,
@@ -11,11 +10,12 @@ import {
   ChevronRight,
   ListCheck,
   Folder,
-  ListCheckIcon,
 } from "lucide-react";
 import type { Spaces } from "./Spaces.types";
 import { useCreateProjectStore } from "../projects/store";
-import { useGetProjects } from "@repo/backend/projects/queries";
+import { useCreateFolderStore } from "@/common/components/folders/store";
+import { useGetSpaceContents } from "@repo/backend/spaces/queries";
+import { SpaceContents } from "./SpaceContents";
 
 interface SpaceItemProps {
   space: Spaces[0];
@@ -23,21 +23,23 @@ interface SpaceItemProps {
 
 export const SpaceItem = ({ space }: SpaceItemProps) => {
   const { open: openProjectDialog } = useCreateProjectStore();
-  const { data: projects } = useGetProjects(space._id);
+  const { open: openFolderDialog } = useCreateFolderStore();
+  const { data: spaceContents } = useGetSpaceContents(space._id);
+
   const firstLetter = space.name.charAt(0).toUpperCase();
+  const hasContents = spaceContents && spaceContents.length > 0;
+
   return (
-    <List.Item
-      key={space._id}
-      label={space.name}
-      icon={<Icon letter={firstLetter} />}
-      action={
+    <List.Item label={space.name}>
+      <List.Item.Icon letter={firstLetter} size="sm" />
+      <List.Item.Action>
         <Dropdown>
           <Dropdown.Trigger asChild>
             <Button
               variant="ghost"
               icon={Ellipsis}
               color="tertiary"
-              size="sm"
+              size="xs"
             />
           </Dropdown.Trigger>
           <Dropdown.Content align="start" side="bottom">
@@ -60,7 +62,11 @@ export const SpaceItem = ({ space }: SpaceItemProps) => {
                   onClick={() => openProjectDialog(space._id)}
                 />
                 <Separator className="my-2" />
-                <Dropdown.Item icon={<Folder />} label="New Folder" />
+                <Dropdown.Item
+                  icon={<Folder />}
+                  label="New Folder"
+                  onClick={() => openFolderDialog(space._id)}
+                />
               </Dropdown.SubmenuContent>
             </Dropdown.Submenu>
             <Dropdown.Item icon={<Settings />} label="Space settings" />
@@ -72,19 +78,12 @@ export const SpaceItem = ({ space }: SpaceItemProps) => {
             />
           </Dropdown.Content>
         </Dropdown>
-      }
-    >
-      {projects?.length ? (
+      </List.Item.Action>
+      {hasContents && (
         <List.Item.Expandable>
-          {projects?.map((project) => (
-            <List.Item
-              key={project._id}
-              label={project.name}
-              icon={<ListCheckIcon />}
-            />
-          ))}
+          <SpaceContents contents={spaceContents} />
         </List.Item.Expandable>
-      ) : null}
+      )}
     </List.Item>
   );
 };

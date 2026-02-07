@@ -4,6 +4,7 @@ import { useGlobalData } from "../providers/globalDataProvider/globalDataProvide
 import { Sidebar } from "../components/sidebar/Sidebar";
 import { CreateSpaceDialog } from "../components/spaces/CreateSpaceDialog";
 import { CreateProjectDialog } from "../components/projects/CreateProjectDialog";
+import { CreateFolderDialog } from "../components/folders/CreateFolderDialog";
 
 export const MainLayout = () => {
   const { workSpace } = useGlobalData();
@@ -28,6 +29,7 @@ export const MainLayout = () => {
         </main>
         <CreateSpaceDialog />
         <CreateProjectDialog />
+        <CreateFolderDialog />
       </div>
     </div>
   );

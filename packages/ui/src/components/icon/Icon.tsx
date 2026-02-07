@@ -22,10 +22,6 @@ export interface IconProps
    * Tooltip text
    */
   tooltip?: React.ReactNode;
-  /**
-   * If true, the icon will not be resized to fit the container.
-   */
-  freeSize?: boolean;
 }
 
 /**
@@ -34,16 +30,29 @@ export interface IconProps
  */
 export const Icon = forwardRef<HTMLDivElement, IconProps>(
   (
-    { size, shape, icon: IconComponent, letter, className, tooltip, ...props },
+    {
+      size = "sm",
+      shape,
+      icon: IconComponent,
+      letter,
+      className,
+      tooltip,
+      ...props
+    },
     ref,
   ) => {
+    const {
+      base,
+      icon: iconClasses,
+      letter: letterClasses,
+    } = iconVariants({ size, shape });
     const children = (
-      <div
-        ref={ref}
-        className={cn(iconVariants({ size, shape }), className)}
-        {...props}
-      >
-        {IconComponent ? <IconComponent /> : letter}
+      <div ref={ref} className={cn(base(), className)} {...props}>
+        {IconComponent ? (
+          <IconComponent className={iconClasses()} />
+        ) : (
+          <div className={letterClasses()}>{letter}</div>
+        )}
       </div>
     );
 

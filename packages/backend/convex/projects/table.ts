@@ -7,5 +7,8 @@ export const projects = defineTable({
   templateId: v.optional(v.id("templates")), // Future proofing
   createdBy: v.id("members"),
   updatedAt: v.optional(v.number()),
+  folderId: v.optional(v.id("folders")),
   // Projects can contain Folders and Items directly
-}).index("by_spaceId", ["spaceId"]);
+})
+  .index("by_spaceId", ["spaceId"])
+  .index("by_folderId", ["folderId"]);

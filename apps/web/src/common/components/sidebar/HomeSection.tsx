@@ -1,5 +1,4 @@
 import { Button, Dropdown, List, Separator } from "@repo/ui";
-import { Link } from "react-router";
 import { Edit, LoaderCircle, MoreHorizontal, Pin, PinOff } from "lucide-react";
 
 import type {
@@ -58,20 +57,19 @@ export const HomeSection = ({
       <div className="py-2 px-2 font-bold">Home</div>
       <List>
         {visibleItems.map((item) => {
-          const Icon = iconMapper[item.icon];
+          const Icon = iconMapper[item.icon] || LoaderCircle;
           return (
-            <List.Item
-              key={item.id}
-              as={Link}
-              icon={Icon ? <Icon /> : <LoaderCircle />}
-              label={item.title}
-            />
+            <List.Item key={item.id} label={item.title}>
+              <List.Item.Icon icon={Icon} size="sm" />
+            </List.Item>
           );
         })}
         {overflowItems.length > 0 && (
           <Dropdown>
             <Dropdown.Trigger asChild>
-              <List.Item icon={<MoreHorizontal />} label="More" />
+              <List.Item label="More">
+                <List.Item.Icon icon={MoreHorizontal} size="sm" />
+              </List.Item>
             </Dropdown.Trigger>
             <Dropdown.Content align="start" side="right" className="min-w-48">
               {overflowItems.map((item) => {

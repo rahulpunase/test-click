@@ -9,7 +9,7 @@ export const AppSidebar = () => {
 
   return (
     <div className="flex flex-col border-r border-border-2 bg-background w-52 h-full">
-      <div className="flex-1 pb-2 px-2 overflow-y-auto">
+      <div className="flex-1 pb-2 overflow-y-auto">
         <HomeSection
           homeSectionItems={homeSectionItems}
           userSelectedHomeSectionItems={userSelectedHomeSectionItems}

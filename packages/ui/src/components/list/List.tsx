@@ -1,326 +1,218 @@
-import { forwardRef, useState } from "react";
-import { ChevronRight } from "lucide-react";
+import React, { forwardRef, useState } from "react";
 import { listVariants } from "./List.variants";
-import { cn, isChildByType } from "../../lib/utils";
-import React from "react";
+import { cn, getChildByType, isChildByType } from "@repo/ui/utils";
+import { Icon } from "@repo/ui";
+import { ChevronRight, ChevronDown } from "lucide-react";
 
-/* -------------------------------------------------------------------------------------------------
- * List (Container)
- * -----------------------------------------------------------------------------------------------*/
+interface ListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-}
+const LEVEL_MARGIN = 18;
+const AFTER_LEFT = 14;
 
-export const ListComponent = forwardRef<HTMLDivElement, ListProps>(
-  ({ className, children, ...props }, ref) => {
-    const { base } = listVariants();
-    return (
-      <div ref={ref} className={cn(base(), className)} {...props}>
-        {children}
-      </div>
-    );
-  },
-);
-ListComponent.displayName = "List";
-
-/* -------------------------------------------------------------------------------------------------
- * ListGroup
- * -----------------------------------------------------------------------------------------------*/
-
-export interface ListGroupProps extends Omit<
-  React.HTMLAttributes<HTMLDivElement>,
-  "title"
-> {
-  label?: React.ReactNode;
-  description?: React.ReactNode;
-  action?: React.ReactNode;
-  collapsible?: boolean;
-  defaultExpanded?: boolean;
-  children?: React.ReactNode;
-}
-
-export const ListGroup = forwardRef<HTMLDivElement, ListGroupProps>(
-  (
-    {
-      className,
-      label,
-      description,
-      action,
-      collapsible = false,
-      defaultExpanded = false,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const [isExpanded, setIsExpanded] = useState(defaultExpanded);
-    const {
-      group,
-      groupHeader,
-      groupTitle,
-      groupDescription,
-      groupContent,
-      chevron,
-    } = listVariants({ expanded: isExpanded });
-
-    const handleToggle = () => {
-      if (collapsible) {
-        setIsExpanded((prev) => !prev);
-      }
-    };
-
-    return (
-      <div ref={ref} className={cn(group(), className)} {...props}>
-        {(label || description || action) && (
-          <div
-            className={cn(
-              groupHeader(),
-              collapsible && "cursor-pointer select-none",
-            )}
-            onClick={handleToggle}
-          >
-            <div className="flex items-center gap-2">
-              {collapsible && <ChevronRight className={chevron()} />}
-              <div className="flex flex-col">
-                {label && <span className={groupTitle()}>{label}</span>}
-                {description && (
-                  <span className={groupDescription()}>{description}</span>
-                )}
-              </div>
-            </div>
-            {action && <div onClick={(e) => e.stopPropagation()}>{action}</div>}
-          </div>
-        )}
-        {(!collapsible || isExpanded) && (
-          <div className={cn(groupContent())}>{children}</div>
-        )}
-      </div>
-    );
-  },
-);
-ListGroup.displayName = "ListGroup";
-
-/* -------------------------------------------------------------------------------------------------
- * ListItemLeftContent
- * -----------------------------------------------------------------------------------------------*/
-
-export interface ListItemLeftContentProps {
-  children?: React.ReactNode;
-}
-
-export const ListItemLeftContent = ({ children }: ListItemLeftContentProps) => {
-  return <>{children}</>;
-};
-
-ListItemLeftContent.displayName = "ListItemLeftContent";
-
-/* -------------------------------------------------------------------------------------------------
- * ListItemExpandable
- * -----------------------------------------------------------------------------------------------*/
-
-export interface ListItemExpandableProps {
-  children?: React.ReactNode;
-}
-
-export const ListItemExpandable = ({ children }: ListItemExpandableProps) => {
-  return <>{children}</>;
-};
-ListItemExpandable.displayName = "ListItemExpandable";
-
-/* -------------------------------------------------------------------------------------------------
- * ListItem
- * -----------------------------------------------------------------------------------------------*/
-
-export interface ListItemProps extends Omit<
-  React.HTMLAttributes<HTMLElement>,
-  "title"
-> {
-  as?: React.ElementType;
-  icon?: React.ReactElement<{ className?: string }>;
-  label?: React.ReactNode;
-  description?: React.ReactNode;
-  action?: React.ReactNode;
-  selected?: boolean;
-  disabled?: boolean;
-  asChild?: boolean;
-  type?: "button" | "submit" | "reset";
-  defaultExpanded?: boolean;
-}
-
-export const ListItem = forwardRef<HTMLElement, ListItemProps>(
-  (
-    {
-      className,
-      as,
-      icon,
-      label,
-      description,
-      action,
-      selected = false,
-      disabled = false,
-      defaultExpanded = false,
-      onClick,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    // Detect if we have an expandable child
-    const childrenArray = React.Children.toArray(children);
-    const expandableChild = childrenArray.find((child) =>
-      isChildByType(child, ListItemExpandable),
-    );
-    const leftContentChild = childrenArray.find((child) =>
-      isChildByType(child, ListItemLeftContent),
-    );
-    const otherChildren = childrenArray.filter(
-      (child) => child !== expandableChild && child !== leftContentChild,
-    );
-
-    const isExpandable = !!expandableChild;
-    const [isExpanded, setIsExpanded] = useState(defaultExpanded);
-
-    const handleToggle = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      if (isExpandable) {
-        setIsExpanded((prev: boolean) => !prev);
-      }
-    };
-
-    const clickable = !!onClick && !disabled;
-
-    const {
-      item,
-      itemIcon,
-      itemContent,
-      itemTitle,
-      itemDescription,
-      itemAction,
-      chevron,
-    } = listVariants({
-      clickable,
-      selected,
-      disabled,
-      expanded: isExpanded,
-    });
-
-    // Icon Logic
-    // If expandable:
-    // - If no icon: Show Chevron
-    // - If icon: Show Icon normally, Show Chevron on Hover (overlay)
-    let iconElement = null;
-
-    if (leftContentChild) {
-      // If LeftContent is provided, it takes precedence and replaces the icon/expandable logic for this slot
-      iconElement = (
-        <div className="flex items-center justify-center mr-3 shrink-0">
-          {leftContentChild}
-        </div>
-      );
-    } else if (isExpandable) {
-      if (icon) {
-        // Icon with Hover Chevron
-        iconElement = (
-          <div
-            className="relative flex items-center justify-center mr-3 h-4 w-4 cursor-pointer z-10"
-            onClick={handleToggle}
-            role="button"
-            tabIndex={0}
-          >
-            {React.cloneElement(icon, {
-              className: cn(
-                "transition-opacity duration-200 group-hover/item:opacity-0 absolute w-full h-full",
-                icon.props.className,
-              ),
-              ...icon.props,
-            })}
-            <ChevronRight
-              className={cn(
-                chevron(),
-                "absolute opacity-0 group-hover/item:opacity-100 transition-opacity duration-200 w-full h-full",
-              )}
-            />
-          </div>
-        );
-      } else {
-        // Just Chevron
-        iconElement = (
-          <div
-            className="flex items-center justify-center mr-3 h-4 w-4 cursor-pointer z-10"
-            onClick={handleToggle}
-          >
-            <ChevronRight className={cn(chevron(), "w-full h-full")} />
-          </div>
-        );
-      }
-    } else if (icon) {
-      // Normal Icon
-      iconElement = React.cloneElement(icon, {
-        className: cn(itemIcon(), icon.props.className),
-        ...icon.props,
-      });
-    }
-
-    const Component = as || (clickable ? "button" : "div");
-
-    const mainContent = (
-      <Component
-        ref={ref}
-        disabled={disabled}
-        onClick={onClick}
-        className={cn(item(), className)}
-        {...(clickable && !as ? { type: "button" } : {})}
-        {...props}
-      >
-        {iconElement}
-        <div className={itemContent()}>
-          {label && <span className={itemTitle()}>{label}</span>}
-          {description && (
-            <span className={itemDescription()}>{description}</span>
-          )}
-          {otherChildren}
-        </div>
-        {action && (
-          <div
-            className={itemAction()}
-            onClick={(e) => e.stopPropagation()}
-            onKeyDown={(e) => e.stopPropagation()}
-            role="button"
-            tabIndex={0}
-          >
-            {action}
-          </div>
-        )}
-      </Component>
-    );
-
-    if (isExpandable) {
-      return (
-        <div className="flex flex-col w-full">
-          {mainContent}
-          {isExpanded && (
-            <div className="flex flex-col border-l border-border-2 ml-4 pl-1">
-              {expandableChild}
-            </div>
-          )}
-        </div>
-      );
-    }
-
-    return mainContent;
-  },
-);
-
-ListItem.displayName = "ListItem";
-/* -------------------------------------------------------------------------------------------------
- * Component Exports
- * -----------------------------------------------------------------------------------------------*/
-
-export const List = Object.assign(ListComponent, {
-  Group: ListGroup,
-  Item: Object.assign(ListItem, {
-    Expandable: ListItemExpandable,
-    LeftContent: ListItemLeftContent,
-  }),
+export const ListRoot = forwardRef<HTMLDivElement, ListProps>(function List(
+  { className, ...props },
+  ref,
+) {
+  const { root } = listVariants();
+  return (
+    <div ref={ref} className={cn(root(), className)} {...props} role="list" />
+  );
 });
+
+ListRoot.displayName = "List";
+
+interface ListGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  label?: string;
+}
+
+const ListGroupRoot = forwardRef<HTMLDivElement, ListGroupProps>(function List(
+  { className, label, children },
+  ref,
+) {
+  const { group, groupLabel, groupContent } = listVariants();
+  const action = getChildByType(children, ListGroupAction);
+  const remainingChildren = React.Children.toArray(children).filter((child) => {
+    return !isChildByType(child, ListGroupAction);
+  });
+  return (
+    <div ref={ref} className={cn(group(), className)} role="group">
+      <div className={groupContent()}>
+        <span className={groupLabel()}>{label}</span>
+        {action}
+      </div>
+      {remainingChildren}
+    </div>
+  );
+});
+
+ListGroupRoot.displayName = "List.Group";
+
+export interface ListItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  label?: string;
+  level?: number;
+  defaultExpanded?: boolean;
+}
+
+/**
+ * Action wrapper for list item
+ */
+const ListItemAction = forwardRef<HTMLDivElement, ListProps>(function List(
+  { className, ...props },
+  ref,
+) {
+  const { itemAction } = listVariants();
+  return <div ref={ref} className={cn(itemAction(), className)} {...props} />;
+});
+
+ListItemAction.displayName = "List.Item.Action";
+
+/**
+ * Action wrapper for list item
+ */
+const ListGroupAction = forwardRef<HTMLDivElement, ListProps>(function List(
+  { className, ...props },
+  ref,
+) {
+  const { itemAction } = listVariants();
+  return <div ref={ref} className={cn(itemAction(), className)} {...props} />;
+});
+
+ListGroupAction.displayName = "List.Group.Action";
+
+/**
+ * Root wrapper for list item
+ */
+const ListItemRoot = forwardRef<HTMLDivElement, ListItemProps>(function List(
+  { label, className, children, level = 0, defaultExpanded = false, ...props },
+  ref,
+) {
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const expandable = getChildByType(children, ListItemExpandableRoot) as
+    | React.ReactElement<ListItemProps>
+    | undefined;
+  const expandableChildren = React.Children.toArray(
+    expandable?.props.children || [],
+  ).map((child) =>
+    React.cloneElement(child as React.ReactElement<ListItemProps>, {
+      level: level + 1,
+    }),
+  );
+
+  const isExpandable = Boolean(expandable);
+  const {
+    item,
+    label: labelVariant,
+    withLevel,
+    isExpandableIcon,
+    itemIcon,
+  } = listVariants({ isExpanded, isExpandable });
+  const icon = getChildByType(children, Icon) as
+    | React.ReactElement<{ className?: string }>
+    | undefined;
+  const action = getChildByType(children, ListItemAction);
+
+  const handleToggle = () => {
+    if (isExpandable) {
+      setIsExpanded((prev) => !prev);
+    }
+  };
+
+  const iconElement = () => {
+    if (icon) {
+      return (
+        <div className="flex flex-row items-center justify-center">
+          {React.cloneElement(
+            icon as React.ReactElement<{ className?: string }>,
+            {
+              className: cn(itemIcon(), icon.props.className),
+            },
+          )}
+          {isExpandable ? (
+            <Icon
+              onClick={handleToggle}
+              icon={isExpanded ? ChevronDown : ChevronRight}
+              size="sm"
+              className={isExpandableIcon()}
+            />
+          ) : null}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <>
+      <div
+        className={cn(withLevel(), className)}
+        data-level={level}
+        style={{
+          paddingLeft: level ? `${level * LEVEL_MARGIN}px` : undefined,
+        }}
+        data-expanded={isExpanded}
+        data-isExpandable={isExpandable}
+      >
+        {Array.from({ length: level }, (_, index) => index).map((_, index) => (
+          <div
+            key={index}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: `${(index + 1) * AFTER_LEFT + 3 * index}px`,
+              width: "1px",
+              height: "100%",
+              backgroundColor: "var(--color-border-2)",
+            }}
+          />
+        ))}
+        <div
+          ref={ref}
+          className={cn(item(), className)}
+          {...props}
+          role="listitem"
+        >
+          {iconElement ? (
+            <div className="flex flex-row mr-1">{iconElement()}</div>
+          ) : null}
+          <span className={labelVariant()}>{label}</span>
+          {action}
+        </div>
+      </div>
+      {isExpanded ? expandableChildren : null}
+    </>
+  );
+});
+
+ListItemRoot.displayName = "List.Item";
+
+/**
+ * Expandable wrapper for list item
+ */
+const ListItemExpandableRoot = ListItemRoot;
+ListItemExpandableRoot.displayName = "List.Item.Expandable";
+
+const Item = Object.assign(ListItemRoot, {
+  Icon: Icon,
+  Action: ListItemAction,
+  Expandable: ListItemExpandableRoot,
+}) as typeof ListItemRoot & {
+  Icon: typeof Icon;
+  Action: typeof ListItemAction;
+  Expandable: typeof ListItemExpandableRoot;
+};
+
+const ListGroup = Object.assign(ListGroupRoot, {
+  Action: ListGroupAction,
+}) as typeof ListGroupRoot & {
+  Action: typeof ListGroupAction;
+};
+
+const List = Object.assign(ListRoot, {
+  Item,
+  Group: ListGroup,
+}) as typeof ListRoot & {
+  Item: typeof Item;
+  Group: typeof ListGroup;
+};
+
+export { List };

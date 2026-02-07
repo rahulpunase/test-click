@@ -1,278 +1,394 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { List } from "./List";
 import {
+  Folder,
+  File,
+  MoreVertical,
+  FileText,
+  Image,
+  Code,
   Settings,
-  User,
-  CreditCard,
+  Home,
+  Users,
   Bell,
-  Moon,
-  MoreHorizontal,
-  Pencil,
-  Trash,
 } from "lucide-react";
-import { Button } from "../button";
-import { Dropdown } from "../dropdown";
-import { List } from "./index";
+import { Button } from "../button/Button";
 
-const meta: Meta<typeof List> = {
+const meta = {
   title: "Components/List",
   component: List,
+  parameters: {
+    layout: "centered",
+  },
   tags: ["autodocs"],
-  argTypes: {
-    className: { control: "text" },
+} satisfies Meta<typeof List>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+/**
+ * Default list with basic items
+ */
+export const Default: Story = {
+  render: () => {
+    return (
+      <div className="w-64">
+        <List>
+          <List.Item label="Home" />
+          <List.Item label="Documents" />
+          <List.Item label="Settings" />
+        </List>
+      </div>
+    );
   },
 };
 
-export default meta;
-type Story = StoryObj<typeof List>;
-
-export const Default: Story = {
-  render: () => (
-    <List className="max-w-md">
-      <List.Item label="Account Settings" icon={<Settings />} />
-      <List.Item label="Profile" icon={<User />} />
-      <List.Item label="Billing" icon={<CreditCard />} />
-    </List>
-  ),
+/**
+ * List items with icons
+ */
+export const WithIcons: Story = {
+  render: () => {
+    return (
+      <div className="w-64">
+        <List>
+          <List.Item label="Home">
+            <List.Item.Icon icon={Home} size="sm" />
+          </List.Item>
+          <List.Item label="Documents">
+            <List.Item.Icon icon={FileText} size="sm" />
+          </List.Item>
+          <List.Item label="Settings">
+            <List.Item.Icon icon={Settings} size="sm" />
+          </List.Item>
+          <List.Item label="Users">
+            <List.Item.Icon icon={Users} size="sm" />
+          </List.Item>
+          <List.Item label="Notifications">
+            <List.Item.Icon icon={Bell} size="sm" />
+          </List.Item>
+        </List>
+      </div>
+    );
+  },
 };
 
-export const WithDescriptions: Story = {
-  render: () => (
-    <List className="max-w-md">
-      <List.Item
-        label="Push Notifications"
-        description="Receive daily updates"
-        icon={<Bell />}
-      />
-      <List.Item
-        label="Dark Mode"
-        description="Switch between light and dark themes"
-        icon={<Moon />}
-      />
-    </List>
-  ),
-};
-
-export const WithGroups: Story = {
-  render: () => (
-    <List className="max-w-md">
-      <List.Group label="General">
-        <List.Item label="Account" icon={<User />} />
-        <List.Item label="Notifications" icon={<Bell />} />
-      </List.Group>
-      <List.Group label="Billing">
-        <List.Item label="Payment Methods" icon={<CreditCard />} />
-        <List.Item label="History" />
-      </List.Group>
-    </List>
-  ),
-};
-
-export const CollapsibleGroups: Story = {
-  render: () => (
-    <List className="max-w-md">
-      <List.Group label="General Settings" collapsible defaultExpanded>
-        <List.Item label="Profile" />
-        <List.Item label="Security" />
-      </List.Group>
-      <List.Group label="Advanced Settings" collapsible>
-        <List.Item label="API Keys" />
-        <List.Item label="Webhooks" />
-      </List.Group>
-    </List>
-  ),
-};
-
-export const NestedGroups: Story = {
-  render: () => (
-    <List className="max-w-md">
-      <List.Group label="Organization" collapsible defaultExpanded>
-        <List.Item label="Overview" />
-        <List.Group label="Members" collapsible>
-          <List.Item label="Active Members" />
-          <List.Item label="Pending Invitations" />
-        </List.Group>
-        <List.Group label="Teams" collapsible>
-          <List.Item label="Engineering" />
-          <List.Item label="Design" />
-        </List.Group>
-      </List.Group>
-    </List>
-  ),
-};
-
-export const Interactive: Story = {
-  render: () => (
-    <List className="max-w-md">
-      <List.Item
-        label="Click me"
-        description="I have a hover state"
-        onClick={() => alert("Clicked!")}
-        icon={<User />}
-      />
-      <List.Item
-        label="Interactive Item"
-        description="With action button"
-        action={
-          <button className="text-xs bg-background-muted px-2 py-1 rounded">
-            Action
-          </button>
-        }
-      />
-      <List.Item
-        label="Disabled Item"
-        description="Cannot be clicked"
-        disabled
-        onClick={() => alert("Should not fire")}
-      />
-      <List.Item
-        label="Selected Item"
-        description="Currently active"
-        selected
-        onClick={() => {}}
-      />
-    </List>
-  ),
-};
-
-export const WithActionMenu: Story = {
-  render: () => (
-    <List className="max-w-md">
-      <List.Item
-        label="Project Alpha"
-        description="Last updated 2 hours ago"
-        action={
-          <Dropdown>
-            <Dropdown.Trigger asChild>
-              <Button variant="ghost" size="sm" icon={MoreHorizontal} />
-            </Dropdown.Trigger>
-            <Dropdown.Content align="end">
-              <Dropdown.Item label="Edit" icon={<Pencil />} />
-              <Dropdown.Item
-                variant="destructive"
-                label="Delete"
-                icon={<Trash />}
+/**
+ * List items with action buttons
+ */
+export const WithActions: Story = {
+  render: () => {
+    return (
+      <div className="w-72">
+        <List>
+          <List.Item label="Documents">
+            <List.Item.Icon icon={Folder} size="sm" />
+            <List.Item.Action>
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={MoreVertical}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("Menu clicked");
+                }}
               />
-            </Dropdown.Content>
-          </Dropdown>
-        }
-      />
-      <List.Item
-        label="Project Beta"
-        description="Last updated 5 days ago"
-        action={
-          <Dropdown>
-            <Dropdown.Trigger asChild>
-              <Button variant="ghost" size="sm" icon={MoreHorizontal} />
-            </Dropdown.Trigger>
-            <Dropdown.Content align="end">
-              <Dropdown.Item label="Edit" icon={<Pencil />} />
-              <Dropdown.Item
-                variant="destructive"
-                label="Delete"
-                icon={<Trash />}
+            </List.Item.Action>
+          </List.Item>
+          <List.Item label="Images">
+            <List.Item.Icon icon={Image} size="sm" />
+            <List.Item.Action>
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={MoreVertical}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("Menu clicked");
+                }}
               />
-            </Dropdown.Content>
-          </Dropdown>
-        }
-      />
-    </List>
-  ),
+            </List.Item.Action>
+          </List.Item>
+          <List.Item label="Code Files">
+            <List.Item.Icon icon={Code} size="sm" />
+            <List.Item.Action>
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={MoreVertical}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("Menu clicked");
+                }}
+              />
+            </List.Item.Action>
+          </List.Item>
+        </List>
+      </div>
+    );
+  },
 };
 
-export const ExpandableItems: Story = {
-  render: () => (
-    <List className="max-w-md border border-border-2 rounded-lg p-2">
-      <List.Item
-        label="Dashboard"
-        icon={<Settings />}
-        description="Expandable with Icon (Hover to see chevron)"
-      >
-        <List.Item.Expandable>
-          <List.Item label="Analytics" />
-          <List.Item label="Reports" />
-        </List.Item.Expandable>
-      </List.Item>
-
-      <List.Item label="Documents" description="Expandable without Icon">
-        <List.Item.Expandable>
-          <List.Item label="Private" icon={<User />} />
-          <List.Item label="Shared" icon={<User />} />
-        </List.Item.Expandable>
-      </List.Item>
-
-      <List.Item label="Deeply Nested" icon={<Settings />}>
-        <List.Item.Expandable>
-          <List.Item label="Level 1">
+/**
+ * Expandable list items with nested content
+ */
+export const Expandable: Story = {
+  render: () => {
+    return (
+      <div className="w-72">
+        <List>
+          <List.Item label="Projects">
+            <List.Item.Icon icon={Folder} size="sm" />
             <List.Item.Expandable>
-              <List.Item label="Level 2">
+              <List.Item label="Web Application">
+                <List.Item.Icon icon={Code} size="sm" />
+              </List.Item>
+              <List.Item label="Mobile App">
+                <List.Item.Icon icon={File} size="sm" />
+              </List.Item>
+              <List.Item label="Landing Page">
+                <List.Item.Icon icon={FileText} size="sm" />
+              </List.Item>
+            </List.Item.Expandable>
+          </List.Item>
+          <List.Item label="Documents">
+            <List.Item.Icon icon={Folder} size="sm" />
+            <List.Item.Expandable>
+              <List.Item label="Contracts">
+                <List.Item.Icon icon={FileText} size="sm" />
+              </List.Item>
+              <List.Item label="Reports">
+                <List.Item.Icon icon={FileText} size="sm" />
+              </List.Item>
+            </List.Item.Expandable>
+          </List.Item>
+          <List.Item label="Settings">
+            <List.Item.Icon icon={Settings} size="sm" />
+          </List.Item>
+        </List>
+      </div>
+    );
+  },
+};
+
+/**
+ * Expandable list items with default expanded state
+ */
+export const DefaultExpanded: Story = {
+  render: () => {
+    return (
+      <div className="w-72">
+        <List>
+          <List.Item label="Projects" defaultExpanded>
+            <List.Item.Icon icon={Folder} size="sm" />
+            <List.Item.Expandable>
+              <List.Item label="Frontend">
+                <List.Item.Icon icon={Code} size="sm" />
+              </List.Item>
+              <List.Item label="Backend">
+                <List.Item.Icon icon={Code} size="sm" />
+              </List.Item>
+            </List.Item.Expandable>
+          </List.Item>
+          <List.Item label="Other">
+            <List.Item.Icon icon={Folder} size="sm" />
+          </List.Item>
+        </List>
+      </div>
+    );
+  },
+};
+
+/**
+ * Deeply nested expandable list for hierarchical data
+ */
+export const DeeplyNested: Story = {
+  render: () => {
+    return (
+      <div className="w-80">
+        <List>
+          <List.Item label="src" defaultExpanded>
+            <List.Item.Icon icon={Folder} size="sm" />
+            <List.Item.Expandable>
+              <List.Item label="components" defaultExpanded>
+                <List.Item.Icon icon={Folder} size="sm" />
                 <List.Item.Expandable>
-                  <List.Item label="Level 3" />
+                  <List.Item label="Button.tsx">
+                    <List.Item.Icon icon={File} size="sm" />
+                  </List.Item>
+                  <List.Item label="Card.tsx">
+                    <List.Item.Icon icon={File} size="sm" />
+                  </List.Item>
+                  <List.Item label="List.tsx">
+                    <List.Item.Icon icon={File} size="sm" />
+                  </List.Item>
+                </List.Item.Expandable>
+              </List.Item>
+              <List.Item label="hooks">
+                <List.Item.Icon icon={Folder} size="sm" />
+                <List.Item.Expandable>
+                  <List.Item label="useToggle.ts">
+                    <List.Item.Icon icon={File} size="sm" />
+                  </List.Item>
+                </List.Item.Expandable>
+              </List.Item>
+              <List.Item label="utils">
+                <List.Item.Icon icon={Folder} size="sm" />
+                <List.Item.Expandable>
+                  <List.Item label="cn.ts">
+                    <List.Item.Icon icon={File} size="sm" />
+                  </List.Item>
                 </List.Item.Expandable>
               </List.Item>
             </List.Item.Expandable>
           </List.Item>
-        </List.Item.Expandable>
-      </List.Item>
-    </List>
-  ),
+          <List.Item label="package.json">
+            <List.Item.Icon icon={File} size="sm" />
+          </List.Item>
+          <List.Item label="README.md">
+            <List.Item.Icon icon={FileText} size="sm" />
+          </List.Item>
+        </List>
+      </div>
+    );
+  },
 };
 
-export const GroupWithExpandableItems: Story = {
-  render: () => (
-    <List className="max-w-md border border-border-2 rounded-lg p-2">
-      <List.Group label="Management" collapsible defaultExpanded>
-        <List.Item label="Team" icon={<User />}>
-          <List.Item.Expandable>
-            <List.Item label="Admins" />
-            <List.Item label="Members" />
-            <List.Item label="Guests" />
-          </List.Item.Expandable>
-        </List.Item>
-        <List.Item label="Settings" icon={<Settings />}>
-          <List.Item.Expandable>
-            <List.Item label="General" />
-            <List.Item label="Security" />
-          </List.Item.Expandable>
-        </List.Item>
-      </List.Group>
-
-      <List.Group label="Resources" collapsible>
-        <List.Item label="Documentation" />
-        <List.Item label="API Reference" />
-      </List.Group>
-    </List>
-  ),
+/**
+ * Complete example with icons, actions, and expandable items
+ */
+export const CompleteExample: Story = {
+  render: () => {
+    return (
+      <div className="w-80">
+        <List>
+          <List.Item label="Workspace">
+            <List.Item.Icon icon={Home} size="sm" />
+            <List.Item.Action>
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={MoreVertical}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log("Workspace menu");
+                }}
+              />
+            </List.Item.Action>
+            <List.Item.Expandable>
+              <List.Item label="Projects">
+                <List.Item.Icon icon={Folder} size="sm" />
+                <List.Item.Expandable>
+                  <List.Item label="Project Alpha">
+                    <List.Item.Icon icon={File} size="sm" />
+                    <List.Item.Action>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        icon={MoreVertical}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      />
+                    </List.Item.Action>
+                  </List.Item>
+                  <List.Item label="Project Beta">
+                    <List.Item.Icon icon={File} size="sm" />
+                    <List.Item.Action>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        icon={MoreVertical}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      />
+                    </List.Item.Action>
+                  </List.Item>
+                </List.Item.Expandable>
+              </List.Item>
+              <List.Item label="Documents">
+                <List.Item.Icon icon={FileText} size="sm" />
+              </List.Item>
+            </List.Item.Expandable>
+          </List.Item>
+          <List.Item label="Shared">
+            <List.Item.Icon icon={Users} size="sm" />
+            <List.Item.Expandable>
+              <List.Item label="Team Files">
+                <List.Item.Icon icon={Folder} size="sm" />
+              </List.Item>
+            </List.Item.Expandable>
+          </List.Item>
+          <List.Item label="Settings">
+            <List.Item.Icon icon={Settings} size="sm" />
+          </List.Item>
+        </List>
+      </div>
+    );
+  },
 };
 
-export const WithLeftContent: Story = {
-  render: () => (
-    <List className="max-w-md border border-border-2 rounded-lg p-2">
-      <List.Item label="Custom Checkbox">
-        <List.Item.LeftContent>
-          <div className="w-4 h-4 border border-primary rounded bg-primary/20 flex items-center justify-center text-[10px] text-primary">
-            ✓
-          </div>
-        </List.Item.LeftContent>
-      </List.Item>
-      <List.Item
-        label="Expandable with Left Content"
-        description="LeftContent replaces Chevron/Icon logic"
-      >
-        <List.Item.LeftContent>
-          <div className="w-4 h-4 rounded-full bg-secondary text-white flex items-center justify-center text-[10px]">
-            !
-          </div>
-        </List.Item.LeftContent>
-        <List.Item.Expandable>
-          <List.Item label="Child 1" />
-          <List.Item label="Child 2" />
-        </List.Item.Expandable>
-      </List.Item>
-      <List.Item label="Text Left Content">
-        <List.Item.LeftContent>
-          <span className="text-xs font-bold text-tertiary">#1</span>
-        </List.Item.LeftContent>
-      </List.Item>
-    </List>
-  ),
+/**
+ * File browser example simulating a realistic file tree
+ */
+export const FileBrowser: Story = {
+  render: () => {
+    return (
+      <div className="w-80 bg-background border border-border-2 rounded-md p-2">
+        <List>
+          <List.Item label="Documents" defaultExpanded>
+            <List.Item.Icon icon={Folder} size="sm" />
+            <List.Item.Expandable>
+              <List.Item label="Work">
+                <List.Item.Icon icon={Folder} size="sm" />
+                <List.Item.Expandable>
+                  <List.Item label="Q4 Report.pdf">
+                    <List.Item.Icon icon={FileText} size="sm" />
+                  </List.Item>
+                  <List.Item label="Budget.xlsx">
+                    <List.Item.Icon icon={File} size="sm" />
+                  </List.Item>
+                </List.Item.Expandable>
+              </List.Item>
+              <List.Item label="Personal">
+                <List.Item.Icon icon={Folder} size="sm" />
+                <List.Item.Expandable>
+                  <List.Item label="Resume.docx">
+                    <List.Item.Icon icon={FileText} size="sm" />
+                  </List.Item>
+                </List.Item.Expandable>
+              </List.Item>
+            </List.Item.Expandable>
+          </List.Item>
+          <List.Item label="Pictures">
+            <List.Item.Icon icon={Folder} size="sm" />
+            <List.Item.Expandable>
+              <List.Item label="vacation.jpg">
+                <List.Item.Icon icon={Image} size="sm" />
+              </List.Item>
+              <List.Item label="profile.png">
+                <List.Item.Icon icon={Image} size="sm" />
+              </List.Item>
+            </List.Item.Expandable>
+          </List.Item>
+        </List>
+      </div>
+    );
+  },
+};
+
+export const WithGroup: Story = {
+  render: () => {
+    return (
+      <div className="w-72">
+        <List>
+          <List.Group label="Documents">
+            <List.Item label="Home" />
+            <List.Item label="Documents" />
+            <List.Item label="Settings" />
+          </List.Group>
+        </List>
+      </div>
+    );
+  },
 };
