@@ -4,7 +4,6 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { Errors } from "../errors/service";
 import { getMember } from "../members/service";
 import { getManyFrom } from "convex-helpers/server/relationships";
-import type { Doc, Id } from "../_generated/dataModel";
 
 /**
  * Lists all spaces in a workspace.
@@ -72,6 +71,7 @@ export type SpaceContentItem = {
   _id: string;
   type: "project" | "folder";
   name: string;
+  spaceId: string;
   parentId: string | null;
   color?: string;
   icon?: string;
@@ -143,6 +143,7 @@ export const getSpaceContents = query({
       _id: project._id,
       type: "project" as const,
       name: project.name,
+      spaceId: args.spaceId,
       parentId: project.folderId ?? null,
       createdBy: project.createdBy,
       updatedAt: project.updatedAt,
@@ -154,6 +155,7 @@ export const getSpaceContents = query({
       _id: folder._id,
       type: "folder" as const,
       name: folder.name,
+      spaceId: args.spaceId,
       parentId: folder.parentId ?? null,
       color: folder.color,
       icon: folder.icon,
