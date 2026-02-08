@@ -14,8 +14,6 @@ type HomeSectionProps = {
   userSelectedHomeSectionItems: UserSelectedHomeSectionItems;
 };
 
-const BY_DEFAULT_VISIBLE_ITEMS = 5;
-
 export const HomeSection = ({
   homeSectionItems,
   userSelectedHomeSectionItems,
@@ -32,6 +30,11 @@ export const HomeSection = ({
   const { visibleItems, overflowItems } = useMemo(() => {
     const pinnedItems = itemsToRender.filter((item) => item.isPinned);
     const unpinnedItems = itemsToRender.filter((item) => !item.isPinned);
+
+    const BY_DEFAULT_VISIBLE_ITEMS =
+      userSelectedHomeSectionItems.length > 0
+        ? userSelectedHomeSectionItems.length
+        : 5;
 
     // Check if we need a "More" button
     // We need it if there are unpinned items OR if pinned items don't fit
@@ -53,7 +56,7 @@ export const HomeSection = ({
   }, [itemsToRender]);
 
   return (
-    <div>
+    <div className="px-1">
       <div className="py-2 px-2 font-bold">Home</div>
       <List>
         {visibleItems.map((item) => {
@@ -64,7 +67,7 @@ export const HomeSection = ({
             </List.Item>
           );
         })}
-        {overflowItems.length > 0 && (
+        {overflowItems.length ? (
           <Dropdown>
             <Dropdown.Trigger asChild>
               <List.Item label="More">
@@ -103,6 +106,10 @@ export const HomeSection = ({
               />
             </Dropdown.Content>
           </Dropdown>
+        ) : (
+          <List.Item label="More" onClick={() => openNavConfigDialog("home")}>
+            <List.Item.Icon icon={MoreHorizontal} size="sm" />
+          </List.Item>
         )}
       </List>
     </div>

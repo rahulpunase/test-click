@@ -8,3 +8,17 @@ export const useUpdateMemberProfile = (): UseMutationResult<any, any, any> => {
   });
   return mutation;
 };
+
+export const useRemoveMember = (): UseMutationResult<any, any, any> => {
+  const mutation = useMutation({
+    mutationFn: useConvexMutation(api.members.mutations.removeMember),
+  });
+  return mutation;
+};
+
+export const useChangeMemberRole = (): UseMutationResult<any, any, any> => {
+  const mutation = useMutation({
+    mutationFn: useConvexMutation(api.members.mutations.changeMemberRole),
+  });
+  return mutation;
+};

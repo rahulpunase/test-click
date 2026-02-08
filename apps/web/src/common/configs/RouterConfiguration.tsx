@@ -1,10 +1,12 @@
 import { createBrowserRouter, type RouteObject } from "react-router";
 import { authRoutes } from "@/surfaces/auth/routes";
 import { homeRoutes } from "@/surfaces/home/routes";
+import { settingsRoutes } from "@/surfaces/settings/routes";
 import { onboardingRoutes } from "@/surfaces/onboarding/routes";
 import { inviteRoutes } from "@/surfaces/invite/routes";
 import { AuthenticatedLayout } from "../layouts/AuthenticatedLayout";
 import { MainLayout } from "../layouts/MainLayout";
+import { SettingsLayout } from "../layouts/SettingsLayout";
 import { PublicLayout } from "../layouts/PublicLayout";
 import { LoginCallback } from "@/surfaces/auth/pages/LoginCallback";
 import { WithWorkspaceLayout } from "../layouts/WithWorkspaceLayout";
@@ -33,6 +35,11 @@ const routes: RouteObject[] = [
           {
             element: <MainLayout />,
             children: [...homeRoutes],
+          },
+          {
+            path: "settings",
+            element: <SettingsLayout />,
+            children: [...settingsRoutes],
           },
         ],
       },

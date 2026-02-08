@@ -4,7 +4,12 @@ import { v } from "convex/values";
 export const members = defineTable({
   userId: v.id("users"),
   workspaceId: v.id("workspaces"),
-  role: v.union(v.literal("admin"), v.literal("member"), v.literal("creator")),
+  role: v.union(
+    v.literal("admin"),
+    v.literal("member"),
+    v.literal("creator"),
+    v.literal("guest"),
+  ),
 })
   .index("by_userId", ["userId"])
   .index("by_workspaceId", ["workspaceId"])

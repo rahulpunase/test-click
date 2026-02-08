@@ -83,7 +83,7 @@ export const AppRail = () => {
   }, [itemsToRender, availableHeight]);
 
   return (
-    <div className="flex flex-col border-r border-border-2 bg-background w-[72px] h-full py-2 shrink-0 justify-between">
+    <div className="flex flex-col border-r border-border-2 bg-background w-full h-full py-2 shrink-0 justify-between">
       <div
         ref={containerRef}
         className="flex flex-col gap-2 flex-1 overflow-hidden min-h-0 items-center"

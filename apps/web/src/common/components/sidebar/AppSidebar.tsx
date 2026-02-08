@@ -8,7 +8,7 @@ export const AppSidebar = () => {
     useSidebarItemsToRender();
 
   return (
-    <div className="flex flex-col border-r border-border-2 bg-background w-52 h-full">
+    <div className="flex flex-col border-r border-border-2 bg-background w-full h-full">
       <div className="flex-1 pb-2 overflow-y-auto">
         <HomeSection
           homeSectionItems={homeSectionItems}

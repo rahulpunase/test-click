@@ -9,7 +9,7 @@ export const listVariants = tv({
     itemIcon: "text-text-muted",
     isExpandableIcon:
       "text-text-muted cursor-pointer bg-background-muted hover:bg-background-hover rounded-md hidden",
-    label: "flex flex-1 text-text-primary text-sm py-1 cursor-pointer",
+    label: "flex flex-1 text-text-secondary text-sm py-1 cursor-pointer",
     group: "flex flex-col",
     groupContent: "flex flex-row items-center justify-between px-2 py-1",
     groupLabel: "text-text-muted text-xs font-semibold",

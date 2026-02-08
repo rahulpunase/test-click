@@ -5,6 +5,7 @@ import { Errors } from "../errors/service";
 import {
   fetchUserMemberships as fetchUserMembershipsService,
   getMemberWithProfile as getMemberWithProfileService,
+  getWorkspaceMembers as getWorkspaceMembersService,
 } from "./service";
 
 export const fetchUserMemberships = query({
@@ -22,5 +23,20 @@ export const getMemberWithProfile = query({
       throw Errors.Auth.unauthorized();
     }
     return await getMemberWithProfileService(ctx, userId, args.workspaceId);
+  },
+});
+
+/**
+ * Gets all members of a workspace with their profiles and user data.
+ * Requires the requesting user to be authenticated.
+ */
+export const getWorkspaceMembers = query({
+  args: { workspaceId: v.id("workspaces") },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw Errors.Auth.unauthorized();
+    }
+    return await getWorkspaceMembersService(ctx, args.workspaceId);
   },
 });

@@ -132,3 +132,31 @@ export const getMember = async (
     )
     .unique();
 };
+
+/**
+ * Gets all members of a workspace with their profiles and user data.
+ */
+export const getWorkspaceMembers = async (
+  ctx: QueryCtx,
+  workspaceId: Id<"workspaces">,
+) => {
+  const members = await ctx.db
+    .query("members")
+    .withIndex("by_workspaceId", (q) => q.eq("workspaceId", workspaceId))
+    .collect();
+
+  const membersWithData = await Promise.all(
+    members.map(async (member) => {
+      const user = await ctx.db.get(member.userId);
+      const profile = await getOneFrom(
+        ctx.db,
+        "member_profiles",
+        "by_memberId",
+        member._id,
+      );
+      return { member, profile, user };
+    }),
+  );
+
+  return pruneNull(membersWithData);
+};

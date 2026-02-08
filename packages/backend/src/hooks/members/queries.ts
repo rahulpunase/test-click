@@ -20,3 +20,13 @@ export const useGetMemberWithProfile = (workspaceId: Id<"workspaces">) => {
 
   return { data, isPending, error };
 };
+
+export const useGetWorkspaceMembers = (workspaceId: Id<"workspaces">) => {
+  const { data, isPending, error } = useQuery(
+    convexQuery(api.members.queries.getWorkspaceMembers, {
+      workspaceId,
+    }),
+  );
+
+  return { data, isPending, error };
+};

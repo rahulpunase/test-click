@@ -28,6 +28,18 @@ export const Errors = {
     permissions: (): ConvexErrorType => {
       return throwConvexError(ErrorMessages.NO_PERMISSION);
     },
+    cannotRemoveSelf: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.CANNOT_REMOVE_SELF);
+    },
+    cannotRemoveCreator: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.CANNOT_REMOVE_CREATOR);
+    },
+    cannotModifyCreator: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.CANNOT_MODIFY_CREATOR);
+    },
+    cannotModifySelf: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.CANNOT_MODIFY_SELF);
+    },
   },
   Workspace: {
     notFound: (): ConvexErrorType => {
