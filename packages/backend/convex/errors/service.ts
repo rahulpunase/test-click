@@ -47,4 +47,21 @@ export const Errors = {
       return throwConvexError(ErrorMessages.ALREADY_FAVOURITED);
     },
   },
+  Invitation: {
+    notFound: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.INVITATION_NOT_FOUND);
+    },
+    expired: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.INVITATION_EXPIRED);
+    },
+    alreadyAccepted: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.INVITATION_ALREADY_ACCEPTED);
+    },
+    cancelled: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.INVITATION_CANCELLED);
+    },
+    alreadyMember: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.ALREADY_A_MEMBER);
+    },
+  },
 };

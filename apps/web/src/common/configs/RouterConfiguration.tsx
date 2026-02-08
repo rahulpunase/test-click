@@ -2,6 +2,7 @@ import { createBrowserRouter, type RouteObject } from "react-router";
 import { authRoutes } from "@/surfaces/auth/routes";
 import { homeRoutes } from "@/surfaces/home/routes";
 import { onboardingRoutes } from "@/surfaces/onboarding/routes";
+import { inviteRoutes } from "@/surfaces/invite/routes";
 import { AuthenticatedLayout } from "../layouts/AuthenticatedLayout";
 import { MainLayout } from "../layouts/MainLayout";
 import { PublicLayout } from "../layouts/PublicLayout";
@@ -37,6 +38,8 @@ const routes: RouteObject[] = [
       },
       // allowed to see these pages even if user have organization
       ...onboardingRoutes,
+      // invite routes - user must be logged in to accept
+      ...inviteRoutes,
     ],
   },
 

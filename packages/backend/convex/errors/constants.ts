@@ -9,4 +9,9 @@ export const ErrorMessages = {
   SPACE_NOT_FOUND: "Space not found",
   FAVOURITE_NOT_FOUND: "Favourite not found",
   ALREADY_FAVOURITED: "Item is already favourited",
+  INVITATION_NOT_FOUND: "Invitation not found",
+  INVITATION_EXPIRED: "This invitation has expired",
+  INVITATION_ALREADY_ACCEPTED: "This invitation has already been accepted",
+  INVITATION_CANCELLED: "This invitation has been cancelled",
+  ALREADY_A_MEMBER: "You are already a member of this workspace",
 } as const;

@@ -24,7 +24,9 @@
     "./folders/mutations": "./src/hooks/folders/mutations.ts",
     "./folders/queries": "./src/hooks/folders/queries.ts",
     "./favourites/queries": "./src/hooks/favourites/queries.ts",
-    "./favourites/mutations": "./src/hooks/favourites/mutations.ts"
+    "./favourites/mutations": "./src/hooks/favourites/mutations.ts",
+    "./invitations/queries": "./src/hooks/invitations/queries.ts",
+    "./invitations/mutations": "./src/hooks/invitations/mutations.ts"
   },
   "scripts": {
     "dev": "convex dev",
