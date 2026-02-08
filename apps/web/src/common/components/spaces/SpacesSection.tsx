@@ -53,15 +53,17 @@ export const SpacesSection = () => {
           <SpaceItem key={space._id} space={space} />
         ))}
       </List.Group>
-      <Button
-        icon={PlusIcon}
-        color="tertiary"
-        variant="ghost"
-        className="justify-start px-2"
-        onClick={openCreateSpaceDialog}
-      >
-        Add space
-      </Button>
+      <div className="px-2">
+        <Button
+          icon={PlusIcon}
+          color="tertiary"
+          variant="ghost"
+          className="justify-start w-full"
+          onClick={openCreateSpaceDialog}
+        >
+          Add space
+        </Button>
+      </div>
     </List>
   );
 };

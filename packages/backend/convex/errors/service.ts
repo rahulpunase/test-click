@@ -39,4 +39,12 @@ export const Errors = {
       return throwConvexError(ErrorMessages.SPACE_NOT_FOUND);
     },
   },
+  Favourite: {
+    notFound: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.FAVOURITE_NOT_FOUND);
+    },
+    alreadyExists: (): ConvexErrorType => {
+      return throwConvexError(ErrorMessages.ALREADY_FAVOURITED);
+    },
+  },
 };

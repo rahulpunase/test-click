@@ -7,4 +7,6 @@ export const ErrorMessages = {
   WORKSPACE_NOT_FOUND: "Workspace not found",
   NO_PERMISSION: "You do not have permission to perform this action",
   SPACE_NOT_FOUND: "Space not found",
+  FAVOURITE_NOT_FOUND: "Favourite not found",
+  ALREADY_FAVOURITED: "Item is already favourited",
 } as const;

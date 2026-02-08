@@ -16,6 +16,7 @@ import { useCreateProjectStore } from "../projects/store";
 import { useCreateFolderStore } from "@/common/components/folders/store";
 import { useGetSpaceContents } from "@repo/backend/spaces/queries";
 import { SpaceContents } from "./SpaceContents";
+import { useFavoritesActions } from "@/common/components/favorites/hooks/useFavoritesActions";
 
 interface SpaceItemProps {
   space: Spaces[0];
@@ -25,6 +26,14 @@ export const SpaceItem = ({ space }: SpaceItemProps) => {
   const { open: openProjectDialog } = useCreateProjectStore();
   const { open: openFolderDialog } = useCreateFolderStore();
   const { data: spaceContents } = useGetSpaceContents(space._id);
+
+  const { toggleFavourite, isFavourite, isActionPending } = useFavoritesActions(
+    {
+      workspaceId: space.workspaceId,
+      itemId: space._id,
+      itemType: "space",
+    },
+  );
 
   const firstLetter = space.name.charAt(0).toUpperCase();
   const hasContents = spaceContents && spaceContents.length > 0;
@@ -43,7 +52,18 @@ export const SpaceItem = ({ space }: SpaceItemProps) => {
             />
           </Dropdown.Trigger>
           <Dropdown.Content align="start" side="bottom">
-            <Dropdown.Item icon={<Star />} label="Favorite" />
+            <Dropdown.Item
+              icon={
+                <Star
+                  className={
+                    isFavourite ? "fill-yellow-400 stroke-yellow-400" : ""
+                  }
+                />
+              }
+              label={isFavourite ? "Remove from favorite" : "Favorite"}
+              onClick={() => toggleFavourite()}
+              disabled={isActionPending}
+            />
             <Dropdown.Item icon={<Edit />} label="Edit Space" />
             <Dropdown.Item icon={<Link />} label="Copy link" />
             <Separator className="my-1" />

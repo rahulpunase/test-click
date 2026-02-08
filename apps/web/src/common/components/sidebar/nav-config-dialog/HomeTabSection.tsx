@@ -46,7 +46,7 @@ export const HomeTabSection = () => {
   };
 
   return (
-    <div className="py-5">
+    <div className="py-5 px-4">
       <List className="gap-3">
         {finalState.map((item) => {
           const Icon = iconMapper[item.icon] ?? Loader2;

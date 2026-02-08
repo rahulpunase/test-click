@@ -12,8 +12,8 @@ export interface DropdownProps extends React.ComponentProps<typeof Menu.Root> {
 }
 
 const DropdownRoot = React.forwardRef<HTMLDivElement, DropdownProps>(
-  ({ ...props }) => {
-    return <Menu.Root {...props} />;
+  ({ ...props }, ref) => {
+    return <Menu.Root ref={ref} {...props} />;
   },
 );
 

@@ -22,7 +22,9 @@
     "./projects/queries": "./src/hooks/projects/queries.ts",
     "./projects/mutations": "./src/hooks/projects/mutations.ts",
     "./folders/mutations": "./src/hooks/folders/mutations.ts",
-    "./folders/queries": "./src/hooks/folders/queries.ts"
+    "./folders/queries": "./src/hooks/folders/queries.ts",
+    "./favourites/queries": "./src/hooks/favourites/queries.ts",
+    "./favourites/mutations": "./src/hooks/favourites/mutations.ts"
   },
   "scripts": {
     "dev": "convex dev",

@@ -7,6 +7,7 @@ import { sample } from "./sample/table";
 import { spaces } from "./spaces/table";
 import { projects } from "./projects/table";
 import { folders } from "./folders/table";
+import { favourites } from "./favourites/table";
 
 /**
  * Database schema definition
@@ -30,4 +31,5 @@ export default defineSchema({
   spaces,
   projects,
   folders,
+  favourites,
 });

@@ -4,17 +4,17 @@ import { forwardRef } from "react";
 import { cn } from "@repo/ui/utils";
 import { Tooltip } from "@repo/ui";
 
-interface AppRailItemProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AppRailItemProps extends React.HTMLAttributes<HTMLButtonElement> {
   icon?: React.ElementType;
   label: string;
   active?: boolean;
 }
 
-export const AppRailItem = forwardRef<HTMLDivElement, AppRailItemProps>(
+export const AppRailItem = forwardRef<HTMLButtonElement, AppRailItemProps>(
   ({ icon: Icon, label, active, className, ...props }, ref) => {
     return (
       <Tooltip content={label} side="right">
-        <div
+        <button
           ref={ref}
           className={cn(
             "flex flex-col items-center justify-center gap-1 w-12 h-12 py-2 cursor-pointer group text-text-muted hover:bg-background-secondary transition-colors rounded-md mx-2",
@@ -42,7 +42,7 @@ export const AppRailItem = forwardRef<HTMLDivElement, AppRailItemProps>(
           >
             {label}
           </div>
-        </div>
+        </button>
       </Tooltip>
     );
   },
