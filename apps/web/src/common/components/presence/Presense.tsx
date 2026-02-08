@@ -1,4 +1,3 @@
-import { useUserPresence } from "@repo/backend/presence/queries";
 import { useGlobalData } from "@/common/providers/globalDataProvider/globalDataProvider";
 import type { Id } from "@repo/backend/types";
 
@@ -23,8 +22,10 @@ const PresenceStatusCircle = ({ isOnline }: PresenceStatusCircleProps) => {
 };
 
 const PresenceInternal = ({ memberId }: PresenceInternal) => {
-  const { workSpace } = useGlobalData();
-  const presenceState = useUserPresence(workSpace._id, memberId);
+  const { presenceState } = useGlobalData();
+
+  console.log({ presenceState });
+
   const userPresence = presenceState?.find(
     (presence) => presence.userId === memberId,
   );

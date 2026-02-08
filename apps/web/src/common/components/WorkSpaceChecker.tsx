@@ -4,6 +4,7 @@ import { LoadingScreen } from "./LoadingScreen";
 import { Navigate } from "react-router";
 import { GlobalDataProvider } from "../providers/globalDataProvider/globalDataProvider";
 import { useGetCurrentUser } from "@repo/backend/user/queries";
+import { useGetMemberWithProfile } from "@repo/backend/members/queries";
 
 type Props = {
   children: React.ReactNode;
@@ -14,8 +15,10 @@ const WorkSpaceChecker = ({ children, workSpaceSlug }: Props) => {
   const { data: workSpace, isPending: isWorkspacePending } =
     useGetWorkspaceBySlug(workSpaceSlug);
   const { data: user, isPending: isUserPending } = useGetCurrentUser();
+  const { data: memberData, isPending: isMemberPending } =
+    useGetMemberWithProfile(workSpace?._id!);
 
-  if (isWorkspacePending || isUserPending) {
+  if (isWorkspacePending || isUserPending || isMemberPending) {
     return <LoadingScreen />;
   }
 
@@ -27,8 +30,19 @@ const WorkSpaceChecker = ({ children, workSpaceSlug }: Props) => {
     return <Navigate to="/onboarding/get-started" />;
   }
 
+  if (!memberData) {
+    return <Navigate to="/onboarding/get-started" />;
+  }
+
   return (
-    <GlobalDataProvider defaultValue={{ workSpace, user }}>
+    <GlobalDataProvider
+      defaultValue={{
+        workSpace,
+        user,
+        member: memberData.member,
+        memberProfile: memberData.profile,
+      }}
+    >
       {children}
     </GlobalDataProvider>
   );

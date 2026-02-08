@@ -19,6 +19,7 @@ import {
   Copy,
 } from "lucide-react";
 import { InviteDialog } from "../components/InviteDialog";
+import { Presense } from "@/common/components/presence/Presense";
 
 export const PeoplePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -158,10 +159,13 @@ export const PeoplePage = () => {
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-medium">
+                        <div className="w-8 h-8 rounded-full relative border border-primary flex items-center justify-center text-primary text-sm font-medium">
                           {(item.profile?.name ||
                             item.user?.name ||
                             "?")[0]?.toUpperCase()}
+                          <div className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-green-500">
+                            <Presense memberId={item.member._id} />
+                          </div>
                         </div>
                         <span className="text-text-primary font-medium text-sm">
                           {item.profile?.name || item.user?.name || "Unknown"}
