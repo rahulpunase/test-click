@@ -96,7 +96,7 @@ const SelectIcon = React.forwardRef<HTMLSpanElement, SelectIconProps>(
         className={cn(iconClass(), className)}
         {...props}
       >
-        {children ?? <ChevronDown />}
+        {children ?? <ChevronDown className="h-4 w-4 text-text-muted" />}
       </BaseSelect.Icon>
     );
   },
@@ -139,7 +139,7 @@ const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
     {
       children,
       className,
-      sideOffset = 8,
+      sideOffset = 4,
       alignItemWithTrigger = false,
       ...props
     },
@@ -152,6 +152,9 @@ const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
           sideOffset={sideOffset}
           alignItemWithTrigger={alignItemWithTrigger}
           {...props}
+          style={{
+            zIndex: 100,
+          }}
         >
           <SelectPopup className={className}>
             <BaseSelect.ScrollUpArrow className="flex items-center justify-center h-6 w-full text-text-muted" />

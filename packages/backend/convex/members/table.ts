@@ -25,3 +25,17 @@ export const member_profiles = defineTable({
   contactEmail: v.optional(v.string()),
   contactPhone: v.optional(v.string()),
 }).index("by_memberId", ["memberId"]);
+
+export const member_status = defineTable({
+  memberId: v.id("members"),
+  status: v.union(
+    v.literal("in_meeting"),
+    v.literal("focus"),
+    v.literal("sick"),
+    v.literal("vacation"),
+    v.literal("custom"),
+  ),
+  customText: v.optional(v.string()), // For custom status text
+  emoji: v.optional(v.string()), // Status emoji
+  expiresAt: v.optional(v.number()), // Unix timestamp for auto-clear
+}).index("by_memberId", ["memberId"]);

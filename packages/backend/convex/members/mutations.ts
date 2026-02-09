@@ -154,3 +154,110 @@ export const changeMemberRole = mutation({
     });
   },
 });
+
+/**
+ * Sets or updates a member's status.
+ *
+ * @param args.status - The status type
+ * @param args.customText - Optional custom text for the status
+ * @param args.emoji - Optional emoji for the status
+ * @param args.expiresAt - Optional Unix timestamp when the status should auto-clear
+ */
+export const setMemberStatus = mutation({
+  args: {
+    status: v.union(
+      v.literal("in_meeting"),
+      v.literal("focus"),
+      v.literal("sick"),
+      v.literal("vacation"),
+      v.literal("custom"),
+    ),
+    customText: v.optional(v.string()),
+    emoji: v.optional(v.string()),
+    expiresAt: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw Errors.Auth.unauthenticated();
+    }
+
+    // Get any existing member record for this user
+    const members = await ctx.db
+      .query("members")
+      .withIndex("by_userId", (q) => q.eq("userId", userId))
+      .collect();
+
+    if (members.length === 0) {
+      throw Errors.Member.notFound();
+    }
+
+    // Use the first member (primary workspace)
+    const member = members[0]!;
+
+    // Check if status already exists for this member
+    const existingStatus = await getOneFrom(
+      ctx.db,
+      "member_status",
+      "by_memberId",
+      member._id,
+    );
+
+    if (existingStatus) {
+      // Update existing status
+      await ctx.db.patch(existingStatus._id, {
+        status: args.status,
+        customText: args.customText,
+        emoji: args.emoji,
+        expiresAt: args.expiresAt,
+      });
+      return existingStatus._id;
+    } else {
+      // Create new status
+      return await ctx.db.insert("member_status", {
+        memberId: member._id,
+        status: args.status,
+        customText: args.customText,
+        emoji: args.emoji,
+        expiresAt: args.expiresAt,
+      });
+    }
+  },
+});
+
+/**
+ * Clears a member's status.
+ */
+export const clearMemberStatus = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw Errors.Auth.unauthenticated();
+    }
+
+    // Get any existing member record for this user
+    const members = await ctx.db
+      .query("members")
+      .withIndex("by_userId", (q) => q.eq("userId", userId))
+      .collect();
+
+    if (members.length === 0) {
+      throw Errors.Member.notFound();
+    }
+
+    const member = members[0]!;
+
+    // Find and delete the status
+    const existingStatus = await getOneFrom(
+      ctx.db,
+      "member_status",
+      "by_memberId",
+      member._id,
+    );
+
+    if (existingStatus) {
+      await ctx.db.delete(existingStatus._id);
+    }
+  },
+});

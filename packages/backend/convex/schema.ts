@@ -2,7 +2,7 @@ import { defineSchema } from "convex/server";
 import { authTables } from "@convex-dev/auth/server";
 import { sidebar } from "./sidebar/table";
 import { workspaces } from "./workspaces/table";
-import { members, member_profiles } from "./members/table";
+import { members, member_profiles, member_status } from "./members/table";
 import { sample } from "./sample/table";
 import { spaces } from "./spaces/table";
 import { projects } from "./projects/table";
@@ -28,6 +28,7 @@ export default defineSchema({
   workspaces,
   members,
   member_profiles,
+  member_status,
   sidebar,
   spaces,
   projects,

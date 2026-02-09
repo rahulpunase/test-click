@@ -15,6 +15,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@repo/backend": "*",
     "@repo/ui": "*",
+    "emoji-picker-react": "^4.18.0",
     "lucide-react": "^0.469.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

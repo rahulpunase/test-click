@@ -30,3 +30,22 @@ export const useGetWorkspaceMembers = (workspaceId: Id<"workspaces">) => {
 
   return { data, isPending, error };
 };
+
+export const useGetMemberStatus = () => {
+  const { data, isPending, error } = useQuery(
+    convexQuery(api.members.queries.getMemberStatus, {}),
+  );
+
+  return { data, isPending, error };
+};
+
+export const useGetAnyMemberStatus = (memberId: Id<"members"> | undefined) => {
+  const { data, isPending, error } = useQuery(
+    convexQuery(
+      api.members.queries.getAnyMemberStatus,
+      memberId ? { memberId } : "skip",
+    ),
+  );
+
+  return { data, isPending, error };
+};

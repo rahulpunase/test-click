@@ -24,8 +24,6 @@ const PresenceStatusCircle = ({ isOnline }: PresenceStatusCircleProps) => {
 const PresenceInternal = ({ memberId }: PresenceInternal) => {
   const { presenceState } = useGlobalData();
 
-  console.log({ presenceState });
-
   const userPresence = presenceState?.find(
     (presence) => presence.userId === memberId,
   );

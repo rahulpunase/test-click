@@ -22,3 +22,17 @@ export const useChangeMemberRole = (): UseMutationResult<any, any, any> => {
   });
   return mutation;
 };
+
+export const useSetMemberStatus = (): UseMutationResult<any, any, any> => {
+  const mutation = useMutation({
+    mutationFn: useConvexMutation(api.members.mutations.setMemberStatus),
+  });
+  return mutation;
+};
+
+export const useClearMemberStatus = (): UseMutationResult<any, any, any> => {
+  const mutation = useMutation({
+    mutationFn: useConvexMutation(api.members.mutations.clearMemberStatus),
+  });
+  return mutation;
+};
