@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { InviteDialog } from "../components/InviteDialog";
 import { Presense } from "@/common/components/presence/Presense";
+import { RoleBadge } from "@/common/components/permissions-and-roles";
 
 export const PeoplePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -181,9 +182,7 @@ export const PeoplePage = () => {
                       {item.user?.email || "-"}
                     </td>
                     <td className="px-4 py-3">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-background-muted text-text-muted capitalize">
-                        {item.member.role}
-                      </span>
+                      <RoleBadge role={item.member.role} />
                     </td>
                     {canManageMembers && (
                       <td className="px-4 py-3 text-right">

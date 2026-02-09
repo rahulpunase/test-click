@@ -10,6 +10,7 @@ import { useAppAuthActions } from "@/common/hooks/authHooks/useAppAuthActions";
 import { Presense } from "../presence/Presense";
 import { SetStatusDialog } from "./SetStatusDialog";
 import { useSetStatusDialogStore } from "./store";
+import { RoleBadge } from "@/common/components/permissions-and-roles";
 
 // Status display mapping
 const STATUS_DISPLAY: Record<string, { label: string; emoji: string }> = {
@@ -94,10 +95,13 @@ export const ProfileDropdown = () => {
                 fallback={userInitial}
                 size="sm"
               />
-              <div className="flex flex-col space-y-0.5">
-                <span className="text-sm font-medium leading-none truncate">
-                  {memberInfo.profile.name ?? "[Add name]"}
-                </span>
+              <div className="flex flex-col space-y-1">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm font-medium leading-none truncate">
+                    {memberInfo.profile.name ?? "[Add name]"}
+                  </span>
+                  <RoleBadge role={memberInfo.member.role} />
+                </div>
                 <span className="text-xs text-text-muted">
                   {currentStatusDisplay
                     ? `${currentStatusDisplay.emoji} ${currentStatusDisplay.label}`
