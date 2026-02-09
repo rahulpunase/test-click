@@ -1,7 +1,5 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-
-/* ============================================
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"); /* ============================================
    Tailwind CSS v4 Theme Configuration
    ============================================
    
@@ -63,10 +61,7 @@
   /* ==================== Custom Typography ==================== */
 
   /* Custom Font Families */
-  --font-sans: "Open Sans", sans-serif;
-  --font-mono:
-    "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  --font-family-main: "Roboto", sans-serif;
 
   /* Text colors */
   --color-text-primary: var(--color-neutral-800);
@@ -82,6 +77,12 @@
   --color-background-secondary: var(--color-neutral-300);
   --color-background-colored-main: var(--color-sky-600);
   --color-background-tooltip: var(--color-neutral-900);
+
+  /* font weights */
+  --font-weight-normal: 300;
+  --font-weight-medium: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
   /* border colors */
   --color-border-1: var(--color-gray-100);
@@ -136,10 +137,14 @@ html.dark {
 body {
   background-color: var(--background);
   color: var(--color-text-primary);
+  font-weight: var(--font-weight-normal);
   font-feature-settings:
     "rlig" 1,
     "calt" 1;
-  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  font-family: var(--font-family-main);
   /* font-family: "Playwrite IN Guides", cursive; */
 }
 
