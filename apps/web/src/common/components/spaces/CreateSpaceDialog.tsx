@@ -14,7 +14,7 @@ const formSchema = z.object({
   name: z.string().min(1, "Space name is required"),
   icon: z.string().optional(),
   description: z.string().optional(),
-  isPrivate: z.boolean(),
+  visibility: z.enum(["public", "private"]),
   permission: z.enum(["full_edit", "comment_only", "view_only"]),
 });
 
@@ -30,7 +30,7 @@ export const CreateSpaceDialog = () => {
     defaultValues: {
       name: "",
       description: "",
-      isPrivate: false,
+      visibility: "public",
       permission: "full_edit",
     },
   });
@@ -42,7 +42,7 @@ export const CreateSpaceDialog = () => {
       {
         workspaceId: workSpace._id,
         name: values.name,
-        isPrivate: values.isPrivate,
+        visibility: values.visibility,
         // Description is not currently supported by the backend mutation
       },
       {
@@ -142,7 +142,7 @@ export const CreateSpaceDialog = () => {
                   {/* Make Private Toggle */}
                   <Form.Controller
                     control={form.control}
-                    name="isPrivate"
+                    name="visibility"
                     render={({ field }) => (
                       <Form.Item className="flex flex-row items-center justify-between space-y-0 rounded-lg p-0">
                         <Form.Controller.Field>
@@ -151,8 +151,10 @@ export const CreateSpaceDialog = () => {
                               size="sm"
                               label="Make Private"
                               description="Only you and invited members have access to this space"
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
+                              checked={field.value === "private"}
+                              onCheckedChange={(checked) =>
+                                field.onChange(checked ? "private" : "public")
+                              }
                             />
                           </div>
                         </Form.Controller.Field>

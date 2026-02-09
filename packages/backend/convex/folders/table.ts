@@ -10,7 +10,7 @@ export const folders = defineTable({
   type: v.optional(v.string()), // Optional: For future "versatility" (e.g., custom folder types)
   createdBy: v.id("members"),
   updatedAt: v.optional(v.number()),
-  isPrivate: v.optional(v.boolean()), // If true, only the creator and invited members can see the folder
+  visibility: v.optional(v.union(v.literal("public"), v.literal("private"))), // "public" = all members see it, "private" = only invited members/guests
 })
   .index("by_spaceId", ["spaceId"])
   .index("by_parentId", ["parentId"]);

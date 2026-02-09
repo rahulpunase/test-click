@@ -9,6 +9,7 @@ import { projects } from "./projects/table";
 import { folders } from "./folders/table";
 import { favourites } from "./favourites/table";
 import { invitations } from "./invitations/table";
+import { entity_access } from "./entity_access/table";
 
 /**
  * Database schema definition
@@ -35,4 +36,5 @@ export default defineSchema({
   folders,
   favourites,
   invitations,
+  entity_access,
 });

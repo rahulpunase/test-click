@@ -8,7 +8,7 @@ export const projects = defineTable({
   createdBy: v.id("members"),
   updatedAt: v.optional(v.number()),
   folderId: v.optional(v.id("folders")),
-  // Projects can contain Folders and Items directly
+  visibility: v.optional(v.union(v.literal("public"), v.literal("private"))), // "public" = all members see it, "private" = only invited members/guests
 })
   .index("by_spaceId", ["spaceId"])
   .index("by_folderId", ["folderId"]);

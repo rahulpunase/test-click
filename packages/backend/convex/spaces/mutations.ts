@@ -14,7 +14,7 @@ export const createSpace = mutation({
     // Optional fields
     color: v.optional(v.string()),
     icon: v.optional(v.string()),
-    isPrivate: v.optional(v.boolean()),
+    visibility: v.optional(v.union(v.literal("public"), v.literal("private"))),
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
@@ -32,7 +32,7 @@ export const createSpace = mutation({
     // Only Admin or Creator can create spaces (public or private)
     // Members can ONLY create private spaces
     if (member.role !== "admin" && member.role !== "creator") {
-      if (!args.isPrivate) {
+      if (args.visibility !== "private") {
         throw Errors.Member.permissions();
       }
     }
@@ -42,7 +42,7 @@ export const createSpace = mutation({
       name: args.name,
       color: args.color,
       icon: args.icon,
-      isPrivate: args.isPrivate,
+      visibility: args.visibility ?? "public",
       createdBy: member._id,
       updatedAt: Date.now(),
     });

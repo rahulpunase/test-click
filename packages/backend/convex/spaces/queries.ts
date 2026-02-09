@@ -7,6 +7,9 @@ import { getManyFrom } from "convex-helpers/server/relationships";
 
 /**
  * Lists all spaces in a workspace.
+ * - Admins/Creators: See all spaces
+ * - Members: See public spaces + private spaces they created or have access to
+ * - Guests: Only see spaces they have explicit access to via entity_access
  */
 export const getSpaces = query({
   args: { workspaceId: v.id("workspaces") },
@@ -27,12 +30,39 @@ export const getSpaces = query({
       .withIndex("by_workspaceId", (q) => q.eq("workspaceId", args.workspaceId))
       .collect();
 
+    // Admins and Creators see all spaces
+    if (member.role === "creator") {
+      return spaces;
+    }
+
+    // Get all spaces this member has explicit access to
+    const accessEntries = await ctx.db
+      .query("entity_access")
+      .withIndex("by_memberId", (q) => q.eq("memberId", member._id))
+      .collect();
+
+    const accessibleSpaceIds = new Set(
+      accessEntries
+        .filter((entry) => entry.entityType === "space")
+        .map((entry) => entry.entityId),
+    );
+
     return spaces.filter((space) => {
-      // Public spaces are visible to everyone
-      if (!space.isPrivate) return true;
-      // Private spaces are visible only to the creator
-      // In future: or if they are shared with the user
-      return space.createdBy === member._id;
+      // Guests can ONLY see spaces they have explicit access to
+      if (member.role === "guest") {
+        return accessibleSpaceIds.has(space._id);
+      }
+
+      // For private spaces: only creator or those with explicit access
+      if (space.visibility === "private") {
+        // Creator can always see their private spaces
+        if (space.createdBy === member._id) return true;
+        // Check for explicit access via entity_access
+        return accessibleSpaceIds.has(space._id);
+      }
+
+      // Public spaces are visible to all members
+      return true;
     });
   },
 });
@@ -77,7 +107,7 @@ export type SpaceContentItem = {
   icon?: string;
   createdBy: string;
   updatedAt?: number;
-  isPrivate?: boolean;
+  visibility?: "public" | "private";
   children: SpaceContentItem[];
 };
 
@@ -111,9 +141,42 @@ export const getSpaceContents = query({
       throw Errors.Member.notAMember();
     }
 
-    // Check if space is private and user is not the creator
-    if (space.isPrivate && space.createdBy !== member._id) {
-      throw Errors.Space.notFound();
+    // Check space access based on visibility and role
+    if (space.visibility === "private") {
+      // Admins/Creators can always access
+      if (member.role !== "admin" && member.role !== "creator") {
+        // Check if user is creator or has explicit access
+        const hasAccess = await ctx.db
+          .query("entity_access")
+          .withIndex("by_entity_and_member", (q) =>
+            q
+              .eq("entityType", "space")
+              .eq("entityId", args.spaceId)
+              .eq("memberId", member._id),
+          )
+          .first();
+
+        if (space.createdBy !== member._id && !hasAccess) {
+          throw Errors.Space.notFound();
+        }
+      }
+    } else {
+      // Public space - but guests still need explicit access
+      if (member.role === "guest") {
+        const hasAccess = await ctx.db
+          .query("entity_access")
+          .withIndex("by_entity_and_member", (q) =>
+            q
+              .eq("entityType", "space")
+              .eq("entityId", args.spaceId)
+              .eq("memberId", member._id),
+          )
+          .first();
+
+        if (!hasAccess) {
+          throw Errors.Space.notFound();
+        }
+      }
     }
 
     // Fetch all projects for the space
@@ -132,9 +195,9 @@ export const getSpaceContents = query({
       args.spaceId,
     );
 
-    // Filter private folders
+    // Filter folders based on visibility
     const folders = allFolders.filter((folder) => {
-      if (!folder.isPrivate) return true;
+      if (folder.visibility !== "private") return true;
       return folder.createdBy === member._id;
     });
 
@@ -161,7 +224,7 @@ export const getSpaceContents = query({
       icon: folder.icon,
       createdBy: folder.createdBy,
       updatedAt: folder.updatedAt,
-      isPrivate: folder.isPrivate,
+      visibility: folder.visibility,
       children: [], // Will be populated by buildTree
     }));
 

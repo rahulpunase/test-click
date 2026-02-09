@@ -10,6 +10,7 @@
 
 import type * as auth from "../auth.js";
 import type * as data_navigations from "../data/navigations.js";
+import type * as entity_access_table from "../entity_access/table.js";
 import type * as errors_constants from "../errors/constants.js";
 import type * as errors_service from "../errors/service.js";
 import type * as errors_util from "../errors/util.js";
@@ -59,6 +60,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   "data/navigations": typeof data_navigations;
+  "entity_access/table": typeof entity_access_table;
   "errors/constants": typeof errors_constants;
   "errors/service": typeof errors_service;
   "errors/util": typeof errors_util;

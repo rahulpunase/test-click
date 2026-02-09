@@ -16,6 +16,7 @@ import {
   Trash2,
   ShieldCheck,
   UserMinus,
+  UserCheck,
   Copy,
 } from "lucide-react";
 import { InviteDialog } from "../components/InviteDialog";
@@ -69,6 +70,10 @@ export const PeoplePage = () => {
 
   const handleConvertToGuest = (memberId: string) => {
     changeMemberRole({ memberId: memberId as never, newRole: "guest" });
+  };
+
+  const handleConvertToMember = (memberId: string) => {
+    changeMemberRole({ memberId: memberId as never, newRole: "member" });
   };
 
   const handleCopyMemberId = async (memberId: string) => {
@@ -217,6 +222,21 @@ export const PeoplePage = () => {
                                 >
                                   <UserMinus className="w-4 h-4" />
                                   Convert to guest
+                                </Dropdown.Item>
+                              )}
+                            {canModifyMember(
+                              item.member.role,
+                              item.member._id,
+                            ) &&
+                              item.member.role === "guest" && (
+                                <Dropdown.Item
+                                  onClick={() =>
+                                    handleConvertToMember(item.member._id)
+                                  }
+                                  disabled={isChangingRole}
+                                >
+                                  <UserCheck className="w-4 h-4" />
+                                  Convert to member
                                 </Dropdown.Item>
                               )}
                             <Dropdown.Item

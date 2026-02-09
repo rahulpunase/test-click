@@ -7,6 +7,6 @@ export const spaces = defineTable({
   color: v.optional(v.string()), // Hex color code
   icon: v.optional(v.string()), // Icon name or emoji
   createdBy: v.id("members"),
-  isPrivate: v.optional(v.boolean()), // If true, only the creator and invited members can see the space
+  visibility: v.optional(v.union(v.literal("public"), v.literal("private"))), // "public" = all workspace members, "private" = only members in entity_access. Default: public
   updatedAt: v.optional(v.number()),
 }).index("by_workspaceId", ["workspaceId"]);
