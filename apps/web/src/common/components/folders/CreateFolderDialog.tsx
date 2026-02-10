@@ -11,7 +11,7 @@ const formSchema = z.object({
   name: z.string().min(1, "Folder name is required"),
   icon: z.string().optional(),
   color: z.string().optional(),
-  isPrivate: z.boolean(),
+  visibility: z.enum(["public", "private"]),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -26,7 +26,7 @@ export const CreateFolderDialog = () => {
       name: "",
       icon: "",
       color: "",
-      isPrivate: false,
+      visibility: "public",
     },
   });
 
@@ -40,7 +40,7 @@ export const CreateFolderDialog = () => {
         name: values.name,
         icon: values.icon || undefined,
         color: values.color || undefined,
-        isPrivate: values.isPrivate,
+        visibility: values.visibility,
       },
       {
         onSuccess: () => {
@@ -115,7 +115,7 @@ export const CreateFolderDialog = () => {
                 <div className="pt-2">
                   <Form.Controller
                     control={form.control}
-                    name="isPrivate"
+                    name="visibility"
                     render={({ field }) => (
                       <Form.Item className="flex flex-row items-center justify-between space-y-0 rounded-lg p-0">
                         <Form.Controller.Field>
@@ -124,8 +124,10 @@ export const CreateFolderDialog = () => {
                               size="sm"
                               label="Make Private"
                               description="Only you and invited members can see this folder"
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
+                              checked={field.value === "private"}
+                              onCheckedChange={(checked) =>
+                                field.onChange(checked ? "private" : "public")
+                              }
                             />
                           </div>
                         </Form.Controller.Field>

@@ -19,3 +19,4 @@ export * from "./components/popover";
 export * from "./components/switch";
 export * from "./components/icon";
 export * from "./components/select";
+export * from "./components/toaster";

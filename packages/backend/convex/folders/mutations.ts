@@ -17,7 +17,7 @@ export const createFolder = mutation({
     color: v.optional(v.string()),
     icon: v.optional(v.string()),
     type: v.optional(v.string()),
-    isPrivate: v.optional(v.boolean()),
+    visibility: v.optional(v.union(v.literal("public"), v.literal("private"))),
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
@@ -55,7 +55,7 @@ export const createFolder = mutation({
       color: args.color,
       icon: args.icon,
       type: args.type,
-      isPrivate: args.isPrivate,
+      visibility: args.visibility,
       createdBy: member._id,
       updatedAt: Date.now(),
     });

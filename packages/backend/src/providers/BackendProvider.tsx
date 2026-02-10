@@ -1,14 +1,37 @@
 import { ConvexReactClient } from "convex/react";
 import { ConvexQueryClient } from "@convex-dev/react-query";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  QueryCache,
+  MutationCache,
+} from "@tanstack/react-query";
 import React, { useMemo } from "react";
 import { AuthProvider } from "./AuthProvider";
 
+/** Callback type for query errors */
+export type QueryErrorCallback = (error: Error) => void;
+
+/** Callback type for mutation errors */
+export type MutationErrorCallback = (
+  error: Error,
+  variables: unknown,
+  context: unknown,
+) => void;
+
+export interface BackendProviderProps {
+  children: React.ReactNode;
+  /** Called when any query fails */
+  onQueryError?: QueryErrorCallback;
+  /** Called when any mutation fails */
+  onMutationError?: MutationErrorCallback;
+}
+
 export const BackendProvider = ({
   children,
-}: {
-  children: React.ReactNode;
-}) => {
+  onQueryError,
+  onMutationError,
+}: BackendProviderProps) => {
   const convexUrl = import.meta.env.VITE_CONVEX_URL;
 
   if (!convexUrl) {
@@ -23,7 +46,23 @@ export const BackendProvider = ({
   const { convex, queryClient } = useMemo(() => {
     const convexClient = new ConvexReactClient(convexUrl as string);
     const convexQueryClient = new ConvexQueryClient(convexClient);
+
+    // Create caches with global error handlers
+    const queryCache = new QueryCache({
+      onError: (error) => {
+        onQueryError?.(error);
+      },
+    });
+
+    const mutationCache = new MutationCache({
+      onError: (error, variables, context) => {
+        onMutationError?.(error, variables, context);
+      },
+    });
+
     const tanstackQueryClient = new QueryClient({
+      queryCache,
+      mutationCache,
       defaultOptions: {
         queries: {
           queryKeyHashFn: convexQueryClient.hashFn(),
@@ -39,7 +78,7 @@ export const BackendProvider = ({
       convex: convexClient,
       queryClient: tanstackQueryClient,
     };
-  }, [convexUrl]);
+  }, [convexUrl, onQueryError, onMutationError]);
 
   return (
     <AuthProvider client={convex}>

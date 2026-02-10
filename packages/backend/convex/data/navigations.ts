@@ -22,6 +22,7 @@ type CustomSections = {
   description?: string;
   isUserCreated: boolean;
   order?: number;
+  visibility?: string[];
 };
 
 export const Navigations: Navigation[] = [
@@ -187,6 +188,7 @@ export const CustomSections: CustomSections[] = [
     isPinned: true,
     order: 0,
     isUserCreated: false,
+    visibility: ["creator", "admin", "member"],
   },
   {
     id: "channels",
@@ -195,6 +197,7 @@ export const CustomSections: CustomSections[] = [
     isPinned: true,
     order: 1,
     isUserCreated: false,
+    visibility: ["creator", "admin", "member", "guest"],
   },
   {
     id: "favorites",
@@ -203,6 +206,7 @@ export const CustomSections: CustomSections[] = [
     isPinned: true,
     order: 2,
     isUserCreated: false,
+    visibility: ["creator", "admin", "member", "guest"],
   },
   {
     id: "recents",
@@ -211,6 +215,7 @@ export const CustomSections: CustomSections[] = [
     isPinned: true,
     order: 3,
     isUserCreated: false,
+    visibility: ["creator", "admin", "member", "guest"],
   },
   {
     id: "direct-messages",
@@ -219,5 +224,6 @@ export const CustomSections: CustomSections[] = [
     isPinned: true,
     order: 4,
     isUserCreated: false,
+    visibility: ["creator", "admin", "member", "guest"],
   },
 ];

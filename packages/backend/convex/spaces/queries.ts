@@ -4,6 +4,8 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { Errors } from "../errors/service";
 import { getMember } from "../members/service";
 import { getManyFrom } from "convex-helpers/server/relationships";
+import { getFoldersForMember } from "../folders/service";
+import { getProjectsForMember } from "../projects/service";
 
 /**
  * Lists all spaces in a workspace.
@@ -179,27 +181,11 @@ export const getSpaceContents = query({
       }
     }
 
-    // Fetch all projects for the space
-    const projects = await getManyFrom(
-      ctx.db,
-      "projects",
-      "by_spaceId",
-      args.spaceId,
-    );
+    // Fetch filtered projects for the space
+    const projects = await getProjectsForMember(ctx, args.spaceId, member._id);
 
-    // Fetch all folders for the space
-    const allFolders = await getManyFrom(
-      ctx.db,
-      "folders",
-      "by_spaceId",
-      args.spaceId,
-    );
-
-    // Filter folders based on visibility
-    const folders = allFolders.filter((folder) => {
-      if (folder.visibility !== "private") return true;
-      return folder.createdBy === member._id;
-    });
+    // Fetch filtered folders for the space
+    const folders = await getFoldersForMember(ctx, args.spaceId, member._id);
 
     // Normalize projects to SpaceContentItem format
     const normalizedProjects: SpaceContentItem[] = projects.map((project) => ({
